@@ -1,0 +1,1634 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>100 Bộ Thủ Hán Tự</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Noto+Sans+SC:wght@300;400;500&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1008;
+    --paper: #f5f0e8;
+    --paper2: #ede7d5;
+    --red: #c0392b;
+    --gold: #b8860b;
+    --gold-light: #d4a017;
+    --fade: #8b7355;
+    --brush: #2c1810;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Crimson Pro', 'Noto Sans SC', serif;
+    min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(184,134,11,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(192,57,43,0.04) 0%, transparent 60%);
+  }
+
+  /* HEADER */
+  header {
+    text-align: center;
+    padding: 60px 20px 40px;
+    position: relative;
+    border-bottom: 1px solid rgba(139,115,85,0.25);
+  }
+  header::before {
+    content: '漢';
+    position: absolute;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 280px;
+    color: rgba(184,134,11,0.05);
+    top: -40px; left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+    letter-spacing: -10px;
+  }
+  header h1 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 700;
+    letter-spacing: 8px;
+    color: var(--brush);
+    position: relative;
+  }
+  header h1 span { color: var(--red); }
+  header p {
+    margin-top: 12px;
+    color: var(--fade);
+    font-size: 16px;
+    letter-spacing: 2px;
+    font-style: italic;
+  }
+  .header-line {
+    width: 80px; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 20px auto;
+  }
+
+  /* SEARCH & FILTER */
+  .controls {
+    max-width: 900px;
+    margin: 30px auto 0;
+    padding: 0 20px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
+  .search-box {
+    flex: 1; min-width: 200px; max-width: 340px;
+    display: flex;
+    align-items: center;
+    background: white;
+    border: 1px solid rgba(139,115,85,0.3);
+    border-radius: 4px;
+    padding: 8px 14px;
+    gap: 8px;
+  }
+  .search-box input {
+    border: none; outline: none;
+    font-family: inherit; font-size: 15px;
+    background: transparent; width: 100%;
+    color: var(--ink);
+  }
+  .search-box input::placeholder { color: var(--fade); }
+  .filter-btns {
+    display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;
+  }
+  .filter-btn {
+    padding: 7px 16px;
+    border: 1px solid rgba(139,115,85,0.35);
+    background: transparent;
+    border-radius: 3px;
+    cursor: pointer;
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 13px;
+    color: var(--fade);
+    transition: all 0.2s;
+    letter-spacing: 0.5px;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    background: var(--brush);
+    color: var(--paper);
+    border-color: var(--brush);
+  }
+
+  /* MAIN GRID */
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+  }
+
+  .group-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 13px;
+    letter-spacing: 4px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin: 50px 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .group-title::before, .group-title::after {
+    content: '';
+    flex: 1; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(184,134,11,0.3), transparent);
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  /* CARD */
+  .card {
+    background: white;
+    border: 1px solid rgba(139,115,85,0.18);
+    border-radius: 6px;
+    overflow: hidden;
+    transition: all 0.25s ease;
+    cursor: pointer;
+    position: relative;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 36px rgba(44,24,16,0.1);
+    border-color: rgba(184,134,11,0.4);
+  }
+  .card.hidden { display: none; }
+
+  .card-top {
+    background: linear-gradient(135deg, var(--brush) 0%, #3d2010 100%);
+    padding: 28px 20px 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .card-top::before {
+    content: attr(data-char);
+    position: absolute;
+    right: -10px; top: -20px;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 100px;
+    color: rgba(255,255,255,0.04);
+    pointer-events: none;
+  }
+
+  .char-display {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 64px;
+    color: white;
+    line-height: 1;
+    text-shadow: 2px 4px 12px rgba(0,0,0,0.4);
+    min-width: 70px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .char-meta { position: relative; z-index: 1; }
+  .char-pinyin {
+    font-size: 18px;
+    color: var(--gold-light);
+    letter-spacing: 2px;
+    font-style: italic;
+  }
+  .char-hanviet {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 12px;
+    color: rgba(255,255,255,0.55);
+    letter-spacing: 1px;
+    margin-top: 4px;
+    text-transform: uppercase;
+  }
+  .char-meaning {
+    font-size: 20px;
+    color: rgba(255,255,255,0.9);
+    margin-top: 6px;
+    font-weight: 300;
+  }
+
+  .audio-btn {
+    margin-left: auto;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.08);
+    color: white;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+    font-size: 14px;
+    position: relative; z-index: 1;
+    flex-shrink: 0;
+  }
+  .audio-btn:hover {
+    background: rgba(184,134,11,0.3);
+    border-color: var(--gold-light);
+  }
+  .audio-btn.playing {
+    background: var(--gold);
+    border-color: var(--gold);
+    animation: pulse 0.8s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+  }
+
+  .card-body {
+    padding: 18px 20px;
+  }
+
+  /* VISUAL */
+  .visual-box {
+    background: var(--paper);
+    border: 1px solid rgba(139,115,85,0.15);
+    border-radius: 4px;
+    padding: 14px 16px;
+    margin-bottom: 14px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .visual-icon {
+    font-size: 28px;
+    flex-shrink: 0;
+    line-height: 1.2;
+  }
+  .visual-text {
+    font-size: 13.5px;
+    color: var(--fade);
+    line-height: 1.6;
+    font-style: italic;
+  }
+  .visual-text strong { color: var(--ink); font-style: normal; }
+
+  /* EXAMPLES */
+  .examples-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-family: 'Noto Sans SC', sans-serif;
+  }
+  .examples-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+  .example-tag {
+    background: var(--paper2);
+    border: 1px solid rgba(139,115,85,0.2);
+    border-radius: 3px;
+    padding: 4px 10px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .example-tag .ex-char {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 16px;
+    color: var(--brush);
+  }
+  .example-tag .ex-info {
+    font-size: 11px;
+    color: var(--fade);
+    line-height: 1.3;
+  }
+
+  /* USAGE NOTE */
+  .usage-note {
+    font-size: 13px;
+    color: #5a4a3a;
+    line-height: 1.65;
+    border-left: 2px solid rgba(184,134,11,0.4);
+    padding-left: 10px;
+  }
+
+  /* GROUP TAG */
+  .group-tag {
+    position: absolute;
+    top: 10px; right: 10px;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    color: rgba(255,255,255,0.35);
+    text-transform: uppercase;
+    font-family: 'Noto Sans SC', sans-serif;
+  }
+
+  /* STROKE ORDER HINT */
+  .stroke-hint {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(139,115,85,0.12);
+    font-size: 12px;
+    color: var(--fade);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* COUNT */
+  .results-count {
+    text-align: center;
+    font-size: 13px;
+    color: var(--fade);
+    margin-top: -10px;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 30px;
+    border-top: 1px solid rgba(139,115,85,0.15);
+    color: var(--fade);
+    font-size: 13px;
+    letter-spacing: 1px;
+  }
+
+  @media (max-width: 600px) {
+    .cards-grid { grid-template-columns: 1fr; }
+    .char-display { font-size: 52px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>百 <span>部</span> 首</h1>
+  <p>100 Bộ Thủ Hán Tự — Nền Tảng Nhận Diện Chữ Hán</p>
+  <div class="header-line"></div>
+  <div class="controls">
+    <div class="search-box">
+      <span>🔍</span>
+      <input type="text" id="searchInput" placeholder="Tìm bộ thủ, âm HV, nghĩa...">
+    </div>
+    <div class="filter-btns">
+      <button class="filter-btn active" data-group="all">Tất cả</button>
+      <button class="filter-btn" data-group="thien-nhien">Thiên nhiên</button>
+      <button class="filter-btn" data-group="con-nguoi">Con người</button>
+      <button class="filter-btn" data-group="dong-vat">Động vật</button>
+      <button class="filter-btn" data-group="nha-cua">Nhà cửa</button>
+      <button class="filter-btn" data-group="hanh-dong">Hành động</button>
+      <button class="filter-btn" data-group="khong-gian">Không gian</button>
+      <button class="filter-btn" data-group="so-luong">Số lượng</button>
+      <button class="filter-btn" data-group="mau-sac">Màu sắc</button>
+      <button class="filter-btn" data-group="mo-rong">Mở rộng</button>
+    </div>
+  </div>
+</header>
+
+<main id="mainContent">
+  <div class="results-count" id="resultsCount">Hiển thị 100 bộ thủ</div>
+</main>
+
+<footer>
+  <p>Phương pháp học theo Chris Lonsdale — Direct Connect · Brain Soaking · Comprehensible Input</p>
+</footer>
+
+<script>
+const radicals = [
+  // NHÓM 1: THIÊN NHIÊN
+  {
+    char: '日', pinyin: 'rì', hanviet: 'Nhật', meaning: 'Mặt trời', group: 'thien-nhien',
+    icon: '☀️',
+    visual: 'Hình oval có chấm ở giữa — <strong>mô phỏng mặt trời</strong> với ánh sáng trung tâm. Ngày xưa vẽ hình tròn có chấm, sau vuông hoá thành 日.',
+    examples: [
+      { char: '明', pinyin: 'míng', vi: 'sáng/rõ' },
+      { char: '时', pinyin: 'shí', vi: 'thời gian' },
+      { char: '晴', pinyin: 'qíng', vi: 'trời nắng' },
+      { char: '早', pinyin: 'zǎo', vi: 'buổi sáng' },
+    ],
+    usage: 'Xuất hiện trong mọi chữ liên quan đến <strong>thời gian, ánh sáng, ngày</strong>. Khi thấy bộ 日 trong chữ → nghĩ đến nắng, ngày, thời điểm.'
+  },
+  {
+    char: '月', pinyin: 'yuè', hanviet: 'Nguyệt', meaning: 'Mặt trăng', group: 'thien-nhien',
+    icon: '🌙',
+    visual: '<strong>Lưỡi liềm mặt trăng</strong> với 2 nét ngang bên trong — hình ảnh trăng khuyết đêm tối. Cũng dùng cho nghĩa "tháng" vì người xưa đếm thời gian theo chu kỳ trăng.',
+    examples: [
+      { char: '明', pinyin: 'míng', vi: 'sáng/rõ' },
+      { char: '期', pinyin: 'qī', vi: 'kỳ hạn' },
+      { char: '朝', pinyin: 'zhāo', vi: 'buổi sáng' },
+      { char: '望', pinyin: 'wàng', vi: 'trăng rằm/mong' },
+    ],
+    usage: 'Dùng cho <strong>thời gian (tháng), ánh sáng ban đêm, chu kỳ</strong>. Lưu ý: bộ 月 cũng là biến thể của bộ 肉 (thịt) khi đứng bên trái chữ — xem ngữ cảnh để phân biệt.'
+  },
+  {
+    char: '山', pinyin: 'shān', hanviet: 'Sơn', meaning: 'Núi', group: 'thien-nhien',
+    icon: '⛰️',
+    visual: '<strong>Ba ngọn núi</strong> nhô lên — ngọn giữa cao nhất, hai ngọn bên thấp hơn. Hình tượng trực quan nhất trong chữ Hán, gần như không thay đổi từ chữ giáp cốt.',
+    examples: [
+      { char: '岛', pinyin: 'dǎo', vi: 'đảo' },
+      { char: '岩', pinyin: 'yán', vi: 'đá vách' },
+      { char: '峰', pinyin: 'fēng', vi: 'đỉnh núi' },
+      { char: '崖', pinyin: 'yá', vi: 'vách đá' },
+    ],
+    usage: 'Mọi chữ có bộ 山 đều liên quan đến <strong>địa hình cao, núi, đồi</strong>. Âm HV "sơn" rất quen thuộc: Sơn La, sơn hà, giang sơn...'
+  },
+  {
+    char: '水', pinyin: 'shuǐ', hanviet: 'Thủy', meaning: 'Nước', group: 'thien-nhien',
+    icon: '💧',
+    visual: '<strong>Dòng nước chảy</strong> với các nét lượn sóng — mô phỏng dòng chảy ngoằn ngoèo. Khi đứng bên trái chữ, biến thành <strong>氵</strong> (3 giọt nước).',
+    examples: [
+      { char: '海', pinyin: 'hǎi', vi: 'biển' },
+      { char: '河', pinyin: 'hé', vi: 'sông' },
+      { char: '泪', pinyin: 'lèi', vi: 'nước mắt' },
+      { char: '游', pinyin: 'yóu', vi: 'bơi/du lịch' },
+    ],
+    usage: '<strong>Bộ thủ phổ biến bậc nhất</strong> — bất kỳ chữ nào có 氵bên trái đều liên quan đến nước, chất lỏng, dòng chảy. Âm HV: thủy tinh, thủy triều, thủy sản...'
+  },
+  {
+    char: '火', pinyin: 'huǒ', hanviet: 'Hỏa', meaning: 'Lửa', group: 'thien-nhien',
+    icon: '🔥',
+    visual: '<strong>Ngọn lửa bùng lên</strong> với 4 nét tỏa ra hai bên — hình người đứng dang hai tay hoặc lửa cháy. Khi bên trái biến thành <strong>灬</strong> (4 chấm = than hồng bên dưới).',
+    examples: [
+      { char: '炎', pinyin: 'yán', vi: 'nóng bừng' },
+      { char: '热', pinyin: 'rè', vi: 'nóng' },
+      { char: '烤', pinyin: 'kǎo', vi: 'nướng' },
+      { char: '燃', pinyin: 'rán', vi: 'đốt cháy' },
+    ],
+    usage: 'Chữ nào có bộ 火/灬 liên quan đến <strong>nhiệt, cháy, nấu nướng</strong>. 灬 thường ở dưới chữ (như bếp lửa bên dưới nồi). Âm HV: hỏa hoạn, hỏa tiễn...'
+  },
+  {
+    char: '土', pinyin: 'tǔ', hanviet: 'Thổ', meaning: 'Đất', group: 'thien-nhien',
+    icon: '🌱',
+    visual: '<strong>Mặt đất</strong> với nét ngang dưới (mặt đất) và nét dọc + ngang trên (cây mầm mọc lên). Đơn giản nhưng rất hình tượng.',
+    examples: [
+      { char: '地', pinyin: 'dì', vi: 'mặt đất' },
+      { char: '场', pinyin: 'chǎng', vi: 'bãi/sân' },
+      { char: '城', pinyin: 'chéng', vi: 'thành phố' },
+      { char: '堵', pinyin: 'dǔ', vi: 'tường/kẹt xe' },
+    ],
+    usage: 'Liên quan đến <strong>đất đai, xây dựng, địa điểm</strong>. Âm HV: thổ địa, thổ dân, thổ nhưỡng. Hay xuất hiện trong địa danh và kiến trúc.'
+  },
+  {
+    char: '木', pinyin: 'mù', hanviet: 'Mộc', meaning: 'Cây/Gỗ', group: 'thien-nhien',
+    icon: '🌳',
+    visual: '<strong>Cái cây</strong> với nét dọc là thân, nét ngang là cành, hai nét chéo dưới là rễ. Hình tượng hoàn hảo của cây trong tự nhiên.',
+    examples: [
+      { char: '树', pinyin: 'shù', vi: 'cái cây' },
+      { char: '桌', pinyin: 'zhuō', vi: 'bàn (gỗ)' },
+      { char: '椅', pinyin: 'yǐ', vi: 'ghế (gỗ)' },
+      { char: '林', pinyin: 'lín', vi: 'rừng nhỏ' },
+    ],
+    usage: '<strong>Cực phổ biến</strong> — mọi đồ vật làm từ gỗ, cây cối, vật liệu thực vật. 木+木=林 (rừng), 林+木=森 (rừng rậm). Âm HV: mộc mạc, thảo mộc.'
+  },
+  {
+    char: '金', pinyin: 'jīn', hanviet: 'Kim', meaning: 'Kim loại/Vàng', group: 'thien-nhien',
+    icon: '⚙️',
+    visual: '<strong>Kim loại quý</strong> được đào từ lòng đất — hình mỏ đào với chấm là hạt kim loại. Khi bên trái biến thành <strong>钅</strong> (biến thể đơn giản hóa).',
+    examples: [
+      { char: '钱', pinyin: 'qián', vi: 'tiền' },
+      { char: '银', pinyin: 'yín', vi: 'bạc' },
+      { char: '铁', pinyin: 'tiě', vi: 'sắt' },
+      { char: '钟', pinyin: 'zhōng', vi: 'đồng hồ/chuông' },
+    ],
+    usage: 'Liên quan đến <strong>kim loại, tiền bạc, đồ vật cứng</strong>. Âm HV: kim loại, hoàng kim, kim cương. Bộ 钅xuất hiện rất nhiều trong từ vựng hiện đại (điện thoại, xe...).'
+  },
+  {
+    char: '石', pinyin: 'shí', hanviet: 'Thạch', meaning: 'Đá', group: 'thien-nhien',
+    icon: '🪨',
+    visual: '<strong>Tảng đá</strong> rơi xuống từ vách núi — nét trên là vách đá, ô vuông dưới là hòn đá. Hình ảnh đá lăn từ núi xuống.',
+    examples: [
+      { char: '碗', pinyin: 'wǎn', vi: 'cái bát' },
+      { char: '碑', pinyin: 'bēi', vi: 'bia đá' },
+      { char: '矿', pinyin: 'kuàng', vi: 'mỏ khoáng sản' },
+      { char: '砖', pinyin: 'zhuān', vi: 'gạch' },
+    ],
+    usage: 'Liên quan đến <strong>đá, vật liệu cứng, khoáng sản</strong>. Âm HV: thạch anh, kim thạch, hóa thạch. Hay xuất hiện trong vật liệu xây dựng.'
+  },
+  {
+    char: '风', pinyin: 'fēng', hanviet: 'Phong', meaning: 'Gió', group: 'thien-nhien',
+    icon: '🌬️',
+    visual: '<strong>Gió thổi</strong> — chữ phồng lên như buồm căng gió. Chữ cổ có hình con sâu bên trong (người xưa nghĩ gió mang sâu bọ theo).',
+    examples: [
+      { char: '风景', pinyin: 'fēngjǐng', vi: 'phong cảnh' },
+      { char: '台风', pinyin: 'táifēng', vi: 'bão' },
+      { char: '微风', pinyin: 'wēifēng', vi: 'gió nhẹ' },
+    ],
+    usage: 'Liên quan đến <strong>gió, không khí, phong cách</strong>. Âm HV: phong trào, phong cảnh, phong tục. Thú vị: 风格 (fēnggé) = phong cách.'
+  },
+  {
+    char: '雨', pinyin: 'yǔ', hanviet: 'Vũ', meaning: 'Mưa', group: 'thien-nhien',
+    icon: '🌧️',
+    visual: '<strong>Mưa rơi từ mây</strong> — nét ngang trên là bầu trời, ô vuông là mây, 4 chấm bên trong là giọt mưa rơi xuống. Cực kỳ trực quan!',
+    examples: [
+      { char: '雪', pinyin: 'xuě', vi: 'tuyết' },
+      { char: '雷', pinyin: 'léi', vi: 'sấm' },
+      { char: '雾', pinyin: 'wù', vi: 'sương mù' },
+      { char: '霜', pinyin: 'shuāng', vi: 'sương giá' },
+    ],
+    usage: 'Bộ 雨 thường đứng <strong>trên đầu chữ</strong> — mọi hiện tượng thời tiết từ trên trời xuống. Âm HV: vũ khí (gốc nghĩa = mưa đạn), phong vũ.'
+  },
+  {
+    char: '云', pinyin: 'yún', hanviet: 'Vân', meaning: 'Mây', group: 'thien-nhien',
+    icon: '☁️',
+    visual: '<strong>Đám mây</strong> cuộn tròn — nét trên là mây, nét dưới là hơi nước bốc lên. Chữ phồng mềm như đám mây thực.',
+    examples: [
+      { char: '云朵', pinyin: 'yúnduǒ', vi: 'đám mây' },
+      { char: '云端', pinyin: 'yúnduān', vi: 'đám mây/cloud' },
+    ],
+    usage: 'Liên quan đến <strong>mây, hơi nước, điều không rõ ràng</strong>. Thú vị: 云计算 (điện toán đám mây) dùng chính chữ này! Âm HV: vân du, phong vân.'
+  },
+  {
+    char: '草', pinyin: 'cǎo', hanviet: 'Thảo', meaning: 'Cỏ', group: 'thien-nhien',
+    icon: '🌿',
+    visual: '<strong>Cỏ mọc lên</strong> — bộ 艹 trên đầu như hai nhánh cỏ, bên dưới là thân. Bộ 艹 (thảo đầu) là một trong những bộ phổ biến nhất.',
+    examples: [
+      { char: '花', pinyin: 'huā', vi: 'hoa' },
+      { char: '茶', pinyin: 'chá', vi: 'trà' },
+      { char: '药', pinyin: 'yào', vi: 'thuốc' },
+      { char: '菜', pinyin: 'cài', vi: 'rau củ' },
+    ],
+    usage: '<strong>Bộ 艹 (thảo đầu) cực phổ biến</strong> — thực vật, thảo mộc, tự nhiên. Phần lớn tên cây, hoa, rau đều có bộ này. Âm HV: thảo mộc, thảo luận.'
+  },
+  {
+    char: '竹', pinyin: 'zhú', hanviet: 'Trúc', meaning: 'Tre/Trúc', group: 'thien-nhien',
+    icon: '🎋',
+    visual: '<strong>Hai cây tre</strong> đứng song song — mỗi bên có thân thẳng và lá rủ xuống. Đẹp và dễ nhớ như hình tre thực.',
+    examples: [
+      { char: '笔', pinyin: 'bǐ', vi: 'bút' },
+      { char: '篮', pinyin: 'lán', vi: 'giỏ tre' },
+      { char: '算', pinyin: 'suàn', vi: 'tính toán' },
+      { char: '管', pinyin: 'guǎn', vi: 'ống/quản lý' },
+    ],
+    usage: 'Liên quan đến <strong>tre, đồ đan lát, ống, nhạc cụ</strong>. Thú vị: bút viết ngày xưa làm từ tre nên 笔 (bút) có bộ 竹. Âm HV: trúc lâm, trúc diệp.'
+  },
+
+  // NHÓM 2: CON NGƯỜI & CƠ THỂ
+  {
+    char: '人', pinyin: 'rén', hanviet: 'Nhân', meaning: 'Người', group: 'con-nguoi',
+    icon: '🚶',
+    visual: '<strong>Người đang bước đi</strong> nhìn nghiêng — hai nét chéo như hai chân đang bước. Một trong những chữ cổ xưa và đơn giản nhất.',
+    examples: [
+      { char: '他', pinyin: 'tā', vi: 'anh ấy' },
+      { char: '们', pinyin: 'men', vi: 'số nhiều' },
+      { char: '从', pinyin: 'cóng', vi: 'theo/từ' },
+      { char: '众', pinyin: 'zhòng', vi: 'đám đông' },
+    ],
+    usage: '<strong>Bộ thủ quan trọng nhất</strong> — mọi chữ liên quan đến con người, tính cách, hành vi xã hội. 亻(biến thể) đứng bên trái rất phổ biến. Âm HV: nhân vật, nhân dân, nhân tài.'
+  },
+  {
+    char: '女', pinyin: 'nǚ', hanviet: 'Nữ', meaning: 'Phụ nữ', group: 'con-nguoi',
+    icon: '👩',
+    visual: '<strong>Người phụ nữ ngồi khom</strong> hai tay khoanh trước — hình ảnh người phụ nữ thời xưa trong tư thế cung kính.',
+    examples: [
+      { char: '妈', pinyin: 'mā', vi: 'mẹ' },
+      { char: '她', pinyin: 'tā', vi: 'cô ấy' },
+      { char: '姐', pinyin: 'jiě', vi: 'chị gái' },
+      { char: '好', pinyin: 'hǎo', vi: 'tốt' },
+    ],
+    usage: 'Liên quan đến <strong>phụ nữ, gia đình, mối quan hệ</strong>. 好 = 女+子 = phụ nữ có con = tốt/hạnh phúc. Âm HV: nữ nhi, nữ thần, thiếu nữ.'
+  },
+  {
+    char: '子', pinyin: 'zǐ', hanviet: 'Tử', meaning: 'Đứa trẻ/Con', group: 'con-nguoi',
+    icon: '👶',
+    visual: '<strong>Đứa trẻ đang vẫy tay</strong> — thân cuộn tròn (tã lót) và hai tay giơ lên. Hình ảnh em bé được bọc trong tã.',
+    examples: [
+      { char: '字', pinyin: 'zì', vi: 'chữ viết' },
+      { char: '学', pinyin: 'xué', vi: 'học' },
+      { char: '孩', pinyin: 'hái', vi: 'đứa trẻ' },
+      { char: '孙', pinyin: 'sūn', vi: 'cháu' },
+    ],
+    usage: 'Liên quan đến <strong>trẻ em, con cái, học tập</strong>. Cũng dùng làm hậu tố kính trọng (孔子 Khổng Tử). Âm HV: tử tế, thái tử, phân tử.'
+  },
+  {
+    char: '口', pinyin: 'kǒu', hanviet: 'Khẩu', meaning: 'Miệng', group: 'con-nguoi',
+    icon: '👄',
+    visual: '<strong>Cái miệng mở</strong> — hình vuông đơn giản mô phỏng miệng đang há. Rất dễ nhớ và nhận diện.',
+    examples: [
+      { char: '喝', pinyin: 'hē', vi: 'uống' },
+      { char: '吃', pinyin: 'chī', vi: 'ăn' },
+      { char: '说', pinyin: 'shuō', vi: 'nói' },
+      { char: '唱', pinyin: 'chàng', vi: 'hát' },
+    ],
+    usage: '<strong>Cực phổ biến</strong> — mọi hành động liên quan đến miệng: ăn, uống, nói, hét, hát. Âm HV: khẩu hiệu, nhân khẩu, khẩu vị.'
+  },
+  {
+    char: '手', pinyin: 'shǒu', hanviet: 'Thủ', meaning: 'Tay', group: 'con-nguoi',
+    icon: '✋',
+    visual: '<strong>Bàn tay 5 ngón</strong> — nét ngang là các ngón tay, nét dọc là lòng bàn tay. Khi bên trái biến thành <strong>扌</strong>.',
+    examples: [
+      { char: '打', pinyin: 'dǎ', vi: 'đánh/làm' },
+      { char: '拿', pinyin: 'ná', vi: 'cầm lấy' },
+      { char: '推', pinyin: 'tuī', vi: 'đẩy' },
+      { char: '抱', pinyin: 'bào', vi: 'ôm' },
+    ],
+    usage: '<strong>Rất phổ biến</strong> — mọi hành động dùng tay. 扌đứng bên trái là dấu hiệu chữ đó là một hành động vật lý. Âm HV: thủ lĩnh, thủ công, ca thủ.'
+  },
+  {
+    char: '足', pinyin: 'zú', hanviet: 'Túc', meaning: 'Chân/Bàn chân', group: 'con-nguoi',
+    icon: '🦶',
+    visual: '<strong>Bàn chân</strong> — phần trên là đầu gối, phần dưới là bàn chân. Khi bên trái biến thành <strong>⻊</strong>.',
+    examples: [
+      { char: '跑', pinyin: 'pǎo', vi: 'chạy' },
+      { char: '跳', pinyin: 'tiào', vi: 'nhảy' },
+      { char: '踢', pinyin: 'tī', vi: 'đá' },
+      { char: '路', pinyin: 'lù', vi: 'con đường' },
+    ],
+    usage: 'Liên quan đến <strong>chân, di chuyển, đường đi</strong>. Mọi động từ di chuyển bằng chân thường có bộ 足. Âm HV: túc cầu (bóng đá), mãn túc.'
+  },
+  {
+    char: '目', pinyin: 'mù', hanviet: 'Mục', meaning: 'Mắt', group: 'con-nguoi',
+    icon: '👁️',
+    visual: '<strong>Con mắt</strong> nhìn thẳng — hình oval ban đầu được vuông hóa, 2 nét ngang là lòng đen và lòng trắng mắt.',
+    examples: [
+      { char: '看', pinyin: 'kàn', vi: 'nhìn/xem' },
+      { char: '眼', pinyin: 'yǎn', vi: 'mắt' },
+      { char: '睡', pinyin: 'shuì', vi: 'ngủ' },
+      { char: '盲', pinyin: 'máng', vi: 'mù' },
+    ],
+    usage: 'Liên quan đến <strong>mắt, nhìn, quan sát</strong>. Âm HV: mục tiêu, mục đích, tiết mục. Thú vị: 睡 (ngủ) có bộ 目 vì mắt nhắm khi ngủ.'
+  },
+  {
+    char: '耳', pinyin: 'ěr', hanviet: 'Nhĩ', meaning: 'Tai', group: 'con-nguoi',
+    icon: '👂',
+    visual: '<strong>Cái tai</strong> — hình dạng tai người được đơn giản hóa với các nét ngang bên trong.',
+    examples: [
+      { char: '听', pinyin: 'tīng', vi: 'nghe' },
+      { char: '聪', pinyin: 'cōng', vi: 'thông minh' },
+      { char: '聋', pinyin: 'lóng', vi: 'điếc' },
+    ],
+    usage: 'Liên quan đến <strong>tai, nghe, âm thanh</strong>. 聪明 (thông minh) có bộ 耳 — người thông minh phải biết lắng nghe! Âm HV: nhĩ mục, trung nhĩ.'
+  },
+  {
+    char: '心', pinyin: 'xīn', hanviet: 'Tâm', meaning: 'Tim/Lòng', group: 'con-nguoi',
+    icon: '❤️',
+    visual: '<strong>Trái tim</strong> với 3 giọt máu — nét cong là tim, 3 chấm là mạch đập. Khi bên trái biến thành <strong>忄</strong> (2 nét thẳng + 1 chấm).',
+    examples: [
+      { char: '想', pinyin: 'xiǎng', vi: 'nghĩ/nhớ' },
+      { char: '爱', pinyin: 'ài', vi: 'yêu' },
+      { char: '忘', pinyin: 'wàng', vi: 'quên' },
+      { char: '怕', pinyin: 'pà', vi: 'sợ' },
+    ],
+    usage: '<strong>Cực phổ biến</strong> — cảm xúc, suy nghĩ, nội tâm. Người Trung Quốc cổ cho rằng tim là nơi suy nghĩ. Âm HV: tâm trạng, tâm lý, lương tâm.'
+  },
+  {
+    char: '骨', pinyin: 'gǔ', hanviet: 'Cốt', meaning: 'Xương', group: 'con-nguoi',
+    icon: '🦴',
+    visual: '<strong>Xương người</strong> — phần trên là khớp xương, phần dưới là thịt bao quanh. Hình ảnh từ giải phẫu học cổ đại.',
+    examples: [
+      { char: '骼', pinyin: 'gé', vi: 'khung xương' },
+      { char: '髓', pinyin: 'suǐ', vi: 'tủy xương' },
+    ],
+    usage: 'Liên quan đến <strong>xương, cấu trúc, bản chất sâu xa</strong>. Ít phổ biến hơn các bộ khác nhưng hay gặp trong y học và thành ngữ. Âm HV: cốt tủy, hài cốt.'
+  },
+  {
+    char: '肉', pinyin: 'ròu', hanviet: 'Nhục', meaning: 'Thịt', group: 'con-nguoi',
+    icon: '🥩',
+    visual: '<strong>Miếng thịt</strong> với thớ thịt bên trong — hình chữ nhật có 2 nét ngang là thớ thịt. Khi bên trái biến thành <strong>月</strong> (trông giống bộ nguyệt!).',
+    examples: [
+      { char: '胖', pinyin: 'pàng', vi: 'béo' },
+      { char: '脸', pinyin: 'liǎn', vi: 'khuôn mặt' },
+      { char: '背', pinyin: 'bèi', vi: 'lưng' },
+      { char: '腿', pinyin: 'tuǐ', vi: 'chân/đùi' },
+    ],
+    usage: 'Liên quan đến <strong>cơ thể, thịt, nội tạng</strong>. Chú ý: 月 trong chữ cơ thể (胖脸腿) là bộ 肉 chứ không phải bộ 月! Âm HV: nhục thể, cơ nhục.'
+  },
+  {
+    char: '血', pinyin: 'xuè', hanviet: 'Huyết', meaning: 'Máu', group: 'con-nguoi',
+    icon: '🩸',
+    visual: '<strong>Máu trong bình</strong> — chữ mô tả bình đựng máu tế lễ. Phần trên là nắp bình, phần dưới là máu.',
+    examples: [
+      { char: '血液', pinyin: 'xuèyè', vi: 'máu huyết' },
+      { char: '献血', pinyin: 'xiànxuè', vi: 'hiến máu' },
+    ],
+    usage: 'Liên quan đến <strong>máu, huyết thống, sức sống</strong>. Âm HV: huyết áp, huyết quản, nhiệt huyết. Ít gặp nhưng quan trọng trong y học.'
+  },
+  {
+    char: '发', pinyin: 'fà', hanviet: 'Phát', meaning: 'Tóc', group: 'con-nguoi',
+    icon: '💇',
+    visual: '<strong>Mái tóc xõa</strong> — hình mái tóc người phụ nữ dài buông xuống. Chữ này có 2 âm: fà (tóc) và fā (phát triển).',
+    examples: [
+      { char: '发型', pinyin: 'fàxíng', vi: 'kiểu tóc' },
+      { char: '发展', pinyin: 'fāzhǎn', vi: 'phát triển' },
+    ],
+    usage: 'Đặc biệt: chữ này có <strong>2 nghĩa khác nhau</strong> tùy âm đọc. fà = tóc, fā = phát ra/phát triển. Âm HV: phát triển, phát hiện, tóc (phát).'
+  },
+  {
+    char: '面', pinyin: 'miàn', hanviet: 'Diện', meaning: 'Mặt/Bề mặt', group: 'con-nguoi',
+    icon: '😊',
+    visual: '<strong>Khuôn mặt</strong> nhìn thẳng — hình mặt người với mắt ở giữa. Cũng có nghĩa là "mì/bún" vì ngày xưa mì được làm thành tờ phẳng.',
+    examples: [
+      { char: '面包', pinyin: 'miànbāo', vi: 'bánh mì' },
+      { char: '方面', pinyin: 'fāngmiàn', vi: 'phương diện' },
+      { char: '面试', pinyin: 'miànshì', vi: 'phỏng vấn' },
+    ],
+    usage: 'Đa nghĩa: <strong>khuôn mặt, bề mặt, mì</strong>. Âm HV: diện mạo, phương diện, diện tích. Rất thường gặp trong từ vựng hàng ngày.'
+  },
+  {
+    char: '身', pinyin: 'shēn', hanviet: 'Thân', meaning: 'Thân người', group: 'con-nguoi',
+    icon: '🧍',
+    visual: '<strong>Thân người mang thai</strong> — hình người với bụng to nhô ra. Chữ gốc mô tả người phụ nữ mang thai, sau mở rộng nghĩa thành cơ thể.',
+    examples: [
+      { char: '身体', pinyin: 'shēntǐ', vi: 'cơ thể' },
+      { char: '身份', pinyin: 'shēnfèn', vi: 'danh tính' },
+      { char: '自身', pinyin: 'zìshēn', vi: 'bản thân' },
+    ],
+    usage: 'Liên quan đến <strong>cơ thể, bản thân, danh phận</strong>. Âm HV: thân thể, tự thân, thân phận. Hay dùng trong từ vựng xã hội và nhân thân.'
+  },
+  {
+    char: '头', pinyin: 'tóu', hanviet: 'Đầu', meaning: 'Cái đầu', group: 'con-nguoi',
+    icon: '🗣️',
+    visual: '<strong>Cái đầu người</strong> — phần trên là tóc, phần dưới là mặt. Chữ phồng lên như đầu thực.',
+    examples: [
+      { char: '头发', pinyin: 'tóufa', vi: 'tóc' },
+      { char: '头脑', pinyin: 'tóunǎo', vi: 'đầu óc' },
+      { char: '石头', pinyin: 'shítou', vi: 'hòn đá' },
+    ],
+    usage: 'Liên quan đến <strong>đầu, khởi đầu, vật thể tròn</strong>. Cũng làm hậu tố cho nhiều danh từ (石头, 木头). Âm HV: đầu não, đầu tư (vốn đầu tiên).'
+  },
+
+  // NHÓM 3: ĐỘNG VẬT
+  {
+    char: '马', pinyin: 'mǎ', hanviet: 'Mã', meaning: 'Ngựa', group: 'dong-vat',
+    icon: '🐴',
+    visual: '<strong>Con ngựa</strong> nhìn nghiêng — đầu và bờm trên, 4 chân phía dưới. Chữ giản thể đơn giản hóa nhiều so với chữ phồn thể 馬.',
+    examples: [
+      { char: '妈', pinyin: 'mā', vi: 'mẹ (âm mā)' },
+      { char: '骑', pinyin: 'qí', vi: 'cưỡi' },
+      { char: '驾', pinyin: 'jià', vi: 'lái xe' },
+    ],
+    usage: 'Liên quan đến <strong>ngựa, vận chuyển, nhanh</strong>. Thú vị: 妈 (mẹ) dùng 马 vì âm giống nhau! Âm HV: mã lực, chiến mã, thiên mã.'
+  },
+  {
+    char: '牛', pinyin: 'niú', hanviet: 'Ngưu', meaning: 'Bò', group: 'dong-vat',
+    icon: '🐂',
+    visual: '<strong>Con bò có sừng</strong> — nét ngang trên là đôi sừng, nét dọc là thân bò. Đơn giản và dễ nhớ.',
+    examples: [
+      { char: '牛奶', pinyin: 'niúnǎi', vi: 'sữa bò' },
+      { char: '物', pinyin: 'wù', vi: 'vật/đồ vật' },
+      { char: '特', pinyin: 'tè', vi: 'đặc biệt' },
+    ],
+    usage: 'Liên quan đến <strong>bò, sức lao động, đặc biệt</strong>. Trong tiếng lóng: 牛 = "ngầu/giỏi". Âm HV: ngưu can, ngưu tần.'
+  },
+  {
+    char: '羊', pinyin: 'yáng', hanviet: 'Dương', meaning: 'Cừu/Dê', group: 'dong-vat',
+    icon: '🐑',
+    visual: '<strong>Con cừu</strong> nhìn thẳng — 2 nét cong trên là đôi sừng, nét dọc là mũi, 2 nét chéo là tai.',
+    examples: [
+      { char: '美', pinyin: 'měi', vi: 'đẹp' },
+      { char: '羊毛', pinyin: 'yángmáo', vi: 'lông cừu' },
+      { char: '鲜', pinyin: 'xiān', vi: 'tươi ngon' },
+    ],
+    usage: 'Thú vị: 美 (đẹp) = 羊+大 = con cừu to = đẹp! Người xưa coi cừu béo là đẹp nhất. Âm HV: dương cầu (đàn guitar), dương lịch.'
+  },
+  {
+    char: '鱼', pinyin: 'yú', hanviet: 'Ngư', meaning: 'Cá', group: 'dong-vat',
+    icon: '🐟',
+    visual: '<strong>Con cá</strong> nhìn nghiêng — phần trên là đầu và vây, phần giữa là thân, nét ngang dưới là vây đuôi.',
+    examples: [
+      { char: '鲜', pinyin: 'xiān', vi: 'tươi ngon' },
+      { char: '渔', pinyin: 'yú', vi: 'đánh cá' },
+      { char: '鲸', pinyin: 'jīng', vi: 'cá voi' },
+    ],
+    usage: 'Liên quan đến <strong>cá, hải sản, đánh bắt</strong>. 鲜 (tươi) = 鱼+羊 = cá + cừu = hai thứ tươi ngon nhất! Âm HV: ngư dân, ngư nghiệp.'
+  },
+  {
+    char: '鸟', pinyin: 'niǎo', hanviet: 'Điểu', meaning: 'Chim', group: 'dong-vat',
+    icon: '🐦',
+    visual: '<strong>Con chim</strong> — đầu trên, cánh hai bên, đuôi và chân dưới. Chữ giản thể đơn giản nhưng vẫn nhận ra hình chim.',
+    examples: [
+      { char: '鸡', pinyin: 'jī', vi: 'gà' },
+      { char: '鸭', pinyin: 'yā', vi: 'vịt' },
+      { char: '鹰', pinyin: 'yīng', vi: 'đại bàng' },
+    ],
+    usage: 'Liên quan đến <strong>chim, gia cầm, bay</strong>. Hầu hết tên các loại chim đều có bộ 鸟. Âm HV: điểu ngữ (tiếng chim), minh điểu (chim hót).'
+  },
+  {
+    char: '虫', pinyin: 'chóng', hanviet: 'Trùng', meaning: 'Côn trùng/Sâu', group: 'dong-vat',
+    icon: '🐛',
+    visual: '<strong>Con sâu</strong> — hình con rắn hoặc sâu đang bò. Chữ cổ là hình con rắn, sau dùng chung cho côn trùng.',
+    examples: [
+      { char: '蛇', pinyin: 'shé', vi: 'con rắn' },
+      { char: '蜂', pinyin: 'fēng', vi: 'con ong' },
+      { char: '蚂蚁', pinyin: 'mǎyǐ', vi: 'con kiến' },
+    ],
+    usage: 'Liên quan đến <strong>côn trùng, sâu bọ, bò sát</strong>. Rắn, ếch, ong, kiến đều có bộ 虫. Âm HV: trùng hợp, côn trùng.'
+  },
+  {
+    char: '犬', pinyin: 'quǎn', hanviet: 'Khuyển', meaning: 'Chó', group: 'dong-vat',
+    icon: '🐕',
+    visual: '<strong>Con chó</strong> — hình người thêm 1 chấm (đuôi chó). Biến thể 犭đứng bên trái là bộ thủ thông dụng hơn.',
+    examples: [
+      { char: '猫', pinyin: 'māo', vi: 'mèo' },
+      { char: '狗', pinyin: 'gǒu', vi: 'con chó' },
+      { char: '狐', pinyin: 'hú', vi: 'con cáo' },
+    ],
+    usage: 'Bộ 犭liên quan đến <strong>thú vật có 4 chân</strong>. Mèo, cáo, sói, gấu đều có bộ 犭. Âm HV: khuyển mã (trung thành như chó ngựa).'
+  },
+  {
+    char: '龙', pinyin: 'lóng', hanviet: 'Long', meaning: 'Rồng', group: 'dong-vat',
+    icon: '🐲',
+    visual: '<strong>Con rồng</strong> — hình rồng đang bay với vảy và vuốt. Biểu tượng văn hóa quan trọng nhất của Trung Hoa.',
+    examples: [
+      { char: '龙舟', pinyin: 'lóngzhōu', vi: 'thuyền rồng' },
+      { char: '恐龙', pinyin: 'kǒnglóng', vi: 'khủng long' },
+    ],
+    usage: 'Biểu tượng <strong>hoàng đế, quyền lực, may mắn</strong>. Khác với rồng phương Tây (ác), rồng Trung Quốc là điềm lành. Âm HV: long phụng, rồng (long).'
+  },
+  {
+    char: '象', pinyin: 'xiàng', hanviet: 'Tượng', meaning: 'Voi/Hình tượng', group: 'dong-vat',
+    icon: '🐘',
+    visual: '<strong>Con voi</strong> với vòi dài — hình voi nhìn nghiêng với vòi đặc trưng. Sau mở rộng nghĩa thành "hình tượng, biểu tượng".',
+    examples: [
+      { char: '现象', pinyin: 'xiànxiàng', vi: 'hiện tượng' },
+      { char: '形象', pinyin: 'xíngxiàng', vi: 'hình tượng' },
+      { char: '象棋', pinyin: 'xiàngqí', vi: 'cờ tướng' },
+    ],
+    usage: 'Đặc biệt: ngoài nghĩa "voi", còn nghĩa <strong>hình tượng, giống như</strong>. 象棋 (cờ tướng) có quân voi! Âm HV: tượng trưng, hiện tượng.'
+  },
+  {
+    char: '鼠', pinyin: 'shǔ', hanviet: 'Thử', meaning: 'Chuột', group: 'dong-vat',
+    icon: '🐭',
+    visual: '<strong>Con chuột</strong> — răng nhọn trên, thân và 4 chân, đuôi dài. Hình dạng đặc trưng của chuột.',
+    examples: [
+      { char: '鼠标', pinyin: 'shǔbiāo', vi: 'con chuột máy tính' },
+    ],
+    usage: 'Thú vị: <strong>chuột máy tính</strong> cũng gọi là 鼠标! Đứng đầu trong 12 con giáp. Âm HV: thử (chuột trong 12 con giáp).'
+  },
+
+  // NHÓM 4: NHÀ CỬA & VẬT DỤNG
+  {
+    char: '门', pinyin: 'mén', hanviet: 'Môn', meaning: 'Cửa', group: 'nha-cua',
+    icon: '🚪',
+    visual: '<strong>Cửa hai cánh</strong> — hai nét dọc là hai cánh cửa, nét ngang trên là thanh ngang. Giống cửa cổng ngày xưa cực kỳ.',
+    examples: [
+      { char: '问', pinyin: 'wèn', vi: 'hỏi' },
+      { char: '闻', pinyin: 'wén', vi: 'nghe/ngửi' },
+      { char: '间', pinyin: 'jiān', vi: 'khoảng giữa' },
+      { char: '开', pinyin: 'kāi', vi: 'mở' },
+    ],
+    usage: '<strong>Bộ thủ đẹp và dễ nhớ</strong> — liên quan đến cửa, lối vào, không gian. 问 = 口在门内 = miệng trong cửa = hỏi. Âm HV: môn học, chuyên môn.'
+  },
+  {
+    char: '宀', pinyin: 'mián', hanviet: 'Miên', meaning: 'Mái nhà', group: 'nha-cua',
+    icon: '🏠',
+    visual: '<strong>Mái nhà</strong> nhìn từ xa — nét cong trên là mái, 2 nét thẳng là tường. Bộ này luôn đứng trên đầu chữ như mái che.',
+    examples: [
+      { char: '家', pinyin: 'jiā', vi: 'nhà/gia đình' },
+      { char: '室', pinyin: 'shì', vi: 'phòng' },
+      { char: '安', pinyin: 'ān', vi: 'bình yên' },
+      { char: '宝', pinyin: 'bǎo', vi: 'báu vật' },
+    ],
+    usage: '<strong>Luôn đứng trên đầu chữ</strong> như mái nhà. 安 = 宀+女 = phụ nữ trong nhà = bình yên (quan niệm cổ). Âm HV: miên (ngủ, liên quan đến nghỉ ngơi trong nhà).'
+  },
+  {
+    char: '户', pinyin: 'hù', hanviet: 'Hộ', meaning: 'Cửa một cánh/Hộ gia đình', group: 'nha-cua',
+    icon: '🏡',
+    visual: '<strong>Cửa một cánh</strong> — khác với 门 (hai cánh), đây là cửa đơn giản một cánh, mô tả nhà dân thường.',
+    examples: [
+      { char: '户口', pinyin: 'hùkǒu', vi: 'hộ khẩu' },
+      { char: '用户', pinyin: 'yònghù', vi: 'người dùng' },
+      { char: '窗户', pinyin: 'chuānghu', vi: 'cửa sổ' },
+    ],
+    usage: 'Liên quan đến <strong>hộ gia đình, cư dân, cửa</strong>. 户口 = hộ khẩu (giống hệt tiếng Việt!). Âm HV: hộ khẩu, gia hộ, ngân hộ.'
+  },
+  {
+    char: '刀', pinyin: 'dāo', hanviet: 'Đao', meaning: 'Dao/Lưỡi dao', group: 'nha-cua',
+    icon: '🔪',
+    visual: '<strong>Lưỡi dao</strong> — nét cong là lưỡi, nét thẳng là cán. Khi bên phải biến thành <strong>刂</strong> (chỉ giữ lại 2 nét dọc).',
+    examples: [
+      { char: '分', pinyin: 'fēn', vi: 'chia/phần' },
+      { char: '切', pinyin: 'qiē', vi: 'cắt' },
+      { char: '别', pinyin: 'bié', vi: 'chia tay/đừng' },
+      { char: '到', pinyin: 'dào', vi: 'đến' },
+    ],
+    usage: 'Liên quan đến <strong>cắt, chia, phân tách</strong>. 分 = dao cắt 八 = chia đôi = phần. Âm HV: đao kiếm, đại đao, phán quyết (phán = dao xét xử).'
+  },
+  {
+    char: '弓', pinyin: 'gōng', hanviet: 'Cung', meaning: 'Cây cung', group: 'nha-cua',
+    icon: '🏹',
+    visual: '<strong>Cây cung bắn tên</strong> — hình cây cung cong với dây cung. Một trong những vũ khí cổ nhất của người Hán.',
+    examples: [
+      { char: '张', pinyin: 'zhāng', vi: 'căng/tờ/họ Trương' },
+      { char: '强', pinyin: 'qiáng', vi: 'mạnh mẽ' },
+      { char: '弱', pinyin: 'ruò', vi: 'yếu đuối' },
+    ],
+    usage: 'Liên quan đến <strong>cung tên, căng, sức mạnh</strong>. Âm HV: cung tiễn, cung thủ. 强/弱 (mạnh/yếu) đều có bộ 弓 — liên quan đến sức căng của dây cung.'
+  },
+  {
+    char: '车', pinyin: 'chē', hanviet: 'Xa', meaning: 'Xe', group: 'nha-cua',
+    icon: '🚗',
+    visual: '<strong>Xe bánh xe</strong> nhìn từ trên xuống — bánh xe và trục giữa. Chữ phồn thể 車 nhìn rõ hơn hình xe.',
+    examples: [
+      { char: '轮', pinyin: 'lún', vi: 'bánh xe/lượt' },
+      { char: '辆', pinyin: 'liàng', vi: 'lượt xe' },
+      { char: '转', pinyin: 'zhuǎn', vi: 'xoay/chuyển' },
+    ],
+    usage: 'Liên quan đến <strong>xe cộ, bánh xe, vận chuyển</strong>. Âm HV: xa lộ, xe (xa), quân xa. Thú vị: quân cờ trong cờ tướng gọi là 车!'
+  },
+  {
+    char: '舟', pinyin: 'zhōu', hanviet: 'Chu', meaning: 'Thuyền', group: 'nha-cua',
+    icon: '⛵',
+    visual: '<strong>Con thuyền</strong> nhỏ nhìn nghiêng — hình thuyền độc mộc với mũi cong lên.',
+    examples: [
+      { char: '船', pinyin: 'chuán', vi: 'tàu thuyền' },
+      { char: '航', pinyin: 'háng', vi: 'hàng hải/hàng không' },
+    ],
+    usage: 'Liên quan đến <strong>thuyền, đường thủy, hàng hải</strong>. Âm HV: chu du, thuyền (chu), hành chu. Ít phổ biến hơn nhưng hay gặp trong thơ cổ.'
+  },
+  {
+    char: '田', pinyin: 'tián', hanviet: 'Điền', meaning: 'Ruộng', group: 'nha-cua',
+    icon: '🌾',
+    visual: '<strong>Thửa ruộng</strong> với bờ bao — hình vuông chia 4 ô là ruộng lúa được phân lô. Rất trực quan!',
+    examples: [
+      { char: '男', pinyin: 'nán', vi: 'nam/đàn ông' },
+      { char: '界', pinyin: 'jiè', vi: 'ranh giới/giới' },
+      { char: '思', pinyin: 'sī', vi: 'suy nghĩ' },
+    ],
+    usage: '男 = 田+力 = ruộng + sức = đàn ông (người làm ruộng). Liên quan đến <strong>đất đai, nông nghiệp, ranh giới</strong>. Âm HV: điền viên, điền dã, điền kinh.'
+  },
+  {
+    char: '网', pinyin: 'wǎng', hanviet: 'Võng', meaning: 'Lưới/Mạng', group: 'nha-cua',
+    icon: '🕸️',
+    visual: '<strong>Cái lưới</strong> đánh cá — các ô mắt lưới đan nhau. Sau mở rộng nghĩa thành "mạng lưới, internet".',
+    examples: [
+      { char: '网络', pinyin: 'wǎngluò', vi: 'mạng lưới' },
+      { char: '上网', pinyin: 'shàngwǎng', vi: 'lên mạng' },
+      { char: '网站', pinyin: 'wǎngzhàn', vi: 'website' },
+    ],
+    usage: 'Thú vị: từ "lưới cá" → <strong>mạng internet</strong> hiện đại! 网络 = mạng lưới = internet. Âm HV: võng (lưới), mạng (network).'
+  },
+  {
+    char: '米', pinyin: 'mǐ', hanviet: 'Mễ', meaning: 'Gạo/Mét', group: 'nha-cua',
+    icon: '🌾',
+    visual: '<strong>Hạt gạo</strong> với râu thóc — hình bông lúa với các hạt tỏa ra. Cũng được dùng làm đơn vị "mét" (phiên âm).',
+    examples: [
+      { char: '糖', pinyin: 'táng', vi: 'đường' },
+      { char: '粉', pinyin: 'fěn', vi: 'bột' },
+      { char: '精', pinyin: 'jīng', vi: 'tinh chất' },
+    ],
+    usage: 'Liên quan đến <strong>gạo, ngũ cốc, tinh chất</strong>. Âm HV: mễ (gạo). Đơn vị mét trong tiếng Trung dùng chính chữ này: 1米 = 1 mét.'
+  },
+  {
+    char: '布', pinyin: 'bù', hanviet: 'Bố', meaning: 'Vải', group: 'nha-cua',
+    icon: '🧵',
+    visual: '<strong>Miếng vải</strong> — hình vuông vải được trải ra. Bộ thủ đơn giản.',
+    examples: [
+      { char: '布置', pinyin: 'bùzhì', vi: 'bày trí' },
+      { char: '宣布', pinyin: 'xuānbù', vi: 'tuyên bố' },
+      { char: '分布', pinyin: 'fēnbù', vi: 'phân bố' },
+    ],
+    usage: 'Liên quan đến <strong>vải, phân tán, trải rộng</strong>. Âm HV: bố trí, phân bố, tuyên bố. Thú vị: "bố" trong tiếng Việt (bố trí) đến từ chữ này!'
+  },
+  {
+    char: '衣', pinyin: 'yī', hanviet: 'Y', meaning: 'Áo quần', group: 'nha-cua',
+    icon: '👔',
+    visual: '<strong>Cái áo</strong> — cổ áo trên, hai vạt áo hai bên, vạt dưới. Khi bên trái biến thành <strong>衤</strong>.',
+    examples: [
+      { char: '被', pinyin: 'bèi', vi: 'chăn/bị (bị động)' },
+      { char: '裤', pinyin: 'kù', vi: 'quần' },
+      { char: '袖', pinyin: 'xiù', vi: 'tay áo' },
+    ],
+    usage: 'Liên quan đến <strong>trang phục, vải vóc, che phủ</strong>. Âm HV: y phục, y trang. Bộ 衤thường thấy trong tên các loại trang phục.'
+  },
+
+  // NHÓM 5: HÀNH ĐỘNG
+  {
+    char: '言', pinyin: 'yán', hanviet: 'Ngôn', meaning: 'Lời nói/Ngôn ngữ', group: 'hanh-dong',
+    icon: '💬',
+    visual: '<strong>Miệng phát ra sóng âm</strong> — nét ngang trên là hơi thở, ô vuông là miệng, các nét dưới là sóng âm. Khi bên trái: <strong>讠</strong>.',
+    examples: [
+      { char: '说', pinyin: 'shuō', vi: 'nói' },
+      { char: '请', pinyin: 'qǐng', vi: 'mời/xin' },
+      { char: '谢', pinyin: 'xiè', vi: 'cảm ơn' },
+      { char: '话', pinyin: 'huà', vi: 'lời nói' },
+    ],
+    usage: '<strong>Cực phổ biến</strong> — mọi từ liên quan đến giao tiếp, ngôn ngữ, lời nói. Âm HV: ngôn ngữ, ngôn luận, tuyên ngôn.'
+  },
+  {
+    char: '走', pinyin: 'zǒu', hanviet: 'Tẩu', meaning: 'Đi/Chạy', group: 'hanh-dong',
+    icon: '🏃',
+    visual: '<strong>Người đang chạy</strong> — thân người nghiêng về phía trước, tay và chân đang chuyển động. Hình ảnh chuyển động.',
+    examples: [
+      { char: '超', pinyin: 'chāo', vi: 'vượt qua/siêu' },
+      { char: '趣', pinyin: 'qù', vi: 'thú vị' },
+      { char: '起', pinyin: 'qǐ', vi: 'đứng dậy/bắt đầu' },
+    ],
+    usage: 'Liên quan đến <strong>di chuyển, xuất phát, đứng lên</strong>. Âm HV: tẩu mã (chạy ngựa). 超市 (siêu thị) có bộ 走!'
+  },
+  {
+    char: '行', pinyin: 'xíng', hanviet: 'Hành', meaning: 'Đi/Hành động', group: 'hanh-dong',
+    icon: '🚶',
+    visual: '<strong>Ngã tư đường</strong> — hình chữ thập là giao lộ, người đi trên đường. Cũng đọc là háng = hàng.',
+    examples: [
+      { char: '街', pinyin: 'jiē', vi: 'phố/đường phố' },
+      { char: '术', pinyin: 'shù', vi: 'kỹ thuật' },
+    ],
+    usage: 'Liên quan đến <strong>đường đi, hành động, nghề nghiệp</strong>. Âm HV: hành động, du hành, hành trình. Thú vị: 行 cũng nghĩa là "được rồi/okay" trong tiếng lóng.'
+  },
+  {
+    char: '见', pinyin: 'jiàn', hanviet: 'Kiến', meaning: 'Nhìn thấy', group: 'hanh-dong',
+    icon: '👀',
+    visual: '<strong>Mắt trên chân</strong> — con mắt (目) trên đôi chân đang đi — hình ảnh đang đi quan sát xung quanh.',
+    examples: [
+      { char: '看见', pinyin: 'kànjiàn', vi: 'nhìn thấy' },
+      { char: '见面', pinyin: 'jiànmiàn', vi: 'gặp mặt' },
+      { char: '发现', pinyin: 'fāxiàn', vi: 'phát hiện' },
+    ],
+    usage: 'Liên quan đến <strong>nhìn thấy, gặp gỡ, phát hiện</strong>. Âm HV: kiến thức, ý kiến, tiếp kiến.'
+  },
+  {
+    char: '力', pinyin: 'lì', hanviet: 'Lực', meaning: 'Sức mạnh', group: 'hanh-dong',
+    icon: '💪',
+    visual: '<strong>Bắp tay gồng lên</strong> — hình cánh tay cong với bắp thịt nổi lên. Một trong những bộ đơn giản nhất.',
+    examples: [
+      { char: '努力', pinyin: 'nǔlì', vi: 'cố gắng' },
+      { char: '能力', pinyin: 'nénglì', vi: 'năng lực' },
+      { char: '力量', pinyin: 'lìliàng', vi: 'sức mạnh' },
+    ],
+    usage: 'Liên quan đến <strong>sức mạnh, nỗ lực, năng lực</strong>. Âm HV: lực lượng, sức lực, nỗ lực. Cực phổ biến trong từ vựng hàng ngày.'
+  },
+  {
+    char: '又', pinyin: 'yòu', hanviet: 'Hựu', meaning: 'Lại/Bàn tay phải', group: 'hanh-dong',
+    icon: '✋',
+    visual: '<strong>Bàn tay phải</strong> — hình bàn tay giơ lên với ngón cái tách ra. Cũng có nghĩa "lại/thêm nữa".',
+    examples: [
+      { char: '双', pinyin: 'shuāng', vi: 'đôi/cặp' },
+      { char: '取', pinyin: 'qǔ', vi: 'lấy' },
+      { char: '叔', pinyin: 'shū', vi: 'chú' },
+    ],
+    usage: 'Liên quan đến <strong>tay phải, lấy, lại/thêm</strong>. Âm HV: hựu (lại). Hay dùng làm bộ phận tạo âm trong chữ hình thanh.'
+  },
+  {
+    char: '工', pinyin: 'gōng', hanviet: 'Công', meaning: 'Làm việc/Thợ', group: 'hanh-dong',
+    icon: '🔧',
+    visual: '<strong>Dụng cụ thợ</strong> — hình thước T của thợ xây/thợ mộc. Hai nét ngang là đỉnh và đáy, nét dọc là thân.',
+    examples: [
+      { char: '功', pinyin: 'gōng', vi: 'công lao/thành công' },
+      { char: '红', pinyin: 'hóng', vi: 'màu đỏ' },
+      { char: '左', pinyin: 'zuǒ', vi: 'bên trái' },
+    ],
+    usage: 'Liên quan đến <strong>lao động, thợ thuyền, công việc</strong>. Âm HV: công nhân, công việc, công nghiệp. 功夫 (kung fu) có chữ 工!'
+  },
+  {
+    char: '文', pinyin: 'wén', hanviet: 'Văn', meaning: 'Chữ viết/Văn hóa', group: 'hanh-dong',
+    icon: '📝',
+    visual: '<strong>Hình xăm trên ngực</strong> — người xưa xăm hình lên ngực trong lễ nghi. Sau dùng cho "văn tự, chữ viết".',
+    examples: [
+      { char: '文化', pinyin: 'wénhuà', vi: 'văn hóa' },
+      { char: '语文', pinyin: 'yǔwén', vi: 'ngôn ngữ văn học' },
+      { char: '文字', pinyin: 'wénzì', vi: 'chữ viết' },
+    ],
+    usage: 'Liên quan đến <strong>chữ viết, văn hóa, lịch sự</strong>. Âm HV: văn hóa, văn học, văn minh. Rất quan trọng trong ngữ cảnh học thuật.'
+  },
+  {
+    char: '气', pinyin: 'qì', hanviet: 'Khí', meaning: 'Khí/Hơi thở', group: 'hanh-dong',
+    icon: '💨',
+    visual: '<strong>Hơi thở/khí bay</strong> — các nét uốn lượn như khói hoặc hơi nước bay lên.',
+    examples: [
+      { char: '天气', pinyin: 'tiānqì', vi: 'thời tiết' },
+      { char: '空气', pinyin: 'kōngqì', vi: 'không khí' },
+      { char: '生气', pinyin: 'shēngqì', vi: 'tức giận' },
+    ],
+    usage: 'Liên quan đến <strong>khí, năng lượng, tinh thần</strong>. Âm HV: khí hậu, không khí, khí thế. Thú vị: 生气 = sống + khí = tức giận hoặc sống động!'
+  },
+  {
+    char: '音', pinyin: 'yīn', hanviet: 'Âm', meaning: 'Âm thanh', group: 'hanh-dong',
+    icon: '🎵',
+    visual: '<strong>Âm thanh từ miệng</strong> — chữ 言 (lời nói) thêm nét, nhấn mạnh rung động âm thanh.',
+    examples: [
+      { char: '音乐', pinyin: 'yīnyuè', vi: 'âm nhạc' },
+      { char: '声音', pinyin: 'shēngyīn', vi: 'âm thanh' },
+      { char: '噪音', pinyin: 'zàoyīn', vi: 'tiếng ồn' },
+    ],
+    usage: 'Liên quan đến <strong>âm thanh, âm nhạc, tiếng</strong>. Âm HV: âm nhạc, âm thanh, phát âm. Hay gặp trong từ vựng nghệ thuật và ngôn ngữ.'
+  },
+  {
+    char: '示', pinyin: 'shì', hanviet: 'Thị', meaning: 'Bàn thờ/Thần', group: 'hanh-dong',
+    icon: '🛕',
+    visual: '<strong>Bàn thờ tế lễ</strong> — hình bàn thờ với lễ vật. Khi bên trái biến thành <strong>礻</strong>.',
+    examples: [
+      { char: '神', pinyin: 'shén', vi: 'thần linh' },
+      { char: '福', pinyin: 'fú', vi: 'phúc lành' },
+      { char: '礼', pinyin: 'lǐ', vi: 'lễ nghi' },
+    ],
+    usage: 'Liên quan đến <strong>tôn giáo, phúc lộc, lễ nghi</strong>. 福 (phúc) rất hay gặp trong Tết Trung Quốc! Âm HV: thị (chỉ ra), lễ thức.'
+  },
+  {
+    char: '页', pinyin: 'yè', hanviet: 'Hiệt', meaning: 'Trang/Đầu', group: 'hanh-dong',
+    icon: '📄',
+    visual: '<strong>Đầu người</strong> — chữ gốc nghĩa là "cái đầu", sau dùng cho "trang sách" (trang giấy mỏng như khuôn mặt).',
+    examples: [
+      { char: '顺', pinyin: 'shùn', vi: 'thuận' },
+      { char: '题', pinyin: 'tí', vi: 'đề tài/tiêu đề' },
+      { char: '颜', pinyin: 'yán', vi: 'khuôn mặt/màu sắc' },
+    ],
+    usage: 'Liên quan đến <strong>trang sách, mặt, tiêu đề</strong>. Âm HV: hiệt (đầu). Hay xuất hiện trong từ vựng liên quan đến sách vở, đầu trang.'
+  },
+  {
+    char: '鬼', pinyin: 'guǐ', hanviet: 'Quỷ', meaning: 'Quỷ/Ma', group: 'hanh-dong',
+    icon: '👻',
+    visual: '<strong>Con quỷ</strong> — hình người với cái đầu to quái dị và đuôi xoáy. Chữ rất đặc biệt về hình dạng.',
+    examples: [
+      { char: '魔', pinyin: 'mó', vi: 'ma quỷ/phép thuật' },
+      { char: '魂', pinyin: 'hún', vi: 'linh hồn' },
+    ],
+    usage: 'Liên quan đến <strong>ma quỷ, linh hồn, điều siêu nhiên</strong>. Âm HV: quỷ thần, quỷ kế. Thú vị: người nước ngoài ở TQ đôi khi gọi là 鬼佬 (quỷ lão)!'
+  },
+  {
+    char: '攴', pinyin: 'pū', hanviet: 'Phộc', meaning: 'Tay cầm gậy', group: 'hanh-dong',
+    icon: '🪄',
+    visual: '<strong>Tay cầm gậy</strong> — bàn tay cầm que đánh, biểu thị hành động. Biến thể 攵 phổ biến hơn.',
+    examples: [
+      { char: '教', pinyin: 'jiào', vi: 'dạy học' },
+      { char: '收', pinyin: 'shōu', vi: 'thu nhận' },
+      { char: '放', pinyin: 'fàng', vi: 'thả ra' },
+    ],
+    usage: 'Liên quan đến <strong>hành động có chủ đích, điều khiển</strong>. Bộ 攵 hay thấy ở bên phải chữ như yếu tố hành động. Âm HV: giáo (dạy), phóng (thả).'
+  },
+
+  // NHÓM 6: KHÔNG GIAN
+  {
+    char: '上', pinyin: 'shàng', hanviet: 'Thượng', meaning: 'Trên', group: 'khong-gian',
+    icon: '⬆️',
+    visual: '<strong>Mũi tên hướng lên</strong> — nét dài dưới là mặt đất, nét ngắn trên là điểm phía trên. Trực quan và dễ nhớ.',
+    examples: [
+      { char: '上面', pinyin: 'shàngmiàn', vi: 'bên trên' },
+      { char: '上海', pinyin: 'Shànghǎi', vi: 'Thượng Hải' },
+      { char: '上课', pinyin: 'shàngkè', vi: 'lên lớp' },
+    ],
+    usage: '<strong>Từ cơ bản nhất</strong> — trên, lên, phía trên. Âm HV: thượng (trên cao). 上海 = Thượng Hải = biển ở trên (đất cao gần biển).'
+  },
+  {
+    char: '下', pinyin: 'xià', hanviet: 'Hạ', meaning: 'Dưới', group: 'khong-gian',
+    icon: '⬇️',
+    visual: '<strong>Mũi tên hướng xuống</strong> — nét dài trên là mặt đất, nét ngắn dưới là điểm phía dưới. Đối lập với 上.',
+    examples: [
+      { char: '下面', pinyin: 'xiàmiàn', vi: 'bên dưới' },
+      { char: '下课', pinyin: 'xiàkè', vi: 'tan học' },
+      { char: '下午', pinyin: 'xiàwǔ', vi: 'buổi chiều' },
+    ],
+    usage: '<strong>Cặp đôi với 上</strong> — dưới, xuống, phía dưới. Âm HV: hạ (dưới thấp). 上下 = trên dưới = khoảng chừng.'
+  },
+  {
+    char: '大', pinyin: 'dà', hanviet: 'Đại', meaning: 'To lớn', group: 'khong-gian',
+    icon: '🏔️',
+    visual: '<strong>Người dang tay</strong> — hình người đứng dang rộng hai tay = to lớn, rộng lớn. Giống ký hiệu "đây tôi!" của trẻ em.',
+    examples: [
+      { char: '太', pinyin: 'tài', vi: 'quá/rất' },
+      { char: '天', pinyin: 'tiān', vi: 'bầu trời/ngày' },
+      { char: '大学', pinyin: 'dàxué', vi: 'đại học' },
+    ],
+    usage: '<strong>Cực phổ biến</strong> — to, lớn, vĩ đại. 天 = 大+一 = người vươn cao hơn tất cả = bầu trời. Âm HV: đại học, vĩ đại, đại diện.'
+  },
+  {
+    char: '小', pinyin: 'xiǎo', hanviet: 'Tiểu', meaning: 'Nhỏ bé', group: 'khong-gian',
+    icon: '🔬',
+    visual: '<strong>Chấm nhỏ li ti</strong> — nét dọc giữa và 2 chấm hai bên, như hạt bụi nhỏ tách ra.',
+    examples: [
+      { char: '小学', pinyin: 'xiǎoxué', vi: 'tiểu học' },
+      { char: '小心', pinyin: 'xiǎoxīn', vi: 'cẩn thận' },
+      { char: '少', pinyin: 'shǎo', vi: 'ít' },
+    ],
+    usage: '<strong>Cặp đôi với 大</strong> — nhỏ, ít, tiểu. Âm HV: tiểu học, tiểu thuyết, vi tiểu. 小心 = tim nhỏ = cẩn thận!'
+  },
+  {
+    char: '中', pinyin: 'zhōng', hanviet: 'Trung', meaning: 'Giữa/Trung tâm', group: 'khong-gian',
+    icon: '🎯',
+    visual: '<strong>Mũi tên xuyên qua tâm</strong> — hình bia bắn với mũi tên trúng đúng giữa. Nghĩa gốc là "trúng đích".',
+    examples: [
+      { char: '中国', pinyin: 'Zhōngguó', vi: 'Trung Quốc' },
+      { char: '中心', pinyin: 'zhōngxīn', vi: 'trung tâm' },
+      { char: '中文', pinyin: 'Zhōngwén', vi: 'tiếng Trung' },
+    ],
+    usage: '<strong>Quan trọng nhất</strong> — giữa, trung tâm, Trung Quốc. Âm HV: trung tâm, trung bình, Trung Hoa. 中国 = nước ở giữa (trung tâm thế giới).'
+  },
+  {
+    char: '内', pinyin: 'nèi', hanviet: 'Nội', meaning: 'Bên trong', group: 'khong-gian',
+    icon: '📦',
+    visual: '<strong>Bên trong hộp</strong> — nét ngoài là hộp/ranh giới, nét trong là vật bên trong.',
+    examples: [
+      { char: '国内', pinyin: 'guónèi', vi: 'trong nước' },
+      { char: '内容', pinyin: 'nèiróng', vi: 'nội dung' },
+      { char: '室内', pinyin: 'shìnèi', vi: 'trong nhà' },
+    ],
+    usage: 'Liên quan đến <strong>bên trong, nội địa, nội tâm</strong>. Âm HV: nội dung, nội tâm, quốc nội. Hay ghép với các chữ địa điểm.'
+  },
+  {
+    char: '外', pinyin: 'wài', hanviet: 'Ngoại', meaning: 'Bên ngoài', group: 'khong-gian',
+    icon: '🌍',
+    visual: '<strong>Bên ngoài ranh giới</strong> — đối lập với 内. Hình bói toán (卜) + mặt trăng (月) = đoán điều ngoài tầm với.',
+    examples: [
+      { char: '国外', pinyin: 'guówài', vi: 'nước ngoài' },
+      { char: '外语', pinyin: 'wàiyǔ', vi: 'ngoại ngữ' },
+      { char: '外卖', pinyin: 'wàimài', vi: 'đồ ăn giao tận nơi' },
+    ],
+    usage: 'Liên quan đến <strong>bên ngoài, nước ngoài, xa lạ</strong>. Âm HV: ngoại ngữ, ngoại quốc, nội ngoại.'
+  },
+  {
+    char: '左', pinyin: 'zuǒ', hanviet: 'Tả', meaning: 'Bên trái', group: 'khong-gian',
+    icon: '⬅️',
+    visual: '<strong>Tay trái cầm dụng cụ</strong> — bộ 工 (dụng cụ) + bộ 手 = tay cầm đồ = tay trái (tay phụ).',
+    examples: [
+      { char: '左边', pinyin: 'zuǒbiān', vi: 'bên trái' },
+      { char: '左右', pinyin: 'zuǒyòu', vi: 'trái phải/khoảng chừng' },
+    ],
+    usage: 'Cặp đôi với 右 (phải). Âm HV: tả (trái). Thú vị: trong chính trị, "tả phái" = cánh tả, đúng như tiếng Việt!'
+  },
+  {
+    char: '右', pinyin: 'yòu', hanviet: 'Hữu', meaning: 'Bên phải', group: 'khong-gian',
+    icon: '➡️',
+    visual: '<strong>Tay phải đưa đến miệng</strong> — bộ 又 (tay) + 口 (miệng) = tay đưa thức ăn vào miệng = tay phải (tay chính).',
+    examples: [
+      { char: '右边', pinyin: 'yòubiān', vi: 'bên phải' },
+      { char: '左右', pinyin: 'zuǒyòu', vi: 'trái phải' },
+    ],
+    usage: 'Cặp đôi với 左 (trái). Âm HV: hữu (phải). Trong chính trị: 右派 = cánh hữu. 左右 = khoảng chừng (tiếng lóng).'
+  },
+  {
+    char: '间', pinyin: 'jiān', hanviet: 'Gian', meaning: 'Khoảng giữa/Phòng', group: 'khong-gian',
+    icon: '🚪',
+    visual: '<strong>Ánh trăng qua cửa</strong> — 月 (trăng) trong 门 (cửa) = ánh sáng lọt qua khe cửa = khoảng hở.',
+    examples: [
+      { char: '时间', pinyin: 'shíjiān', vi: 'thời gian' },
+      { char: '空间', pinyin: 'kōngjiān', vi: 'không gian' },
+      { char: '房间', pinyin: 'fángjiān', vi: 'căn phòng' },
+    ],
+    usage: 'Liên quan đến <strong>khoảng không, thời gian, phòng</strong>. Âm HV: gian (phòng, khoảng). Cực phổ biến: 时间 + 空间 = thời gian + không gian!'
+  },
+
+  // NHÓM 7: SỐ LƯỢNG
+  {
+    char: '一', pinyin: 'yī', hanviet: 'Nhất', meaning: 'Một', group: 'so-luong',
+    icon: '1️⃣',
+    visual: '<strong>Một nét ngang</strong> — đơn giản tuyệt đối. Chữ số đơn giản nhất trong mọi hệ thống chữ.',
+    examples: [
+      { char: '一样', pinyin: 'yīyàng', vi: 'giống nhau' },
+      { char: '一起', pinyin: 'yīqǐ', vi: 'cùng nhau' },
+      { char: '统一', pinyin: 'tǒngyī', vi: 'thống nhất' },
+    ],
+    usage: 'Số 1, đồng thời nghĩa là <strong>duy nhất, như nhau</strong>. Âm HV: nhất (số một). 一起 = cùng nhau (đi một đường).'
+  },
+  {
+    char: '二', pinyin: 'èr', hanviet: 'Nhị', meaning: 'Hai', group: 'so-luong',
+    icon: '2️⃣',
+    visual: '<strong>Hai nét ngang</strong> — một trên một dưới. Dễ như đếm.',
+    examples: [
+      { char: '二月', pinyin: 'èryuè', vi: 'tháng Hai' },
+      { char: '周二', pinyin: 'zhōuèr', vi: 'thứ Ba' },
+    ],
+    usage: 'Số 2. Âm HV: nhị. Thú vị: "thứ Ba" trong tiếng Trung là 周二 (tuần thứ hai) không phải thứ Ba!'
+  },
+  {
+    char: '三', pinyin: 'sān', hanviet: 'Tam', meaning: 'Ba', group: 'so-luong',
+    icon: '3️⃣',
+    visual: '<strong>Ba nét ngang</strong> — đếm lên là 1, 2, 3. Cực kỳ trực quan.',
+    examples: [
+      { char: '三月', pinyin: 'sānyuè', vi: 'tháng Ba' },
+      { char: '三角', pinyin: 'sānjiǎo', vi: 'tam giác' },
+    ],
+    usage: 'Số 3. Âm HV: tam. Trong văn hóa TQ, số 3 rất may mắn. 三角 = ba góc = tam giác!'
+  },
+  {
+    char: '十', pinyin: 'shí', hanviet: 'Thập', meaning: 'Mười', group: 'so-luong',
+    icon: '🔟',
+    visual: '<strong>Dấu cộng/thập tự</strong> — nét dọc và nét ngang = 10 đơn vị. Chữ số 10 trong chữ Hán đẹp như dấu cộng.',
+    examples: [
+      { char: '十月', pinyin: 'shíyuè', vi: 'tháng Mười' },
+      { char: '十字', pinyin: 'shízì', vi: 'chữ thập' },
+      { char: '什么', pinyin: 'shénme', vi: 'cái gì' },
+    ],
+    usage: 'Số 10. Âm HV: thập. 十字路口 = ngã tư (chữ thập lộ khẩu). 什么 = cái gì (từ thông dụng nhất!).'
+  },
+  {
+    char: '百', pinyin: 'bǎi', hanviet: 'Bách', meaning: 'Trăm', group: 'so-luong',
+    icon: '💯',
+    visual: '<strong>Một (一) trên trắng (白)</strong> — 1 thêm vào chữ trắng tạo thành trăm. Cách nhớ: trăm là "cái gì đó lớn hơn 10".',
+    examples: [
+      { char: '百分', pinyin: 'bǎifēn', vi: 'phần trăm' },
+      { char: '百货', pinyin: 'bǎihuò', vi: 'bách hóa' },
+    ],
+    usage: 'Số 100. Âm HV: bách. 百分之百 = 100% = chắc chắn hoàn toàn. 百货 = bách hóa (hàng trăm loại hàng).'
+  },
+  {
+    char: '千', pinyin: 'qiān', hanviet: 'Thiên', meaning: 'Nghìn', group: 'so-luong',
+    icon: '🔢',
+    visual: '<strong>Người vươn cao</strong> — chữ 人 với nét ngang ở giữa = vươn lên cao = nhiều, nghìn.',
+    examples: [
+      { char: '千万', pinyin: 'qiānwàn', vi: 'nhất định/triệu' },
+      { char: '千年', pinyin: 'qiānnián', vi: 'ngàn năm' },
+    ],
+    usage: 'Số 1000. Âm HV: thiên. 千万 = nghìn vạn = "nhất định phải" (thành ngữ). Thiên niên kỷ = ngàn năm.'
+  },
+  {
+    char: '万', pinyin: 'wàn', hanviet: 'Vạn', meaning: 'Mười nghìn', group: 'so-luong',
+    icon: '💫',
+    visual: '<strong>Con bọ cạp</strong> — chữ gốc là hình bọ cạp (rất nhiều chân = rất nhiều). Sau dùng cho số 10.000.',
+    examples: [
+      { char: '万里', pinyin: 'wànlǐ', vi: 'vạn dặm' },
+      { char: '万岁', pinyin: 'wànsuì', vi: 'vạn tuế' },
+    ],
+    usage: 'Số 10.000. Âm HV: vạn. Vạn Lý Trường Thành = Tường thành vạn dặm. 万岁 = sống vạn năm = hoan hô!'
+  },
+  {
+    char: '半', pinyin: 'bàn', hanviet: 'Bán', meaning: 'Một nửa', group: 'so-luong',
+    icon: '½',
+    visual: '<strong>Bò bị cắt đôi</strong> — chữ 牛 (bò) với dao cắt ngang = một nửa. Hình tượng rất cụ thể!',
+    examples: [
+      { char: '半天', pinyin: 'bàntiān', vi: 'nửa ngày/mãi' },
+      { char: '一半', pinyin: 'yībàn', vi: 'một nửa' },
+      { char: '半夜', pinyin: 'bànyè', vi: 'nửa đêm' },
+    ],
+    usage: 'Một nửa, không hoàn toàn. Âm HV: bán (nửa). 半夜 = nửa đêm. 半天 có thể nghĩa là "mãi mới xong"!'
+  },
+
+  // NHÓM 8: MÀU SẮC & GIÁC QUAN
+  {
+    char: '白', pinyin: 'bái', hanviet: 'Bạch', meaning: 'Trắng', group: 'mau-sac',
+    icon: '⬜',
+    visual: '<strong>Ánh sáng mặt trời</strong> — mặt trời (日) với tia sáng trên đầu = ánh trắng tinh khiết.',
+    examples: [
+      { char: '明白', pinyin: 'míngbái', vi: 'hiểu rõ' },
+      { char: '白天', pinyin: 'báitiān', vi: 'ban ngày' },
+      { char: '白色', pinyin: 'báisè', vi: 'màu trắng' },
+    ],
+    usage: 'Màu trắng, trong sáng, ban ngày. Âm HV: bạch (trắng). 明白 = sáng + trắng = hiểu rõ. 白天 = trắng ngày = ban ngày.'
+  },
+  {
+    char: '黑', pinyin: 'hēi', hanviet: 'Hắc', meaning: 'Đen', group: 'mau-sac',
+    icon: '⬛',
+    visual: '<strong>Bồ hóng trên bếp lửa</strong> — lửa (灬) dưới đất (土) tạo ra khói đen. Màu đen từ khói bếp.',
+    examples: [
+      { char: '黑暗', pinyin: 'hēiàn', vi: 'bóng tối' },
+      { char: '黑板', pinyin: 'hēibǎn', vi: 'bảng đen' },
+      { char: '黑色', pinyin: 'hēisè', vi: 'màu đen' },
+    ],
+    usage: 'Màu đen, tối tăm, bí mật. Âm HV: hắc (đen). 黑板 = bảng đen. Hắc ám = tối tăm. 黑客 = hacker (khách hắc ám)!'
+  },
+  {
+    char: '红', pinyin: 'hóng', hanviet: 'Hồng', meaning: 'Đỏ', group: 'mau-sac',
+    icon: '🟥',
+    visual: '<strong>Tơ lụa đỏ</strong> — bộ 糸 (tơ/sợi) + 工 (thợ) = thợ nhuộm tơ thành đỏ. Lụa đỏ là hàng xa xỉ.',
+    examples: [
+      { char: '红色', pinyin: 'hóngsè', vi: 'màu đỏ' },
+      { char: '红包', pinyin: 'hóngbāo', vi: 'phong bì đỏ/lì xì' },
+      { char: '红茶', pinyin: 'hóngchá', vi: 'trà đen (hồng trà)' },
+    ],
+    usage: 'Màu đỏ, may mắn, cách mạng. Âm HV: hồng (đỏ). 红包 = lì xì (phong bì đỏ)! Đây cũng là tên app chuyển tiền WeChat Pay.'
+  },
+  {
+    char: '青', pinyin: 'qīng', hanviet: 'Thanh', meaning: 'Xanh lam/lục', group: 'mau-sac',
+    icon: '🟦',
+    visual: '<strong>Cỏ mọc trên đất</strong> — 生 (mọc) trên bộ thảo = màu xanh của cây cỏ và trời.',
+    examples: [
+      { char: '青春', pinyin: 'qīngchūn', vi: 'tuổi thanh xuân' },
+      { char: '清', pinyin: 'qīng', vi: 'trong sáng' },
+      { char: '请', pinyin: 'qǐng', vi: 'mời xin' },
+    ],
+    usage: 'Xanh (cả lam lẫn lục). Âm HV: thanh. Quan trọng: 清请情晴 đều đọc gần giống "qing" vì có chung bộ 青! Đây là ví dụ điển hình hình thanh tự.'
+  },
+  {
+    char: '色', pinyin: 'sè', hanviet: 'Sắc', meaning: 'Màu sắc', group: 'mau-sac',
+    icon: '🎨',
+    visual: '<strong>Người thay đổi vẻ ngoài</strong> — hình người quỳ trước người khác, mặt thay đổi biểu cảm = màu sắc thay đổi.',
+    examples: [
+      { char: '颜色', pinyin: 'yánsè', vi: 'màu sắc' },
+      { char: '特色', pinyin: 'tèsè', vi: 'đặc sắc' },
+      { char: '景色', pinyin: 'jǐngsè', vi: 'cảnh sắc' },
+    ],
+    usage: 'Màu sắc, vẻ ngoài, sắc thái. Âm HV: sắc (màu). 特色 = đặc sắc. 景色 = cảnh sắc. Rất thường dùng khi mô tả ngoại hình.'
+  },
+  {
+    char: '光', pinyin: 'guāng', hanviet: 'Quang', meaning: 'Ánh sáng', group: 'mau-sac',
+    icon: '✨',
+    visual: '<strong>Người cầm đuốc</strong> — 火 (lửa) trên người (儿) = người cầm đuốc phát sáng.',
+    examples: [
+      { char: '光明', pinyin: 'guāngmíng', vi: 'ánh sáng/tươi sáng' },
+      { char: '阳光', pinyin: 'yángguāng', vi: 'ánh nắng' },
+      { char: '光线', pinyin: 'guāngxiàn', vi: 'tia sáng' },
+    ],
+    usage: 'Ánh sáng, hào quang, trơn bóng. Âm HV: quang (sáng). 阳光 = ánh nắng. 光滑 = bóng trơn. 光荣 = vinh quang!'
+  },
+  {
+    char: '香', pinyin: 'xiāng', hanviet: 'Hương', meaning: 'Thơm', group: 'mau-sac',
+    icon: '🌸',
+    visual: '<strong>Lúa thơm</strong> — 禾 (lúa) + 日 (mặt trời) = lúa chín dưới nắng = thơm ngát.',
+    examples: [
+      { char: '香港', pinyin: 'Xiānggǎng', vi: 'Hồng Kông' },
+      { char: '香水', pinyin: 'xiāngshuǐ', vi: 'nước hoa' },
+      { char: '香蕉', pinyin: 'xiāngjiāo', vi: 'chuối' },
+    ],
+    usage: 'Thơm ngát, hương vị. Âm HV: hương. 香港 = Hương Cảng = cảng thơm = Hồng Kông. 香水 = nước hoa.'
+  },
+  {
+    char: '味', pinyin: 'wèi', hanviet: 'Vị', meaning: 'Vị/Mùi vị', group: 'mau-sac',
+    icon: '👅',
+    visual: '<strong>Miệng nếm vị</strong> — 口 (miệng) + 未 (chưa) = chưa biết vị gì, đang nếm thử.',
+    examples: [
+      { char: '味道', pinyin: 'wèidào', vi: 'mùi vị/hương vị' },
+      { char: '美味', pinyin: 'měiwèi', vi: 'ngon' },
+      { char: '口味', pinyin: 'kǒuwèi', vi: 'khẩu vị' },
+    ],
+    usage: 'Vị giác, hương vị, thú vị. Âm HV: vị (mùi vị). 美味 = đẹp + vị = ngon. 趣味 = thú vị (vị thú).'
+  },
+
+  // NHÓM 9: MỞ RỘNG
+  {
+    char: '氵', pinyin: 'shuǐ', hanviet: 'Thủy (biến thể)', meaning: '3 giọt nước', group: 'mo-rong',
+    icon: '💦',
+    visual: '<strong>Ba giọt nước</strong> — biến thể của 水 khi đứng bên trái chữ. Nhìn như 3 giọt mưa nhỏ thẳng hàng.',
+    examples: [
+      { char: '海', pinyin: 'hǎi', vi: 'biển' },
+      { char: '河', pinyin: 'hé', vi: 'sông' },
+      { char: '泪', pinyin: 'lèi', vi: 'nước mắt' },
+      { char: '游', pinyin: 'yóu', vi: 'bơi/du lịch' },
+    ],
+    usage: '<strong>Quy tắc vàng</strong>: thấy 氵bên trái → chữ đó liên quan đến nước/chất lỏng! Không có ngoại lệ. Cực kỳ hữu ích khi đoán nghĩa chữ lạ.'
+  },
+  {
+    char: '艹', pinyin: 'cǎo', hanviet: 'Thảo (biến thể)', meaning: 'Cỏ trên đầu', group: 'mo-rong',
+    icon: '🌱',
+    visual: '<strong>Hai nhánh cỏ</strong> — biến thể của 草 khi đứng trên đầu chữ. Nhìn như 2 chữ T ngược.',
+    examples: [
+      { char: '花', pinyin: 'huā', vi: 'hoa' },
+      { char: '茶', pinyin: 'chá', vi: 'trà' },
+      { char: '药', pinyin: 'yào', vi: 'thuốc' },
+      { char: '菜', pinyin: 'cài', vi: 'rau' },
+    ],
+    usage: '<strong>Quy tắc vàng</strong>: thấy 艹 trên đầu → chữ liên quan đến thực vật, thảo mộc. Hoa, rau, cỏ, thuốc thảo dược đều có bộ này.'
+  },
+  {
+    char: '贝', pinyin: 'bèi', hanviet: 'Bối', meaning: 'Vỏ sò/Tiền', group: 'mo-rong',
+    icon: '🐚',
+    visual: '<strong>Vỏ sò</strong> — hình vỏ sò với 2 chân nhỏ. Thời cổ đại người Trung Quốc dùng vỏ sò làm tiền tệ.',
+    examples: [
+      { char: '财', pinyin: 'cái', vi: 'tài sản' },
+      { char: '买', pinyin: 'mǎi', vi: 'mua' },
+      { char: '卖', pinyin: 'mài', vi: 'bán' },
+      { char: '贵', pinyin: 'guì', vi: 'đắt/quý' },
+    ],
+    usage: '<strong>Bộ tiền tệ cổ đại</strong> — mọi chữ liên quan đến tiền bạc, mua bán, giàu nghèo đều có bộ 贝. Âm HV: bối (vỏ sò, tiền xưa).'
+  },
+  {
+    char: '玉', pinyin: 'yù', hanviet: 'Ngọc', meaning: 'Ngọc/Đá quý', group: 'mo-rong',
+    icon: '💎',
+    visual: '<strong>Ba viên ngọc trên dây</strong> — hình 3 hạt ngọc xâu trên một sợi dây. Biến thể 王 (vua) khi làm bộ thủ.',
+    examples: [
+      { char: '班', pinyin: 'bān', vi: 'lớp/ca làm việc' },
+      { char: '现', pinyin: 'xiàn', vi: 'hiện tại' },
+      { char: '珍', pinyin: 'zhēn', vi: 'quý giá' },
+    ],
+    usage: 'Liên quan đến <strong>ngọc, quý giá, hoàng gia</strong>. Chú ý: 王 (vua) và 玉 (ngọc) rất giống nhau, chỉ khác 1 chấm! Âm HV: ngọc (jade).'
+  },
+  {
+    char: '糸', pinyin: 'mì', hanviet: 'Mịch', meaning: 'Sợi tơ/Chỉ', group: 'mo-rong',
+    icon: '🧶',
+    visual: '<strong>Cuộn sợi tơ</strong> — hình sợi chỉ quấn thành cuộn. Biến thể 纟khi đứng bên trái.',
+    examples: [
+      { char: '红', pinyin: 'hóng', vi: 'đỏ' },
+      { char: '绿', pinyin: 'lǜ', vi: 'xanh lá' },
+      { char: '给', pinyin: 'gěi', vi: 'cho/tặng' },
+      { char: '结', pinyin: 'jié', vi: 'kết/buộc' },
+    ],
+    usage: 'Liên quan đến <strong>sợi chỉ, vải, màu nhuộm, kết nối</strong>. Vì ngày xưa màu sắc gắn với màu nhuộm vải, nhiều từ chỉ màu có bộ 纟. Âm HV: mịch (tơ).'
+  },
+];
+
+// Render
+function renderAll(filter = 'all', search = '') {
+  const main = document.getElementById('mainContent');
+  const countEl = document.getElementById('resultsCount');
+  // Remove old groups
+  document.querySelectorAll('.group-section').forEach(e => e.remove());
+
+  const groups = {
+    'thien-nhien': 'Thiên Nhiên',
+    'con-nguoi': 'Con Người & Cơ Thể',
+    'dong-vat': 'Động Vật',
+    'nha-cua': 'Nhà Cửa & Vật Dụng',
+    'hanh-dong': 'Hành Động & Trạng Thái',
+    'khong-gian': 'Không Gian & Phương Hướng',
+    'so-luong': 'Số & Lượng',
+    'mau-sac': 'Màu Sắc & Giác Quan',
+    'mo-rong': 'Tự Nhiên Mở Rộng'
+  };
+
+  let totalShown = 0;
+  const searchLower = search.toLowerCase();
+
+  Object.entries(groups).forEach(([gKey, gLabel]) => {
+    if (filter !== 'all' && filter !== gKey) return;
+    const items = radicals.filter(r => {
+      if (r.group !== gKey) return false;
+      if (!search) return true;
+      return r.char.includes(search) ||
+        r.pinyin.toLowerCase().includes(searchLower) ||
+        r.hanviet.toLowerCase().includes(searchLower) ||
+        r.meaning.toLowerCase().includes(searchLower);
+    });
+    if (items.length === 0) return;
+    totalShown += items.length;
+
+    const section = document.createElement('div');
+    section.className = 'group-section';
+
+    const title = document.createElement('div');
+    title.className = 'group-title';
+    title.textContent = gLabel;
+    section.appendChild(title);
+
+    const grid = document.createElement('div');
+    grid.className = 'cards-grid';
+
+    items.forEach(r => {
+      const card = document.createElement('div');
+      card.className = 'card';
+
+      const examplesHtml = r.examples.map(e =>
+        `<div class="example-tag">
+          <span class="ex-char">${e.char}</span>
+          <span class="ex-info">${e.pinyin}<br>${e.vi}</span>
+        </div>`
+      ).join('');
+
+      card.innerHTML = `
+        <div class="card-top" data-char="${r.char}">
+          <span class="group-tag">${r.group.replace('-',' ')}</span>
+          <div class="char-display">${r.char}</div>
+          <div class="char-meta">
+            <div class="char-pinyin">${r.pinyin}</div>
+            <div class="char-hanviet">${r.hanviet}</div>
+            <div class="char-meaning">${r.meaning}</div>
+          </div>
+          <button class="audio-btn" title="Nghe phát âm" onclick="speak('${r.char}', '${r.pinyin}', this)">🔊</button>
+        </div>
+        <div class="card-body">
+          <div class="visual-box">
+            <span class="visual-icon">${r.icon}</span>
+            <div class="visual-text">${r.visual}</div>
+          </div>
+          <div class="examples-label">Ví dụ thực tế</div>
+          <div class="examples-list">${examplesHtml}</div>
+          <div class="examples-label">Cách dùng</div>
+          <div class="usage-note">${r.usage}</div>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+
+    section.appendChild(grid);
+    main.appendChild(section);
+  });
+
+  countEl.textContent = `Hiển thị ${totalShown} bộ thủ`;
+}
+
+// Speech
+function speak(char, pinyin, btn) {
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+    const utter = new SpeechSynthesisUtterance(char);
+    utter.lang = 'zh-CN';
+    utter.rate = 0.8;
+    btn.classList.add('playing');
+    utter.onend = () => btn.classList.remove('playing');
+    utter.onerror = () => btn.classList.remove('playing');
+    window.speechSynthesis.speak(utter);
+  } else {
+    // Fallback: open TTS link
+    window.open(`https://translate.google.com/?sl=zh-CN&tl=vi&text=${encodeURIComponent(char)}&op=translate`, '_blank');
+  }
+}
+
+// Filter buttons
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderAll(btn.dataset.group, document.getElementById('searchInput').value);
+  });
+});
+
+// Search
+let searchTimer;
+document.getElementById('searchInput').addEventListener('input', e => {
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(() => {
+    const activeFilter = document.querySelector('.filter-btn.active')?.dataset.group || 'all';
+    renderAll(activeFilter, e.target.value);
+  }, 300);
+});
+
+// Init
+renderAll();
+</script>
+</body>
+</html>
