@@ -815,7 +815,8 @@ function setCat(btn,cat){
 
 /* ===== TAB SWITCHING ===== */
 function switchTab(tab){
-  document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',['vocab','practice'][i]===tab));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>{ if(b.getAttribute('onclick')===`switchTab('${tab}')`) b.classList.add('active'); });
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
   document.getElementById('tab-'+tab).classList.add('active');
   if(tab==='practice') showPracticeHome();
@@ -857,7 +858,7 @@ function selectMode(mode,el){
 }
 
 function showPracticeHome(){
-  document.getElementById('practice-home').style.display='';
+  document.getElementById('practice-home').style.display='block';
   document.getElementById('practice-session').style.display='none';
   document.getElementById('finish-screen').style.display='none';
   loadSRS();
@@ -866,14 +867,13 @@ function showPracticeHome(){
 function startSession(){
   loadSRS();
   const now=Date.now();
-  // sort: overdue first, then by due time
   const due=words.filter(w=>srsData[w.zh].due<=now).sort((a,b)=>srsData[a.zh].due-srsData[b.zh].due);
   const notDue=words.filter(w=>srsData[w.zh].due>now).sort((a,b)=>srsData[a.zh].due-srsData[b.zh].due);
   sessionQueue=[...due,...notDue].slice(0,20);
   sessionIdx=0; sessionEasy=0; sessionHard=0;
   document.getElementById('practice-home').style.display='none';
   document.getElementById('finish-screen').style.display='none';
-  document.getElementById('practice-session').style.display='';
+  document.getElementById('practice-session').style.display='block';
   updateProgress();
   showCard();
 }
@@ -1127,7 +1127,7 @@ function revealWrite(zh,py,iid,easy){
 function showFinish(){
   document.getElementById('practice-session').style.display='none';
   const fs=document.getElementById('finish-screen');
-  fs.style.display='';
+  fs.style.display='block';
   const total=sessionEasy+sessionHard;
   const acc=total>0?Math.round(sessionEasy/total*100):0;
   document.getElementById('f-easy').textContent=sessionEasy;
