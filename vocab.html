@@ -69,6 +69,26 @@ button.cat.active{background:#1a56db;color:#fff;border-color:#1a56db}
 .char-block .ch-mean{font-size:11px;color:#92400e;margin-top:1px}
 .etym-desc{font-size:12px;color:#78350f;line-height:1.6}
 .no-etym{font-size:12px;color:#aaa;font-style:italic}
+
+/* grammar analysis */
+.gram-box{margin-top:8px;padding:8px 10px;background:#f0f4ff;border:1px solid #c7d7f9;border-radius:8px}
+.gram-title{font-size:10px;font-weight:600;color:#3b5bdb;letter-spacing:.8px;text-transform:uppercase;margin-bottom:6px}
+.gram-tokens{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:6px}
+.gram-token{border-radius:6px;border:1px solid;padding:4px 7px;text-align:center;min-width:36px}
+.gram-token .gt-zh{font-size:14px;font-weight:600;display:block;line-height:1.3}
+.gram-token .gt-role{font-size:9px;display:block;margin-top:2px;font-weight:600;letter-spacing:.4px;text-transform:uppercase}
+.gt-S{background:#dbeafe;border-color:#93c5fd;color:#1e3a8a}.gt-S .gt-role{color:#1d4ed8}
+.gt-P{background:#ede9fe;border-color:#c4b5fd;color:#3b0764}.gt-P .gt-role{color:#6d28d9}
+.gt-O{background:#dcfce7;border-color:#86efac;color:#14532d}.gt-O .gt-role{color:#15803d}
+.gt-ADV{background:#fef3c7;border-color:#fcd34d;color:#451a03}.gt-ADV .gt-role{color:#92400e}
+.gt-ADJ{background:#fde8d8;border-color:#fdba74;color:#7c2d12}.gt-ADJ .gt-role{color:#9a3412}
+.gt-PART{background:#f0fdf4;border-color:#bbf7d0;color:#14532d}.gt-PART .gt-role{color:#166534}
+.gt-PREP{background:#fee2e2;border-color:#fca5a5;color:#7f1d1d}.gt-PREP .gt-role{color:#991b1b}
+.gt-CONJ{background:#f1f5f9;border-color:#cbd5e1;color:#0f172a}.gt-CONJ .gt-role{color:#475569}
+.gram-note{font-size:11px;color:#4338ca;line-height:1.6;background:#eef2ff;border-radius:6px;padding:5px 8px}
+.gram-legend{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.gl-item{display:flex;align-items:center;gap:3px;font-size:10px;color:#666}
+.gl-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
 </style>
 </head>
 <body>
@@ -113,92 +133,118 @@ function speak(txt,btn,e){
 const words=[
   {zh:"小松鼠",py:"xiǎo sōngshǔ",cat:"N",vi:"con sóc nhỏ",
    sents:[
-     {raw:"小松鼠爬上了大树，找到了很多松果。",zhd:"<b>小松鼠</b>爬上了大树，找到了很多松果。",py:"<b>Xiǎo sōngshǔ</b> pá shàng le dà shù, zhǎodào le hěnduō sōngguǒ.",vi:"Con sóc nhỏ leo lên cây lớn, tìm thấy rất nhiều quả thông."},
-     {raw:"小松鼠的尾巴又大又蓬松。",zhd:"<b>小松鼠</b>的尾巴又大又蓬松。",py:"<b>Xiǎo sōngshǔ</b> de wěibā yòu dà yòu péngsōng.",vi:"Đuôi của con sóc nhỏ vừa to vừa xù."}
+     {raw:"小松鼠爬上了大树，找到了很多松果。",zhd:"<b>小松鼠</b>爬上了大树，找到了很多松果。",py:"<b>Xiǎo sōngshǔ</b> pá shàng le dà shù, zhǎodào le hěnduō sōngguǒ.",vi:"Con sóc nhỏ leo lên cây lớn, tìm thấy rất nhiều quả thông.",
+      gram:{tokens:[{zh:"小松鼠",r:"S"},{zh:"爬上了",r:"P"},{zh:"大树",r:"O"},{zh:"找到了",r:"P"},{zh:"很多",r:"ADJ"},{zh:"松果",r:"O"}],note:"Câu ghép 2 vế: S+P+O / S(ẩn)+P+O. 爬上了 = leo lên (kết quả hoàn thành). 很多 là định ngữ bổ nghĩa cho 松果."}},
+     {raw:"小松鼠的尾巴又大又蓬松。",zhd:"<b>小松鼠</b>的尾巴又大又蓬松。",py:"<b>Xiǎo sōngshǔ</b> de wěibā yòu dà yòu péngsōng.",vi:"Đuôi của con sóc nhỏ vừa to vừa xù.",
+      gram:{tokens:[{zh:"小松鼠",r:"ADJ"},{zh:"的",r:"PART"},{zh:"尾巴",r:"S"},{zh:"又大",r:"P"},{zh:"又蓬松",r:"P"}],note:"Cấu trúc 又A又B = vừa A vừa B. 小松鼠的 là cụm định ngữ sở hữu bổ nghĩa cho 尾巴 (chủ ngữ)."}}
    ],
    etym:{chars:[{ch:"松",py:"sōng",mean:"cây thông / lỏng lẻo"},{ch:"鼠",py:"shǔ",mean:"chuột / loài gặm nhấm"}],desc:"松鼠 (sōngshǔ): nghĩa đen là 'chuột thông' — loài động vật hay sống trên cây thông và ăn quả thông. Chữ 鼠 là tượng hình, vẽ hình con chuột với đầu, thân và đuôi."}},
 
   {zh:"胆子",py:"dǎnzi",cat:"N",vi:"cái gan, sự dũng cảm",
    sents:[
-     {raw:"他的胆子越来越大了，连黑暗都不怕。",zhd:"他的<b>胆子</b>越来越大了，连黑暗都不怕。",py:"Tā de <b>dǎnzi</b> yuèláiyuè dà le, lián hēiàn dōu bù pà.",vi:"Gan anh ấy ngày càng lớn, ngay cả bóng tối cũng không sợ."},
-     {raw:"妹妹的胆子很小，不敢一个人睡觉。",zhd:"妹妹的<b>胆子</b>很小，不敢一个人睡觉。",py:"Mèimei de <b>dǎnzi</b> hěn xiǎo, bù gǎn yīgèrén shuìjiào.",vi:"Em gái rất nhút nhát, không dám ngủ một mình."}
+     {raw:"他的胆子越来越大了，连黑暗都不怕。",zhd:"他的<b>胆子</b>越来越大了，连黑暗都不怕。",py:"Tā de <b>dǎnzi</b> yuèláiyuè dà le, lián hēiàn dōu bù pà.",vi:"Gan anh ấy ngày càng lớn, ngay cả bóng tối cũng không sợ.",
+      gram:{tokens:[{zh:"他的",r:"ADJ"},{zh:"胆子",r:"S"},{zh:"越来越",r:"ADV"},{zh:"大",r:"P"},{zh:"了",r:"PART"},{zh:"连…都",r:"CONJ"},{zh:"不怕",r:"P"}],note:"越来越+ADJ = ngày càng. 连…都… = thậm chí… cũng… (nhấn mạnh mức độ cực đoan)."}},
+     {raw:"妹妹的胆子很小，不敢一个人睡觉。",zhd:"妹妹的<b>胆子</b>很小，不敢一个人睡觉。",py:"Mèimei de <b>dǎnzi</b> hěn xiǎo, bù gǎn yīgèrén shuìjiào.",vi:"Em gái rất nhút nhát, không dám ngủ một mình.",
+      gram:{tokens:[{zh:"妹妹的",r:"ADJ"},{zh:"胆子",r:"S"},{zh:"很小",r:"P"},{zh:"不敢",r:"ADV"},{zh:"一个人",r:"ADV"},{zh:"睡觉",r:"P"}],note:"很 tăng cường mức độ tính từ. 不敢+V = không dám làm gì. 一个人 là trạng ngữ cách thức (một mình)."}}
    ],
    etym:{chars:[{ch:"胆",py:"dǎn",mean:"túi mật / sự dũng cảm"},{ch:"子",py:"zi",mean:"hậu tố danh từ hóa"}],desc:"胆 (dǎn): gồm bộ 月 (thịt/cơ thể) + 詹 (âm). Người xưa tin rằng 'mật' (túi mật) là nơi chứa sự dũng cảm — ai có mật lớn thì dũng cảm. 子 là hậu tố biến từ thành danh từ thông dụng."}},
 
   {zh:"从来",py:"cónglái",cat:"ADV",vi:"chưa bao giờ (dùng với phủ định)",
    sents:[
-     {raw:"他从来不迟到，每次都准时到。",zhd:"他<b>从来</b>不迟到，每次都准时到。",py:"Tā <b>cónglái</b> bù chídào, měi cì dōu zhǔnshí dào.",vi:"Anh ấy chưa bao giờ đi muộn, lần nào cũng đúng giờ."},
-     {raw:"我从来没有见过这么大的蜘蛛。",zhd:"我<b>从来</b>没有见过这么大的蜘蛛。",py:"Wǒ <b>cónglái</b> méiyǒu jiànguò zhème dà de zhīzhū.",vi:"Tôi chưa bao giờ thấy con nhện to đến vậy."}
+     {raw:"他从来不迟到，每次都准时到。",zhd:"他<b>从来</b>不迟到，每次都准时到。",py:"Tā <b>cónglái</b> bù chídào, měi cì dōu zhǔnshí dào.",vi:"Anh ấy chưa bao giờ đi muộn, lần nào cũng đúng giờ.",
+      gram:{tokens:[{zh:"他",r:"S"},{zh:"从来不",r:"ADV"},{zh:"迟到",r:"P"},{zh:"每次",r:"ADV"},{zh:"都",r:"ADV"},{zh:"准时",r:"ADV"},{zh:"到",r:"P"}],note:"从来不 = chưa bao giờ (phủ định tuyệt đối). 每次都 = lần nào cũng (khẳng định tuyệt đối). Hai vế đối lập nhau tạo nhấn mạnh."}},
+     {raw:"我从来没有见过这么大的蜘蛛。",zhd:"我<b>从来</b>没有见过这么大的蜘蛛。",py:"Wǒ <b>cónglái</b> méiyǒu jiànguò zhème dà de zhīzhū.",vi:"Tôi chưa bao giờ thấy con nhện to đến vậy.",
+      gram:{tokens:[{zh:"我",r:"S"},{zh:"从来没有",r:"ADV"},{zh:"见过",r:"P"},{zh:"这么大的",r:"ADJ"},{zh:"蜘蛛",r:"O"}],note:"从来没有+V过 = chưa từng bao giờ trải qua. 这么大的 là cụm định ngữ chỉ mức độ bổ nghĩa cho 蜘蛛."}}
    ],
    etym:{chars:[{ch:"从",py:"cóng",mean:"từ / theo"},{ch:"来",py:"lái",mean:"đến / từ trước đến nay"}],desc:"从来 = 'từ xưa đến nay'. 从 (từ) + 来 (đến) ghép lại chỉ một khoảng thời gian kéo dài từ quá khứ đến hiện tại. Luôn dùng với phủ định (不/没) để tạo nghĩa 'chưa bao giờ'."}},
 
   {zh:"不敢",py:"bù gǎn",cat:"V",vi:"không dám",
    sents:[
-     {raw:"她不敢一个人过马路。",zhd:"她<b>不敢</b>一个人过马路。",py:"Tā <b>bù gǎn</b> yīgèrén guò mǎlù.",vi:"Cô ấy không dám một mình qua đường."},
-     {raw:"他不敢告诉妈妈真相。",zhd:"他<b>不敢</b>告诉妈妈真相。",py:"Tā <b>bù gǎn</b> gàosu māma zhēnxiàng.",vi:"Anh ấy không dám nói thật với mẹ."}
+     {raw:"她不敢一个人过马路。",zhd:"她<b>不敢</b>一个人过马路。",py:"Tā <b>bù gǎn</b> yīgèrén guò mǎlù.",vi:"Cô ấy không dám một mình qua đường.",
+      gram:{tokens:[{zh:"她",r:"S"},{zh:"不敢",r:"ADV"},{zh:"一个人",r:"ADV"},{zh:"过",r:"P"},{zh:"马路",r:"O"}],note:"不敢 là trạng ngữ phủ định ý chí. 一个人 = trạng ngữ cách thức (một mình). Chuỗi trạng ngữ: 不敢 → 一个人 → cùng bổ nghĩa cho vị ngữ 过."}},
+     {raw:"他不敢告诉妈妈真相。",zhd:"他<b>不敢</b>告诉妈妈真相。",py:"Tā <b>bù gǎn</b> gàosu māma zhēnxiàng.",vi:"Anh ấy không dám nói thật với mẹ.",
+      gram:{tokens:[{zh:"他",r:"S"},{zh:"不敢",r:"ADV"},{zh:"告诉",r:"P"},{zh:"妈妈",r:"O"},{zh:"真相",r:"O"}],note:"告诉 là động từ song tân: O1=妈妈 (người nhận), O2=真相 (nội dung). Cấu trúc: S + 不敢 + V + O1 + O2."}}
    ],
    etym:{chars:[{ch:"不",py:"bù",mean:"phủ định"},{ch:"敢",py:"gǎn",mean:"dám / can đảm"}],desc:"敢 (gǎn): tượng hình — vẽ tay cầm vũ khí, ý chỉ người dũng cảm dám cầm vũ khí chiến đấu. 不敢 = phủ định trực tiếp, 'không dám làm gì đó'."}},
 
   {zh:"自己",py:"zìjǐ",cat:"ADV",vi:"tự mình, bản thân",
    sents:[
-     {raw:"你要学会自己解决问题。",zhd:"你要学会<b>自己</b>解决问题。",py:"Nǐ yào xuéhuì <b>zìjǐ</b> jiějué wèntí.",vi:"Bạn phải học cách tự mình giải quyết vấn đề."},
-     {raw:"她自己做了一个蛋糕送给妈妈。",zhd:"她<b>自己</b>做了一个蛋糕送给妈妈。",py:"Tā <b>zìjǐ</b> zuò le yīgè dàngāo sòng gěi māma.",vi:"Cô ấy tự tay làm một chiếc bánh tặng mẹ."}
+     {raw:"你要学会自己解决问题。",zhd:"你要学会<b>自己</b>解决问题。",py:"Nǐ yào xuéhuì <b>zìjǐ</b> jiějué wèntí.",vi:"Bạn phải học cách tự mình giải quyết vấn đề.",
+      gram:{tokens:[{zh:"你",r:"S"},{zh:"要",r:"ADV"},{zh:"学会",r:"P"},{zh:"自己",r:"ADV"},{zh:"解决",r:"P"},{zh:"问题",r:"O"}],note:"要 = trợ động từ chỉ sự cần thiết. 学会 + [自己解决问题] = học cách [tự giải quyết]. 自己 là trạng ngữ bổ nghĩa cho 解决, nhấn mạnh tự làm."}},
+     {raw:"她自己做了一个蛋糕送给妈妈。",zhd:"她<b>自己</b>做了一个蛋糕送给妈妈。",py:"Tā <b>zìjǐ</b> zuò le yīgè dàngāo sòng gěi māma.",vi:"Cô ấy tự tay làm một chiếc bánh tặng mẹ.",
+      gram:{tokens:[{zh:"她",r:"S"},{zh:"自己",r:"ADV"},{zh:"做了",r:"P"},{zh:"一个蛋糕",r:"O"},{zh:"送给",r:"P"},{zh:"妈妈",r:"O"}],note:"Câu ghép nối tiếp: làm bánh → tặng mẹ. 了 = hoàn thành. 自己 nhấn mạnh chính tay cô ấy làm, không nhờ ai."}}
    ],
    etym:{chars:[{ch:"自",py:"zì",mean:"mình / tự"},{ch:"己",py:"jǐ",mean:"bản thân / cái tôi"}],desc:"自 (zì): tượng hình — vẽ hình cái mũi, vì người Trung Hoa cổ đại chỉ vào mũi khi nói 'tôi/mình'. 己 là thiên can thứ 6, dùng chỉ 'bản thân'. 自己 = nhấn mạnh chính bản thân mình làm, không nhờ người khác."}},
 
   {zh:"出门",py:"chūmén",cat:"V",vi:"ra ngoài, ra khỏi nhà",
    sents:[
-     {raw:"下雨天，妈妈不让我出门玩。",zhd:"下雨天，妈妈不让我<b>出门</b>玩。",py:"Xià yǔ tiān, māma bù ràng wǒ <b>chūmén</b> wán.",vi:"Trời mưa, mẹ không cho tôi ra ngoài chơi."},
-     {raw:"他每天早上八点出门去上学。",zhd:"他每天早上八点<b>出门</b>去上学。",py:"Tā měitiān zǎoshang bā diǎn <b>chūmén</b> qù shàngxué.",vi:"Mỗi sáng anh ấy ra khỏi nhà lúc 8 giờ để đi học."}
+     {raw:"下雨天，妈妈不让我出门玩。",zhd:"下雨天，妈妈不让我<b>出门</b>玩。",py:"Xià yǔ tiān, māma bù ràng wǒ <b>chūmén</b> wán.",vi:"Trời mưa, mẹ không cho tôi ra ngoài chơi.",
+      gram:{tokens:[{zh:"下雨天",r:"ADV"},{zh:"妈妈",r:"S"},{zh:"不让",r:"P"},{zh:"我",r:"O"},{zh:"出门",r:"P"},{zh:"玩",r:"P"}],note:"让 = động từ khiến cách (cho phép). 不让+O+V = không cho ai làm gì. 出门玩 = chuỗi động từ: ra ngoài rồi chơi."}},
+     {raw:"他每天早上八点出门去上学。",zhd:"他每天早上八点<b>出门</b>去上学。",py:"Tā měitiān zǎoshang bā diǎn <b>chūmén</b> qù shàngxué.",vi:"Mỗi sáng anh ấy ra khỏi nhà lúc 8 giờ để đi học.",
+      gram:{tokens:[{zh:"他",r:"S"},{zh:"每天早上",r:"ADV"},{zh:"八点",r:"ADV"},{zh:"出门",r:"P"},{zh:"去",r:"P"},{zh:"上学",r:"P"}],note:"Chuỗi trạng ngữ thời gian: 每天→早上→八点 (từ rộng đến hẹp). 出门去上学 = chuỗi 3 động từ liên tiếp mô tả hành động nối nhau."}}
    ],
    etym:{chars:[{ch:"出",py:"chū",mean:"ra / thoát ra"},{ch:"门",py:"mén",mean:"cửa / cổng"}],desc:"出 (chū): tượng hình cổ đại — vẽ hình bàn chân bước ra khỏi cái hang/cửa. 门 (mén): tượng hình hai cánh cửa. 出门 = hành động bước ra qua cửa, nghĩa rộng là 'rời khỏi nhà'."}},
 
   {zh:"躲",py:"duǒ",cat:"V",vi:"trốn, ẩn nấp",
    sents:[
-     {raw:"小猫躲在床底下，不肯出来。",zhd:"小猫<b>躲</b>在床底下，不肯出来。",py:"Xiǎo māo <b>duǒ</b> zài chuáng dǐ xia, bù kěn chūlái.",vi:"Con mèo nhỏ trốn dưới gầm giường, không chịu ra ngoài."},
-     {raw:"他躲避了所有的问题，一句话也不说。",zhd:"他<b>躲</b>避了所有的问题，一句话也不说。",py:"Tā <b>duǒ</b>bì le suǒyǒu de wèntí, yī jù huà yě bù shuō.",vi:"Anh ấy né tránh mọi câu hỏi, không nói một lời nào."}
+     {raw:"小猫躲在床底下，不肯出来。",zhd:"小猫<b>躲</b>在床底下，不肯出来。",py:"Xiǎo māo <b>duǒ</b> zài chuáng dǐ xia, bù kěn chūlái.",vi:"Con mèo nhỏ trốn dưới gầm giường, không chịu ra ngoài.",
+      gram:{tokens:[{zh:"小猫",r:"S"},{zh:"躲",r:"P"},{zh:"在",r:"PREP"},{zh:"床底下",r:"O"},{zh:"不肯",r:"ADV"},{zh:"出来",r:"P"}],note:"躲在+địa điểm = trốn ở chỗ nào. 不肯+V = không chịu làm gì (cố ý từ chối, khác với 不能=không thể)."}},
+     {raw:"他躲避了所有的问题，一句话也不说。",zhd:"他<b>躲</b>避了所有的问题，一句话也不说。",py:"Tā <b>duǒ</b>bì le suǒyǒu de wèntí, yī jù huà yě bù shuō.",vi:"Anh ấy né tránh mọi câu hỏi, không nói một lời nào.",
+      gram:{tokens:[{zh:"他",r:"S"},{zh:"躲避了",r:"P"},{zh:"所有的",r:"ADJ"},{zh:"问题",r:"O"},{zh:"一句话",r:"O"},{zh:"也不说",r:"P"}],note:"一句话也不说 = cấu trúc nhấn mạnh tuyệt đối: dù chỉ một câu cũng không nói. 也 ở đây tương đương 'thậm chí'."}}
    ],
    etym:{chars:[{ch:"躲",py:"duǒ",mean:"trốn / ẩn"}],desc:"躲 (duǒ): gồm bộ 身 (thân người) + 朵 (âm thanh và hình). Chữ ghép chỉ hành động toàn thân co rút lại để ẩn nấp. 朵 vừa cho âm đọc vừa gợi hình ảnh thu nhỏ lại như bông hoa chưa nở."}},
 
   {zh:"露出",py:"lùchū",cat:"V",vi:"thò ra, lộ ra",
    sents:[
-     {raw:"她笑了，露出了两颗小虎牙。",zhd:"她笑了，<b>露出</b>了两颗小虎牙。",py:"Tā xiào le, <b>lùchū</b> le liǎng kē xiǎo hǔyá.",vi:"Cô ấy cười, để lộ hai chiếc răng nanh nhỏ xinh."},
-     {raw:"他的袜子从裤子下面露出来了。",zhd:"他的袜子从裤子下面<b>露出</b>来了。",py:"Tā de wàzi cóng kùzi xiàmian <b>lùchū</b> lái le.",vi:"Tất của anh ấy thò ra phía dưới ống quần."}
+     {raw:"她笑了，露出了两颗小虎牙。",zhd:"她笑了，<b>露出</b>了两颗小虎牙。",py:"Tā xiào le, <b>lùchū</b> le liǎng kē xiǎo hǔyá.",vi:"Cô ấy cười, để lộ hai chiếc răng nanh nhỏ xinh.",
+      gram:{tokens:[{zh:"她",r:"S"},{zh:"笑了",r:"P"},{zh:"露出了",r:"P"},{zh:"两颗",r:"ADJ"},{zh:"小",r:"ADJ"},{zh:"虎牙",r:"O"}],note:"Câu ghép nối tiếp: cười → lộ răng. 两颗+小 là chuỗi định ngữ bổ nghĩa cho 虎牙. 颗 là lượng từ chuyên dùng cho vật nhỏ tròn (răng, hạt)."}},
+     {raw:"他的袜子从裤子下面露出来了。",zhd:"他的袜子从裤子下面<b>露出</b>来了。",py:"Tā de wàzi cóng kùzi xiàmian <b>lùchū</b> lái le.",vi:"Tất của anh ấy thò ra phía dưới ống quần.",
+      gram:{tokens:[{zh:"他的",r:"ADJ"},{zh:"袜子",r:"S"},{zh:"从…下面",r:"PREP"},{zh:"裤子",r:"O"},{zh:"露出来了",r:"P"}],note:"从+địa điểm = từ chỗ nào (giới từ chỉ xuất phát). 露出来 = bổ ngữ hướng: lộ + ra + đến đây. 了 = thay đổi trạng thái mới."}}
    ],
    etym:{chars:[{ch:"露",py:"lù",mean:"lộ ra / sương"},{ch:"出",py:"chū",mean:"ra ngoài"}],desc:"露 (lù): gồm bộ 雨 (mưa) + 路 (đường/âm). Ban đầu nghĩa là sương móc trên lá lộ ra dưới ánh sáng. Nghĩa mở rộng: để lộ, hiện ra. 露出 = để lộ ra ngoài, xuất hiện một phần."}},
 
   {zh:"脑袋",py:"nǎodai",cat:"N",vi:"cái đầu (thông tục)",
    sents:[
-     {raw:"他的脑袋很大，帽子都戴不上去。",zhd:"他的<b>脑袋</b>很大，帽子都戴不上去。",py:"Tā de <b>nǎodai</b> hěn dà, màozi dōu dài bu shàngqù.",vi:"Đầu anh ấy rất to, đội mũ cũng không vừa."},
-     {raw:"他摇摇脑袋，表示不同意。",zhd:"他摇摇<b>脑袋</b>，表示不同意。",py:"Tā yáo yáo <b>nǎodai</b>, biǎoshì bù tóngyì.",vi:"Anh ấy lắc đầu, tỏ ý không đồng ý."}
+     {raw:"他的脑袋很大，帽子都戴不上去。",zhd:"他的<b>脑袋</b>很大，帽子都戴不上去。",py:"Tā de <b>nǎodai</b> hěn dà, màozi dōu dài bu shàngqù.",vi:"Đầu anh ấy rất to, đội mũ cũng không vừa.",
+      gram:{tokens:[{zh:"他的",r:"ADJ"},{zh:"脑袋",r:"S"},{zh:"很大",r:"P"},{zh:"帽子",r:"S"},{zh:"都",r:"ADV"},{zh:"戴不上去",r:"P"}],note:"Câu ghép nhân quả ngầm: đầu to → mũ không vừa. 戴不上去 = bổ ngữ khả năng phủ định: đội + không được + lên. 都 nhấn mạnh 'ngay cả cái mũ cũng không'."}},
+     {raw:"他摇摇脑袋，表示不同意。",zhd:"他摇摇<b>脑袋</b>，表示不同意。",py:"Tā yáo yáo <b>nǎodai</b>, biǎoshì bù tóngyì.",vi:"Anh ấy lắc đầu, tỏ ý không đồng ý.",
+      gram:{tokens:[{zh:"他",r:"S"},{zh:"摇摇",r:"P"},{zh:"脑袋",r:"O"},{zh:"表示",r:"P"},{zh:"不同意",r:"O"}],note:"摇摇 = dạng lặp AA của động từ, chỉ hành động nhẹ nhàng/ngắn. Câu ghép: hành động (lắc đầu) → mục đích (biểu thị)."}}
    ],
    etym:{chars:[{ch:"脑",py:"nǎo",mean:"não / đầu"},{ch:"袋",py:"dài",mean:"túi / bao"}],desc:"脑 (nǎo): bộ 月 (thịt) + 囟 (thóp đầu trẻ em). Chữ 脑 vẽ hình thóp đầu — nơi dễ thấy não bộ ở trẻ sơ sinh. 袋 (túi): ẩn dụ 'cái túi đựng não'. 脑袋 là cách nói thân mật/thông tục hơn 头 (tóu)."}},
 
   {zh:"生病",py:"shēngbìng",cat:"V",vi:"bị ốm, bị bệnh",
    sents:[
-     {raw:"他生病了，今天不能来上课。",zhd:"他<b>生病</b>了，今天不能来上课。",py:"Tā <b>shēngbìng</b> le, jīntiān bù néng lái shàngkè.",vi:"Anh ấy bị ốm, hôm nay không thể đến lớp."},
-     {raw:"天气变化快，容易生病，要多穿衣服。",zhd:"天气变化快，容易<b>生病</b>，要多穿衣服。",py:"Tiānqì biànhuà kuài, róngyì <b>shēngbìng</b>, yào duō chuān yīfú.",vi:"Thời tiết thay đổi nhanh, dễ bị ốm, hãy mặc thêm áo."}
+     {raw:"他生病了，今天不能来上课。",zhd:"他<b>生病</b>了，今天不能来上课。",py:"Tā <b>shēngbìng</b> le, jīntiān bù néng lái shàngkè.",vi:"Anh ấy bị ốm, hôm nay không thể đến lớp.",
+      gram:{tokens:[{zh:"他",r:"S"},{zh:"生病了",r:"P"},{zh:"今天",r:"ADV"},{zh:"不能",r:"ADV"},{zh:"来",r:"P"},{zh:"上课",r:"P"}],note:"了 sau 生病 = thay đổi trạng thái (mới bị ốm). 不能+V = không thể (thiếu khả năng/điều kiện). 来上课 = chuỗi động từ hướng đích."}},
+     {raw:"天气变化快，容易生病，要多穿衣服。",zhd:"天气变化快，容易<b>生病</b>，要多穿衣服。",py:"Tiānqì biànhuà kuài, róngyì <b>shēngbìng</b>, yào duō chuān yīfú.",vi:"Thời tiết thay đổi nhanh, dễ bị ốm, hãy mặc thêm áo.",
+      gram:{tokens:[{zh:"天气",r:"S"},{zh:"变化快",r:"P"},{zh:"容易",r:"ADV"},{zh:"生病",r:"P"},{zh:"要",r:"ADV"},{zh:"多穿",r:"P"},{zh:"衣服",r:"O"}],note:"Câu 3 vế liên kết nhân quả: thời tiết thay đổi → dễ ốm → cần mặc thêm. 容易+V = dễ làm gì. 要多+V = nên làm nhiều hơn."}}
    ],
    etym:{chars:[{ch:"生",py:"shēng",mean:"nảy sinh / xuất hiện"},{ch:"病",py:"bìng",mean:"bệnh tật"}],desc:"生 (shēng): tượng hình — cây cỏ mọc lên từ đất, nghĩa gốc là 'nảy sinh, xuất hiện'. 病 (bìng): bộ 疒 (bệnh tật) + 丙 (âm). Bộ 疒 vẽ người nằm trên giường bệnh. 生病 = bệnh xuất hiện trong người."}},
 
   {zh:"胆小",py:"dǎn xiǎo",cat:"ADJ",vi:"nhút nhát, hèn nhát",
    sents:[
-     {raw:"胆小的孩子不敢自己睡觉。",zhd:"<b>胆小</b>的孩子不敢自己睡觉。",py:"<b>Dǎn xiǎo</b> de háizi bù gǎn zìjǐ shuìjiào.",vi:"Đứa trẻ nhút nhát không dám ngủ một mình."},
-     {raw:"他以前很胆小，现在变勇敢了。",zhd:"他以前很<b>胆小</b>，现在变勇敢了。",py:"Tā yǐqián hěn <b>dǎn xiǎo</b>, xiànzài biàn yǒnggǎn le.",vi:"Trước kia anh ấy rất nhút nhát, bây giờ đã trở nên dũng cảm."}
+     {raw:"胆小的孩子不敢自己睡觉。",zhd:"<b>胆小</b>的孩子不敢自己睡觉。",py:"<b>Dǎn xiǎo</b> de háizi bù gǎn zìjǐ shuìjiào.",vi:"Đứa trẻ nhút nhát không dám ngủ một mình.",
+      gram:{tokens:[{zh:"胆小的",r:"ADJ"},{zh:"孩子",r:"S"},{zh:"不敢",r:"ADV"},{zh:"自己",r:"ADV"},{zh:"睡觉",r:"P"}],note:"胆小的+N = cụm định ngữ tính từ ghép. 不敢+自己+V = không dám tự mình làm. Hai trạng ngữ 不敢 và 自己 cùng bổ nghĩa cho 睡觉."}},
+     {raw:"他以前很胆小，现在变勇敢了。",zhd:"他以前很<b>胆小</b>，现在变勇敢了。",py:"Tā yǐqián hěn <b>dǎn xiǎo</b>, xiànzài biàn yǒnggǎn le.",vi:"Trước kia anh ấy rất nhút nhát, bây giờ đã trở nên dũng cảm.",
+      gram:{tokens:[{zh:"他",r:"S"},{zh:"以前",r:"ADV"},{zh:"很胆小",r:"P"},{zh:"现在",r:"ADV"},{zh:"变",r:"P"},{zh:"勇敢了",r:"O"}],note:"Câu đối lập: 以前(quá khứ)↔现在(hiện tại). 变+ADJ+了 = trở nên... rồi (thay đổi trạng thái hoàn tất)."}}
    ],
    etym:{chars:[{ch:"胆",py:"dǎn",mean:"mật / dũng cảm"},{ch:"小",py:"xiǎo",mean:"nhỏ / ít"}],desc:"胆小 = 'mật nhỏ'. Người xưa tin túi mật (胆) là nơi chứa dũng khí. Ai có túi mật nhỏ → ít dũng cảm → nhút nhát. Cấu trúc chủ-vị: 胆 (chủ ngữ) + 小 (vị ngữ)."}},
 
   {zh:"只好",py:"zhǐhǎo",cat:"ADV",vi:"đành phải, chỉ còn cách",
    sents:[
-     {raw:"公交车来晚了，他只好走路去学校。",zhd:"公交车来晚了，他<b>只好</b>走路去学校。",py:"Gōngjiāo chē lái wǎn le, tā <b>zhǐhǎo</b> zǒulù qù xuéxiào.",vi:"Xe buýt đến muộn, anh ấy đành phải đi bộ đến trường."},
-     {raw:"没有伞，我们只好在屋子里等雨停。",zhd:"没有伞，我们<b>只好</b>在屋子里等雨停。",py:"Méiyǒu sǎn, wǒmen <b>zhǐhǎo</b> zài wūzi lǐ děng yǔ tíng.",vi:"Không có ô, chúng tôi đành ngồi trong nhà chờ tạnh mưa."}
+     {raw:"公交车来晚了，他只好走路去学校。",zhd:"公交车来晚了，他<b>只好</b>走路去学校。",py:"Gōngjiāo chē lái wǎn le, tā <b>zhǐhǎo</b> zǒulù qù xuéxiào.",vi:"Xe buýt đến muộn, anh ấy đành phải đi bộ đến trường.",
+      gram:{tokens:[{zh:"公交车",r:"S"},{zh:"来晚了",r:"P"},{zh:"他",r:"S"},{zh:"只好",r:"ADV"},{zh:"走路",r:"P"},{zh:"去",r:"P"},{zh:"学校",r:"O"}],note:"Câu nhân quả: vế 1 (nguyên nhân) → vế 2 (kết quả bất đắc dĩ). 只好 = đành phải, không còn lựa chọn. 走路去学校 = chuỗi động từ."}},
+     {raw:"没有伞，我们只好在屋子里等雨停。",zhd:"没有伞，我们<b>只好</b>在屋子里等雨停。",py:"Méiyǒu sǎn, wǒmen <b>zhǐhǎo</b> zài wūzi lǐ děng yǔ tíng.",vi:"Không có ô, chúng tôi đành ngồi trong nhà chờ tạnh mưa.",
+      gram:{tokens:[{zh:"没有伞",r:"ADV"},{zh:"我们",r:"S"},{zh:"只好",r:"ADV"},{zh:"在屋子里",r:"ADV"},{zh:"等",r:"P"},{zh:"雨停",r:"O"}],note:"没有伞 = vế điều kiện (trạng ngữ). 在屋子里 = trạng ngữ địa điểm. 等+雨停 = đợi [mưa tạnh] — mệnh đề danh từ làm tân ngữ."}}
    ],
    etym:{chars:[{ch:"只",py:"zhǐ",mean:"chỉ / duy nhất"},{ch:"好",py:"hǎo",mean:"tốt / được"}],desc:"只好 = 'chỉ còn cách tốt nhất là'. 只 nhấn mạnh sự duy nhất (chỉ có một lựa chọn). 好 chỉ phương án được chọn. Hàm ý: không còn lựa chọn nào khác, buộc phải làm vậy."}},
 
   {zh:"突然",py:"tūrán",cat:"ADV",vi:"đột nhiên, bỗng nhiên",
    sents:[
-     {raw:"他正在看书，突然停电了。",zhd:"他正在看书，<b>突然</b>停电了。",py:"Tā zhèngzài kàn shū, <b>tūrán</b> tíngdiàn le.",vi:"Anh ấy đang đọc sách thì bỗng nhiên mất điện."},
-     {raw:"天气突然变冷，大家都没准备。",zhd:"天气<b>突然</b>变冷，大家都没准备。",py:"Tiānqì <b>tūrán</b> biàn lěng, dàjiā dōu méi zhǔnbèi.",vi:"Thời tiết đột ngột trở lạnh, mọi người đều không chuẩn bị."}
+     {raw:"他正在看书，突然停电了。",zhd:"他正在看书，<b>突然</b>停电了。",py:"Tā zhèngzài kàn shū, <b>tūrán</b> tíngdiàn le.",vi:"Anh ấy đang đọc sách thì bỗng nhiên mất điện.",
+      gram:{tokens:[{zh:"他",r:"S"},{zh:"正在",r:"ADV"},{zh:"看书",r:"P"},{zh:"突然",r:"ADV"},{zh:"停电了",r:"P"}],note:"正在+V = đang làm gì (tiến hành thì). 突然 ngắt vế 1, mở vế 2 bất ngờ. 了 = thay đổi trạng thái đột ngột."}},
+     {raw:"天气突然变冷，大家都没准备。",zhd:"天气<b>突然</b>变冷，大家都没准备。",py:"Tiānqì <b>tūrán</b> biàn lěng, dàjiā dōu méi zhǔnbèi.",vi:"Thời tiết đột ngột trở lạnh, mọi người đều không chuẩn bị.",
+      gram:{tokens:[{zh:"天气",r:"S"},{zh:"突然",r:"ADV"},{zh:"变冷",r:"P"},{zh:"大家",r:"S"},{zh:"都",r:"ADV"},{zh:"没准备",r:"P"}],note:"突然 bổ nghĩa cho 变冷 (đột ngột). 变+ADJ = trở nên. 都没 = đều không (phủ định toàn thể)."}}
    ],
    etym:{chars:[{ch:"突",py:"tū",mean:"đột ngột / thò ra"},{ch:"然",py:"rán",mean:"như vậy / trạng thái"}],desc:"突 (tū): gồm 穴 (hang) + 犬 (chó) — hình ảnh con chó bất ngờ xông ra từ hang, gợi tốc độ bất ngờ. 然 là hậu tố chỉ trạng thái/cách thức. 突然 = 'bỗng dưng xảy ra như vậy'."}},
 
@@ -267,22 +313,28 @@ const words=[
 
   {zh:"害怕",py:"hàipà",cat:"V",vi:"sợ hãi, e sợ",
    sents:[
-     {raw:"小弟弟很害怕打雷，每次都躲进被子里。",zhd:"小弟弟很<b>害怕</b>打雷，每次都躲进被子里。",py:"Xiǎo dìdi hěn <b>hàipà</b> dǎléi, měi cì dōu duǒ jìn bèizi lǐ.",vi:"Em trai rất sợ sấm sét, lần nào cũng chui vào chăn trốn."},
-     {raw:"她害怕一个人走夜路，总是让朋友陪她。",zhd:"她<b>害怕</b>一个人走夜路，总是让朋友陪她。",py:"Tā <b>hàipà</b> yīgèrén zǒu yè lù, zǒngshì ràng péngyǒu péi tā.",vi:"Cô ấy sợ đi đường đêm một mình, luôn nhờ bạn bè đi cùng."}
+     {raw:"小弟弟很害怕打雷，每次都躲进被子里。",zhd:"小弟弟很<b>害怕</b>打雷，每次都躲进被子里。",py:"Xiǎo dìdi hěn <b>hàipà</b> dǎléi, měi cì dōu duǒ jìn bèizi lǐ.",vi:"Em trai rất sợ sấm sét, lần nào cũng chui vào chăn trốn.",
+      gram:{tokens:[{zh:"小弟弟",r:"S"},{zh:"很",r:"ADV"},{zh:"害怕",r:"P"},{zh:"打雷",r:"O"},{zh:"每次",r:"ADV"},{zh:"都",r:"ADV"},{zh:"躲进",r:"P"},{zh:"被子里",r:"O"}],note:"很+V = rất (tăng mức độ). 害怕+O = sợ cái gì. 每次都 = lần nào cũng (tần suất tuyệt đối). 躲进+地点 = trốn vào trong."}},
+     {raw:"她害怕一个人走夜路，总是让朋友陪她。",zhd:"她<b>害怕</b>一个人走夜路，总是让朋友陪她。",py:"Tā <b>hàipà</b> yīgèrén zǒu yè lù, zǒngshì ràng péngyǒu péi tā.",vi:"Cô ấy sợ đi đường đêm một mình, luôn nhờ bạn bè đi cùng.",
+      gram:{tokens:[{zh:"她",r:"S"},{zh:"害怕",r:"P"},{zh:"一个人",r:"ADV"},{zh:"走夜路",r:"O"},{zh:"总是",r:"ADV"},{zh:"让",r:"P"},{zh:"朋友",r:"O"},{zh:"陪她",r:"P"}],note:"害怕+[一个人走夜路] = sợ [việc một mình đi đêm] — mệnh đề làm tân ngữ. 让+O+V = khiến cách: nhờ/bảo ai làm gì."}}
    ],
    etym:{chars:[{ch:"害",py:"hài",mean:"gây hại / tai họa"},{ch:"怕",py:"pà",mean:"sợ / e ngại"}],desc:"害 (hài): gồm 宀 (mái nhà) + 丰 (phong phú) + 口 — gốc chỉ tai họa từ bên ngoài ập vào nhà. 怕 (pà): bộ 忄(tâm) + 白 (trắng) — tâm trạng trắng bệch, tái xanh vì sợ hãi. 害怕 = lo sợ trước nguy hiểm."}},
 
   {zh:"勇敢",py:"yǒnggǎn",cat:"ADJ",vi:"dũng cảm, can đảm",
    sents:[
-     {raw:"消防员非常勇敢，冲进火场救人。",zhd:"消防员非常<b>勇敢</b>，冲进火场救人。",py:"Xiāofáng yuán fēicháng <b>yǒnggǎn</b>, chōng jìn huǒ chǎng jiù rén.",vi:"Lính cứu hỏa rất dũng cảm, xông vào đám cháy cứu người."},
-     {raw:"只要勇敢地迈出第一步，事情就会变简单。",zhd:"只要<b>勇敢</b>地迈出第一步，事情就会变简单。",py:"Zhǐyào <b>yǒnggǎn</b> de mài chū dì yī bù, shìqíng jiù huì biàn jiǎndān.",vi:"Chỉ cần dũng cảm bước đi bước đầu tiên, mọi thứ sẽ trở nên đơn giản."}
+     {raw:"消防员非常勇敢，冲进火场救人。",zhd:"消防员非常<b>勇敢</b>，冲进火场救人。",py:"Xiāofáng yuán fēicháng <b>yǒnggǎn</b>, chōng jìn huǒ chǎng jiù rén.",vi:"Lính cứu hỏa rất dũng cảm, xông vào đám cháy cứu người.",
+      gram:{tokens:[{zh:"消防员",r:"S"},{zh:"非常",r:"ADV"},{zh:"勇敢",r:"P"},{zh:"冲进",r:"P"},{zh:"火场",r:"O"},{zh:"救",r:"P"},{zh:"人",r:"O"}],note:"非常 mạnh hơn 很. Câu ghép: tính chất (dũng cảm) → hành động thể hiện tính chất đó. 冲进+O, 救+O = chuỗi động từ nối tiếp."}},
+     {raw:"只要勇敢地迈出第一步，事情就会变简单。",zhd:"只要<b>勇敢</b>地迈出第一步，事情就会变简单。",py:"Zhǐyào <b>yǒnggǎn</b> de mài chū dì yī bù, shìqíng jiù huì biàn jiǎndān.",vi:"Chỉ cần dũng cảm bước đi bước đầu tiên, mọi thứ sẽ trở nên đơn giản.",
+      gram:{tokens:[{zh:"只要",r:"CONJ"},{zh:"勇敢地",r:"ADV"},{zh:"迈出",r:"P"},{zh:"第一步",r:"O"},{zh:"事情",r:"S"},{zh:"就会",r:"ADV"},{zh:"变简单",r:"P"}],note:"只要…就… = chỉ cần…thì… (điều kiện đủ). 勇敢地 = trạng ngữ cách thức (地 nối tính từ→trạng ngữ). 变+ADJ = trở nên."}}
    ],
    etym:{chars:[{ch:"勇",py:"yǒng",mean:"dũng cảm / mạnh mẽ"},{ch:"敢",py:"gǎn",mean:"dám / can đảm"}],desc:"勇 (yǒng): bộ 力 (sức mạnh) + 甬 (âm) — sức mạnh bùng phát. 敢 (gǎn): tay cầm vũ khí (hình cổ đại) — dám xông vào nguy hiểm. 勇敢 = kết hợp 2 chữ đồng nghĩa tăng cường: vừa có sức mạnh vừa dám làm."}},
 
   {zh:"越来越",py:"yuèláiyuè",cat:"ADV",vi:"ngày càng, càng ngày càng",
    sents:[
-     {raw:"天气越来越热，大家都去游泳了。",zhd:"天气<b>越来越</b>热，大家都去游泳了。",py:"Tiānqì <b>yuèláiyuè</b> rè, dàjiā dōu qù yóuyǒng le.",vi:"Thời tiết ngày càng nóng, mọi người đều đi bơi."},
-     {raw:"她练习了很久，钢琴弹得越来越好。",zhd:"她练习了很久，钢琴弹得<b>越来越</b>好。",py:"Tā liànxí le hěn jiǔ, gāngqín tán de <b>yuèláiyuè</b> hǎo.",vi:"Cô ấy luyện tập rất lâu, chơi đàn piano ngày càng giỏi hơn."}
+     {raw:"天气越来越热，大家都去游泳了。",zhd:"天气<b>越来越</b>热，大家都去游泳了。",py:"Tiānqì <b>yuèláiyuè</b> rè, dàjiā dōu qù yóuyǒng le.",vi:"Thời tiết ngày càng nóng, mọi người đều đi bơi.",
+      gram:{tokens:[{zh:"天气",r:"S"},{zh:"越来越",r:"ADV"},{zh:"热",r:"P"},{zh:"大家",r:"S"},{zh:"都",r:"ADV"},{zh:"去游泳了",r:"P"}],note:"越来越+ADJ = ngày càng (tăng dần không ngừng). Câu ghép nhân quả ngầm: thời tiết nóng → mọi người đi bơi. 都 = phó từ toàn lượng (tất cả đều)."}},
+     {raw:"她练习了很久，钢琴弹得越来越好。",zhd:"她练习了很久，钢琴弹得<b>越来越</b>好。",py:"Tā liànxí le hěn jiǔ, gāngqín tán de <b>yuèláiyuè</b> hǎo.",vi:"Cô ấy luyện tập rất lâu, chơi đàn piano ngày càng giỏi hơn.",
+      gram:{tokens:[{zh:"她",r:"S"},{zh:"练习了",r:"P"},{zh:"很久",r:"O"},{zh:"钢琴",r:"O"},{zh:"弹得",r:"P"},{zh:"越来越好",r:"ADV"}],note:"V+得+越来越+ADJ = cấu trúc bổ ngữ mức độ tăng tiến. 得 nối động từ với bổ ngữ. 越来越好 = ngày càng giỏi hơn."}}
    ],
    etym:{chars:[{ch:"越",py:"yuè",mean:"vượt qua / càng"},{ch:"来",py:"lái",mean:"đến"},{ch:"越",py:"yuè",mean:"(lặp lại — so sánh)"}],desc:"越…越… là cấu trúc so sánh tăng tiến: 'càng A càng B'. 越来越 + tính từ = cấu trúc rút gọn, chỉ một chiều tăng liên tục. 来 ở giữa mang nghĩa 'theo thời gian đến'. Ví dụ: 越来越好 = ngày càng tốt hơn."}},
 
@@ -295,8 +347,10 @@ const words=[
 
   {zh:"总是",py:"zǒngshì",cat:"ADV",vi:"luôn luôn, lúc nào cũng",
    sents:[
-     {raw:"她总是第一个到教室，从不迟到。",zhd:"她<b>总是</b>第一个到教室，从不迟到。",py:"Tā <b>zǒngshì</b> dì yī gè dào jiàoshì, cóng bù chídào.",vi:"Cô ấy luôn là người đầu tiên đến lớp, không bao giờ đi muộn."},
-     {raw:"弟弟总是把玩具扔得到处都是。",zhd:"弟弟<b>总是</b>把玩具扔得到处都是。",py:"Dìdi <b>zǒngshì</b> bǎ wánjù rēng de dào chù dōu shì.",vi:"Em trai luôn ném đồ chơi lung tung khắp nơi."}
+     {raw:"她总是第一个到教室，从不迟到。",zhd:"她<b>总是</b>第一个到教室，从不迟到。",py:"Tā <b>zǒngshì</b> dì yī gè dào jiàoshì, cóng bù chídào.",vi:"Cô ấy luôn là người đầu tiên đến lớp, không bao giờ đi muộn.",
+      gram:{tokens:[{zh:"她",r:"S"},{zh:"总是",r:"ADV"},{zh:"第一个",r:"ADV"},{zh:"到",r:"P"},{zh:"教室",r:"O"},{zh:"从不",r:"ADV"},{zh:"迟到",r:"P"}],note:"总是 = luôn luôn (thói quen). 第一个+V = người đầu tiên làm gì. 从不 = từ trước đến nay không bao giờ (phủ định tuyệt đối, mạnh hơn 不)."}},
+     {raw:"弟弟总是把玩具扔得到处都是。",zhd:"弟弟<b>总是</b>把玩具扔得到处都是。",py:"Dìdi <b>zǒngshì</b> bǎ wánjù rēng de dào chù dōu shì.",vi:"Em trai luôn ném đồ chơi lung tung khắp nơi.",
+      gram:{tokens:[{zh:"弟弟",r:"S"},{zh:"总是",r:"ADV"},{zh:"把",r:"PREP"},{zh:"玩具",r:"O"},{zh:"扔得",r:"P"},{zh:"到处都是",r:"ADV"}],note:"总是+把字句 = luôn luôn làm theo kiểu 把. 把+O+V+得+结果 = cấu trúc 把 kết hợp bổ ngữ mức độ. 到处都是 = khắp nơi đều có (kết quả)."}}
    ],
    etym:{chars:[{ch:"总",py:"zǒng",mean:"tổng / luôn luôn"},{ch:"是",py:"shì",mean:"là / đúng"}],desc:"总 (zǒng): bộ 心 (tâm) + 囟 (thóp đầu) — gốc nghĩa là tổng hợp tất cả vào một. Từ đó phát triển nghĩa 'lúc nào cũng, tất cả đều'. 是 giúp củng cố nghĩa khẳng định. 总是 = xác nhận một thói quen không có ngoại lệ."}},
 
@@ -387,43 +441,55 @@ const words=[
 
   {zh:"再也不",py:"zài yě bù",cat:"ADV",vi:"không bao giờ nữa",
    sents:[
-     {raw:"他保证再也不说谎了。",zhd:"他保证<b>再也不</b>说谎了。",py:"Tā bǎozhèng <b>zài yě bù</b> sāhuǎng le.",vi:"Anh ấy hứa sẽ không bao giờ nói dối nữa."},
-     {raw:"从此以后，她再也不相信他了。",zhd:"从此以后，她<b>再也不</b>相信他了。",py:"Cóngcǐ yǐhòu, tā <b>zài yě bù</b> xiāngxìn tā le.",vi:"Từ đó về sau, cô ấy không bao giờ tin anh ta nữa."}
+     {raw:"他保证再也不说谎了。",zhd:"他保证<b>再也不</b>说谎了。",py:"Tā bǎozhèng <b>zài yě bù</b> sāhuǎng le.",vi:"Anh ấy hứa sẽ không bao giờ nói dối nữa.",
+      gram:{tokens:[{zh:"他",r:"S"},{zh:"保证",r:"P"},{zh:"再也不",r:"ADV"},{zh:"说谎了",r:"O"}],note:"保证+[mệnh đề] = hứa/đảm bảo điều gì. 再也不+V+了 = không bao giờ làm nữa. Mệnh đề con 再也不说谎了 làm tân ngữ của 保证."}},
+     {raw:"从此以后，她再也不相信他了。",zhd:"从此以后，她<b>再也不</b>相信他了。",py:"Cóngcǐ yǐhòu, tā <b>zài yě bù</b> xiāngxìn tā le.",vi:"Từ đó về sau, cô ấy không bao giờ tin anh ta nữa.",
+      gram:{tokens:[{zh:"从此以后",r:"ADV"},{zh:"她",r:"S"},{zh:"再也不",r:"ADV"},{zh:"相信",r:"P"},{zh:"他了",r:"O"}],note:"从此以后 = trạng ngữ thời gian khung (đặt đầu câu). 再也不 = phủ định tuyệt đối vĩnh viễn. 了 cuối câu = xác nhận thay đổi trạng thái đã xảy ra."}}
    ],
    etym:{chars:[{ch:"再",py:"zài",mean:"lại / thêm lần nữa"},{ch:"也",py:"yě",mean:"cũng / nhấn mạnh"},{ch:"不",py:"bù",mean:"không"}],desc:"再 (lại) + 也 (nhấn mạnh) + 不 (phủ định) = ba lớp phủ định chồng chéo để tạo ý nghĩa tuyệt đối. Cấu trúc này nhấn mạnh sự chấm dứt hoàn toàn và vĩnh viễn của một hành động — mạnh hơn nhiều so với chỉ dùng 不 hay 从来不."}},
 
   {zh:"的",py:"de",cat:"PART",vi:"trợ từ kết hợp định ngữ",
    sents:[
-     {raw:"这是我的书包。",zhd:"这是我<b>的</b>书包。",py:"Zhè shì wǒ <b>de</b> shūbāo.",vi:"Đây là cặp sách của tôi."},
-     {raw:"她穿的是红色的裙子。",zhd:"她穿<b>的</b>是红色<b>的</b>裙子。",py:"Tā chuān <b>de</b> shì hóngsè <b>de</b> qúnzi.",vi:"Váy cô ấy mặc là chiếc váy màu đỏ."}
+     {raw:"这是我的书包。",zhd:"这是我<b>的</b>书包。",py:"Zhè shì wǒ <b>de</b> shūbāo.",vi:"Đây là cặp sách của tôi.",
+      gram:{tokens:[{zh:"这",r:"S"},{zh:"是",r:"P"},{zh:"我",r:"ADJ"},{zh:"的",r:"PART"},{zh:"书包",r:"O"}],note:"这是…的… = cấu trúc nhận dạng. 我的 = định ngữ sở hữu. 的 kết nối người sở hữu (我) với vật được sở hữu (书包)."}},
+     {raw:"她穿的是红色的裙子。",zhd:"她穿<b>的</b>是红色<b>的</b>裙子。",py:"Tā chuān <b>de</b> shì hóngsè <b>de</b> qúnzi.",vi:"Váy cô ấy mặc là chiếc váy màu đỏ.",
+      gram:{tokens:[{zh:"她穿的",r:"S"},{zh:"是",r:"P"},{zh:"红色的",r:"ADJ"},{zh:"裙子",r:"O"}],note:"她穿的 = cụm V+的 làm danh từ hóa = 'cái mà cô ấy mặc'. 红色的 = định ngữ màu sắc. Hai chữ 的 có chức năng khác nhau trong cùng câu."}}
    ],
    etym:{chars:[{ch:"的",py:"de",mean:"trợ từ định ngữ"}],desc:"的 (de): ban đầu viết là 旳 — vòng tròn + mũi tên, ý chỉ sự xác định mục tiêu rõ ràng. Là trợ từ phổ biến nhất tiếng Trung, kết nối định ngữ với danh từ (A的B = B của A). Phân biệt với 地 (de - trạng ngữ) và 得 (de - bổ ngữ)."}},
 
   {zh:"了",py:"le",cat:"PART",vi:"trợ từ hoàn thành / thay đổi trạng thái",
    sents:[
-     {raw:"我吃了饭，然后出门去玩。",zhd:"我吃<b>了</b>饭，然后出门去玩。",py:"Wǒ chī <b>le</b> fàn, ránhòu chūmén qù wán.",vi:"Tôi ăn xong cơm rồi ra ngoài chơi."},
-     {raw:"天黑了，该回家了。",zhd:"天黑<b>了</b>，该回家<b>了</b>。",py:"Tiān hēi <b>le</b>, gāi huí jiā <b>le</b>.",vi:"Trời tối rồi, đến lúc về nhà rồi."}
+     {raw:"我吃了饭，然后出门去玩。",zhd:"我吃<b>了</b>饭，然后出门去玩。",py:"Wǒ chī <b>le</b> fàn, ránhòu chūmén qù wán.",vi:"Tôi ăn xong cơm rồi ra ngoài chơi.",
+      gram:{tokens:[{zh:"我",r:"S"},{zh:"吃了",r:"P"},{zh:"饭",r:"O"},{zh:"然后",r:"CONJ"},{zh:"出门",r:"P"},{zh:"去玩",r:"P"}],note:"了 đặt sau V+O = hoàn thành hành động. 然后 = liên từ nối tiếp. 出门去玩 = chuỗi 3 động từ."}},
+     {raw:"天黑了，该回家了。",zhd:"天黑<b>了</b>，该回家<b>了</b>。",py:"Tiān hēi <b>le</b>, gāi huí jiā <b>le</b>.",vi:"Trời tối rồi, đến lúc về nhà rồi.",
+      gram:{tokens:[{zh:"天",r:"S"},{zh:"黑了",r:"P"},{zh:"该",r:"ADV"},{zh:"回家了",r:"P"}],note:"Câu này có 2 chữ 了 với 2 chức năng khác nhau: 了① sau 黑 = thay đổi trạng thái (trời mới tối). 了② cuối câu = xác nhận tình thế (đã đến lúc). 该+V = nên làm gì."}}
    ],
    etym:{chars:[{ch:"了",py:"le/liǎo",mean:"xong / hiểu rõ / hoàn tất"}],desc:"了 (liǎo): tượng hình em bé được bọc khăn — hoàn tất, kết thúc. Là trợ từ đa năng: (1) đặt sau động từ = hoàn thành hành động; (2) đặt cuối câu = thay đổi trạng thái mới. Hai dùng pháp này rất khác nhau và dễ gây nhầm lẫn cho người học."}},
 
   {zh:"得",py:"de",cat:"PART",vi:"trợ từ nối vị ngữ với bổ ngữ kết quả",
    sents:[
-     {raw:"他跑得很快，没有人能追上他。",zhd:"他跑<b>得</b>很快，没有人能追上他。",py:"Tā pǎo <b>de</b> hěn kuài, méiyǒu rén néng zhuī shàng tā.",vi:"Anh ấy chạy rất nhanh, không ai đuổi kịp."},
-     {raw:"她说得非常流利，让老师很高兴。",zhd:"她说<b>得</b>非常流利，让老师很高兴。",py:"Tā shuō <b>de</b> fēicháng liúlì, ràng lǎoshī hěn gāoxìng.",vi:"Cô ấy nói rất trôi chảy, khiến thầy giáo rất vui."}
+     {raw:"他跑得很快，没有人能追上他。",zhd:"他跑<b>得</b>很快，没有人能追上他。",py:"Tā pǎo <b>de</b> hěn kuài, méiyǒu rén néng zhuī shàng tā.",vi:"Anh ấy chạy rất nhanh, không ai đuổi kịp.",
+      gram:{tokens:[{zh:"他",r:"S"},{zh:"跑",r:"P"},{zh:"得",r:"PART"},{zh:"很快",r:"ADV"},{zh:"没有人",r:"S"},{zh:"能追上",r:"P"},{zh:"他",r:"O"}],note:"V+得+ADV = cấu trúc bổ ngữ mức độ. 跑得很快 = chạy nhanh đến mức nào. Vế 2: 没有人+能+V = không ai có thể làm gì."}},
+     {raw:"她说得非常流利，让老师很高兴。",zhd:"她说<b>得</b>非常流利，让老师很高兴。",py:"Tā shuō <b>de</b> fēicháng liúlì, ràng lǎoshī hěn gāoxìng.",vi:"Cô ấy nói rất trôi chảy, khiến thầy giáo rất vui.",
+      gram:{tokens:[{zh:"她",r:"S"},{zh:"说得",r:"P"},{zh:"非常流利",r:"ADV"},{zh:"让",r:"P"},{zh:"老师",r:"O"},{zh:"很高兴",r:"ADV"}],note:"说得+非常流利 = bổ ngữ mức độ (nói trôi chảy đến mức nào). 让+O+ADJ = khiến cách: làm cho ai cảm thấy thế nào."}}
    ],
    etym:{chars:[{ch:"得",py:"de/dé/děi",mean:"được / đạt / phải"}],desc:"得 đọc là 'de' khi là trợ từ — nối động từ với bổ ngữ mức độ/kết quả. Phân biệt 3 âm đọc: dé (được, đạt được), děi (phải, cần), de (trợ từ). Cấu trúc: V + 得 + Bổ ngữ mức độ là một trong những cấu trúc cơ bản nhất của tiếng Trung."}},
 
   {zh:"着",py:"zhe",cat:"PART",vi:"trợ từ trạng thái đi kèm",
    sents:[
-     {raw:"她笑着走进了教室。",zhd:"她笑<b>着</b>走进了教室。",py:"Tā xiào <b>zhe</b> zǒu jìn le jiàoshì.",vi:"Cô ấy vừa cười vừa bước vào lớp học."},
-     {raw:"墙上挂着一幅很漂亮的画。",zhd:"墙上挂<b>着</b>一幅很漂亮的画。",py:"Qiáng shàng guà <b>zhe</b> yī fú hěn piàoliang de huà.",vi:"Trên tường treo một bức tranh rất đẹp."}
+     {raw:"她笑着走进了教室。",zhd:"她笑<b>着</b>走进了教室。",py:"Tā xiào <b>zhe</b> zǒu jìn le jiàoshì.",vi:"Cô ấy vừa cười vừa bước vào lớp học.",
+      gram:{tokens:[{zh:"她",r:"S"},{zh:"笑着",r:"ADV"},{zh:"走进了",r:"P"},{zh:"教室",r:"O"}],note:"V①着+V② = vừa làm V① vừa làm V②. 笑着 là trạng thái đi kèm, bổ nghĩa cho hành động chính 走进. 走进了 = bước vào (hoàn thành)."}},
+     {raw:"墙上挂着一幅很漂亮的画。",zhd:"墙上挂<b>着</b>一幅很漂亮的画。",py:"Qiáng shàng guà <b>zhe</b> yī fú hěn piàoliang de huà.",vi:"Trên tường treo một bức tranh rất đẹp.",
+      gram:{tokens:[{zh:"墙上",r:"ADV"},{zh:"挂着",r:"P"},{zh:"一幅",r:"ADJ"},{zh:"很漂亮的",r:"ADJ"},{zh:"画",r:"S"}],note:"地点+V着+O = cấu trúc tồn tại: ở chỗ nào đó đang có/treo/để gì. 着 chỉ trạng thái tồn tại liên tục. 一幅 = lượng từ chuyên dùng cho tranh/vải."}}
    ],
    etym:{chars:[{ch:"着",py:"zhe/zháo/zhuó",mean:"chạm vào / mặc / trạng thái"}],desc:"着 có 3 âm đọc: zhe (trợ từ trạng thái), zháo (chạm đến, đạt được), zhuó (mặc vào). Khi đọc là 'zhe', nó chỉ hai nghĩa: (1) hành động đang diễn ra cùng lúc (笑着走 = vừa cười vừa đi); (2) trạng thái tồn tại liên tục (挂着 = đang treo)."}},
 
   {zh:"把",py:"bǎ",cat:"PREP",vi:"giới từ 把 – đưa tân ngữ lên trước động từ",
    sents:[
-     {raw:"请把书放在桌子上。",zhd:"请<b>把</b>书放在桌子上。",py:"Qǐng <b>bǎ</b> shū fàng zài zhuōzi shàng.",vi:"Hãy đặt quyển sách lên bàn."},
-     {raw:"他把作业忘在家里了。",zhd:"他<b>把</b>作业忘在家里了。",py:"Tā <b>bǎ</b> zuòyè wàng zài jiā lǐ le.",vi:"Anh ấy để quên bài tập ở nhà."}
+     {raw:"请把书放在桌子上。",zhd:"请<b>把</b>书放在桌子上。",py:"Qǐng <b>bǎ</b> shū fàng zài zhuōzi shàng.",vi:"Hãy đặt quyển sách lên bàn.",
+      gram:{tokens:[{zh:"请",r:"ADV"},{zh:"把",r:"PREP"},{zh:"书",r:"O"},{zh:"放",r:"P"},{zh:"在桌子上",r:"ADV"}],note:"把字句: S + 把 + O + V + 结果/地点. 请 = mệnh lệnh lịch sự. 把书放在桌子上 = cầm sách đặt lên bàn — nhấn mạnh sự tác động lên 书."}},
+     {raw:"他把作业忘在家里了。",zhd:"他<b>把</b>作业忘在家里了。",py:"Tā <b>bǎ</b> zuòyè wàng zài jiā lǐ le.",vi:"Anh ấy để quên bài tập ở nhà.",
+      gram:{tokens:[{zh:"他",r:"S"},{zh:"把",r:"PREP"},{zh:"作业",r:"O"},{zh:"忘",r:"P"},{zh:"在家里",r:"ADV"},{zh:"了",r:"PART"}],note:"把字句với kết quả tiêu cực: 把+O+忘+在+địa điểm. 了 = hoàn thành (đã xảy ra rồi). 在家里 = bổ ngữ địa điểm chỉ nơi bị bỏ quên."}}
    ],
    etym:{chars:[{ch:"把",py:"bǎ/bà",mean:"nắm / cầm / tay cầm"}],desc:"把 gốc nghĩa là 'nắm, cầm trong tay' (tượng hình bàn tay cầm vật). Từ đó phát triển thành giới từ — 'cầm vật' lên xử lý. Cấu trúc 把: Chủ ngữ + 把 + Tân ngữ + Động từ + Kết quả — nhấn mạnh sự tác động lên đối tượng."}},
 
@@ -472,15 +538,26 @@ function render(){
     const isOpen=openRows.has(rowId);
 
     /* example sentences */
-    const sentHtml=w.sents.map(s=>{
+    const roleLabel={S:'Chủ ngữ',P:'Vị ngữ',O:'Tân ngữ',ADV:'Trạng ngữ',ADJ:'Định ngữ',PART:'Trợ từ',PREP:'Giới từ',CONJ:'Liên từ'};
+    const sentHtml=w.sents.map((s,si)=>{
       const sid=uid();
       const safeRaw=s.raw.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+      let gramHtml='';
+      if(s.gram){
+        const tokens=s.gram.tokens.map(t=>`<div class="gram-token gt-${t.r}"><span class="gt-zh">${t.zh}</span><span class="gt-role">${t.r}</span></div>`).join('');
+        gramHtml=`<div class="gram-box">
+          <div class="gram-title">🔬 Phân tích ngữ pháp</div>
+          <div class="gram-tokens">${tokens}</div>
+          <div class="gram-note">${s.gram.note}</div>
+        </div>`;
+      }
       return `<div class="sent-item">
         <button class="sp" id="${sid}" onclick="speak('${safeRaw}',document.getElementById('${sid}'))">🔊</button>
         <div class="sent-texts">
           <div class="sent-zh">${s.zhd}</div>
           <div class="sent-py">${s.py}</div>
           <div class="sent-vi">${s.vi}</div>
+          ${gramHtml}
         </div>
       </div>`;
     }).join('');
