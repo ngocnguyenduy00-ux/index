@@ -242,6 +242,40 @@ body{font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:v
   .mode-grid{grid-template-columns:1fr}
   .mcq-options{grid-template-columns:1fr}
 }
+/* ===== DIALOGUE (Situations redesign) ===== */
+.sit-scene{padding:.75rem 1rem .25rem;font-size:11px;color:var(--text-muted);font-style:italic;border-bottom:1px solid var(--border);margin-bottom:.5rem}
+.dialogue{padding:0 1rem 1.5rem;display:flex;flex-direction:column;gap:10px}
+.dl-line{display:flex;gap:8px;align-items:flex-start}
+.dl-line.staff{flex-direction:row}
+.dl-line.customer{flex-direction:row-reverse}
+.dl-avatar{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;margin-top:2px}
+.dl-avatar.staff-av{background:#dbeafe}
+.dl-avatar.customer-av{background:#dcfce7}
+.dl-bubble{max-width:82%;background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:10px 12px}
+.dl-line.staff .dl-bubble{border-radius:4px 12px 12px 12px}
+.dl-line.customer .dl-bubble{border-radius:12px 4px 12px 12px;background:#f0f4ff;border-color:#c7d7f9}
+.dl-role{font-size:10px;font-weight:700;color:var(--text-muted);margin-bottom:4px;letter-spacing:.3px}
+.dl-zh{font-size:14px;line-height:1.8;color:#111;word-break:break-all}
+.dl-py{font-size:11px;color:#aaa;line-height:1.5;margin-top:2px}
+.dl-vi{font-size:12px;color:#666;font-style:italic;margin-top:3px}
+.vocab-hl{background:#fef3c7;border-bottom:2px solid #f59e0b;border-radius:2px;cursor:pointer;padding:0 1px;font-weight:600;color:#92400e;position:relative;transition:background .15s}
+.vocab-hl:hover{background:#fde68a}
+/* Tooltip */
+.hl-tooltip{position:fixed;background:#1a1a1a;color:#fff;border-radius:8px;padding:8px 12px;font-size:12px;z-index:999;pointer-events:none;opacity:0;transition:opacity .15s;max-width:200px;box-shadow:0 4px 16px rgba(0,0,0,.3)}
+.hl-tooltip.show{opacity:1}
+.ht-zh{font-size:16px;font-weight:700;margin-bottom:2px}
+.ht-py{font-size:11px;color:#aaa;margin-bottom:3px}
+.ht-vi{font-size:12px;color:#86efac}
+/* Vocab section dưới dialogue */
+.sit-vocab-section{padding:0 1rem 1.5rem}
+.sit-vocab-toggle{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:#fff;border:1.5px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;font-size:12px;font-weight:600;color:#555;margin-bottom:6px}
+.sit-vocab-toggle:hover{background:#fafaf8}
+.sit-vocab-chips{display:flex;flex-wrap:wrap;gap:6px;display:none}
+.sit-vocab-chips.show{display:flex}
+.vocab-chip{background:#fff;border:1px solid var(--border);border-radius:8px;padding:5px 10px;font-size:12px;cursor:pointer;transition:all .15s}
+.vocab-chip:hover{border-color:var(--blue);background:var(--blue-light)}
+.vocab-chip .vc-zh{font-size:14px;font-weight:600;color:#111}
+.vocab-chip .vc-vi{font-size:10px;color:var(--text-muted)}
 </style>
 </head>
 <body>
@@ -294,7 +328,14 @@ body{font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:v
       <div class="sit-title-text" id="sit-title"></div>
       <button class="sp" onclick="startSoakingForSituation()" title="Brain Soaking chủ đề này">🧠</button>
     </div>
-    <div class="vocab-list" id="sit-vocab-list"></div>
+    <div class="sit-scene" id="sit-scene"></div>
+    <div class="dialogue" id="sit-dialogue"></div>
+    <div class="sit-vocab-section">
+      <div class="sit-vocab-toggle" onclick="toggleSitVocab()">
+        <span id="sit-vocab-toggle-text">Xem từ vựng trong chủ đề này ▸</span>
+      </div>
+      <div class="sit-vocab-chips" id="sit-vocab-chips"></div>
+    </div>
   </div>
 </div>
 
@@ -490,6 +531,161 @@ const SECTIONS = {
   accounting: { icon:'📒', name:'Kế toán & Tài chính',          zh:'会计与财务' },
   service:    { icon:'👥', name:'Dịch vụ khách hàng',           zh:'客户服务与其他' },
 };
+
+const DIALOGUES = {
+  basic: {
+    scene: "📍 Khách hàng đến quầy giao dịch lần đầu để mở tài khoản",
+    lines: [
+      {role:"客户",zh:"您好，我想在贵行办理开户手续，请问需要哪些材料？",py:"Nín hǎo, wǒ xiǎng zài guì háng bànlǐ kāihù shǒuxù, qǐngwèn xūyào nǎxiē cáiliào?",vi:"Xin chào, tôi muốn làm thủ tục mở tài khoản tại quý ngân hàng, xin hỏi cần những giấy tờ gì?",hl:["开户","手续"]},
+      {role:"员工",zh:"您好！开户需要本人身份证，请问您想开储蓄账户还是结算账户？",py:"Nín hǎo! Kāihù xūyào běnrén shēnfènzhèng, qǐngwèn nín xiǎng kāi chǔxù zhànghù háishì jiésuàn zhànghù?",vi:"Xin chào! Mở tài khoản cần chứng minh nhân dân, xin hỏi quý khách muốn mở tài khoản tiết kiệm hay tài khoản thanh toán?",hl:["开户","储蓄账户","结算账户"]},
+      {role:"客户",zh:"我想开一个储蓄账户，同时申请一张银行卡。",py:"Wǒ xiǎng kāi yī gè chǔxù zhànghù, tóngshí shēnqǐng yī zhāng yínhángkǎ.",vi:"Tôi muốn mở một tài khoản tiết kiệm và đồng thời đăng ký một thẻ ngân hàng.",hl:["储蓄账户","银行卡"]},
+      {role:"员工",zh:"好的。请填写开户申请表，并设置您的取款密码，密码请勿告诉他人。",py:"Hǎo de. Qǐng tiánxiě kāihù shēnqǐng biǎo, bìng shèzhì nín de qǔkuǎn mìmǎ, mìmǎ qǐng wù gàosù tārén.",vi:"Được ạ. Vui lòng điền vào mẫu đăng ký mở tài khoản và cài đặt mật khẩu rút tiền, xin đừng tiết lộ mật khẩu cho người khác.",hl:["开户","取款","密码"]},
+      {role:"客户",zh:"请问开户后，我可以通过网上银行办理转账和查询余额吗？",py:"Qǐngwèn kāihù hòu, wǒ kěyǐ tōngguò wǎngshàng yínháng bànlǐ zhuǎnzhàng hé cháxún yú'é ma?",vi:"Xin hỏi sau khi mở tài khoản, tôi có thể thực hiện chuyển khoản và truy vấn số dư qua ngân hàng trực tuyến không?",hl:["网上银行","转账","余额"]},
+      {role:"员工",zh:"当然！开户成功后可以开通手机银行，随时查询账户余额和明细，非常方便。",py:"Dāngrán! Kāihù chénggōng hòu kěyǐ kāitōng shǒujī yínháng, suíshí cháxún zhànghù yú'é hé míngxì, fēicháng fāngbiàn.",vi:"Tất nhiên! Sau khi mở tài khoản thành công có thể kích hoạt ngân hàng di động, truy vấn số dư và chi tiết tài khoản bất cứ lúc nào, rất tiện lợi.",hl:["手机银行","余额"]}
+    ]
+  },
+  deposit: {
+    scene: "📍 Khách hàng muốn gửi tiền tiết kiệm có kỳ hạn",
+    lines: [
+      {role:"客户",zh:"您好，我有一笔资金想存入银行，请问有哪些存款产品可以选择？",py:"Nín hǎo, wǒ yǒu yī bǐ zījīn xiǎng cún rù yínháng, qǐngwèn yǒu nǎxiē cúnkuǎn chǎnpǐn kěyǐ xuǎnzé?",vi:"Xin chào, tôi có một khoản tiền muốn gửi vào ngân hàng, xin hỏi có những sản phẩm tiền gửi nào để lựa chọn?",hl:["存款","存入"]},
+      {role:"员工",zh:"我们有活期存款和定期存款两种。活期随时可以取款，定期存款利率更高但需要约定存款期限。",py:"Wǒmen yǒu huóqī cúnkuǎn hé dìngqī cúnkuǎn liǎng zhǒng. Huóqī suíshí kěyǐ qǔkuǎn, dìngqī cúnkuǎn lìlǜ gèng gāo dàn xūyào yuēdìng cúnkuǎn qīxiàn.",vi:"Chúng tôi có hai loại: tiền gửi không kỳ hạn và tiền gửi có kỳ hạn. Không kỳ hạn có thể rút bất cứ lúc nào, có kỳ hạn lãi suất cao hơn nhưng cần thỏa thuận kỳ hạn.",hl:["活期存款","定期存款","取款","利率","存款期限"]},
+      {role:"客户",zh:"定期存款的年利率是多少？存款期限有哪些选择？",py:"Dìngqī cúnkuǎn de nián lìlǜ shì duōshǎo? Cúnkuǎn qīxiàn yǒu nǎxiē xuǎnzé?",vi:"Lãi suất hàng năm của tiền gửi có kỳ hạn là bao nhiêu? Có những lựa chọn kỳ hạn nào?",hl:["定期存款","利率","存款期限"]},
+      {role:"员工",zh:"一年期定期存款年利率为2.1%，另有三个月、六个月、两年和三年期可以选择，存期越长利率越高。",py:"Yī nián qī dìngqī cúnkuǎn nián lìlǜ wéi 2.1%, lìng yǒu sān gè yuè, liù gè yuè, liǎng nián hé sān nián qī kěyǐ xuǎnzé, cún qī yuè cháng lìlǜ yuè gāo.",vi:"Tiền gửi kỳ hạn 1 năm lãi suất 2,1%/năm, ngoài ra còn có kỳ hạn 3 tháng, 6 tháng, 2 năm và 3 năm, kỳ hạn càng dài lãi suất càng cao.",hl:["定期存款","利率"]},
+      {role:"客户",zh:"好，我想办理整存整取，存入十万元，存款期限选一年。",py:"Hǎo, wǒ xiǎng bànlǐ zhěng cún zhěng qǔ, cún rù shí wàn yuán, cúnkuǎn qīxiàn xuǎn yī nián.",vi:"Được, tôi muốn làm gửi nguyên lĩnh nguyên, gửi 100.000 tệ, chọn kỳ hạn 1 năm.",hl:["整存整取","存款期限"]},
+      {role:"员工",zh:"好的！到期后连本带息共可得到102,100元，我为您打印存单并办理存折。",py:"Hǎo de! Dào qī hòu lián běn dài xī gòng kědédào 102,100 yuán, wǒ wèi nín dǎyìn cúndān bìng bànlǐ cúnzhé.",vi:"Vâng! Đến hạn cả gốc lẫn lãi sẽ được 102.100 tệ, tôi sẽ in phiếu tiền gửi và làm sổ tiết kiệm cho quý khách.",hl:["本","息","存单","存折"]}
+    ]
+  },
+  loan: {
+    scene: "📍 Khách hàng đến ngân hàng tư vấn vay mua nhà",
+    lines: [
+      {role:"客户",zh:"您好，我想申请住房贷款，请问贷款额度最高能贷多少？",py:"Nín hǎo, wǒ xiǎng shēnqǐng zhùfáng dàikuǎn, qǐngwèn dàikuǎn édù zuìgāo néng dài duōshǎo?",vi:"Xin chào, tôi muốn đăng ký vay mua nhà, xin hỏi hạn mức vay tối đa là bao nhiêu?",hl:["贷款","贷款额度"]},
+      {role:"员工",zh:"个人住房贷款最高可贷房屋总价的七成，贷款期限最长三十年，需要以所购房产作为抵押担保。",py:"Gèrén zhùfáng dàikuǎn zuìgāo kě dài fángwū zǒngjià de qī chéng, dàikuǎn qīxiàn zuìcháng sānshí nián, xūyào yǐ suǒ gòu fángchǎn zuòwéi dǐyā dānbǎo.",vi:"Vay mua nhà cá nhân tối đa 70% tổng giá trị nhà, thời hạn vay tối đa 30 năm, cần dùng bất động sản mua làm tài sản thế chấp đảm bảo.",hl:["贷款","贷款期限","抵押","担保"]},
+      {role:"客户",zh:"申请贷款需要提供哪些材料？审批时间需要多久？",py:"Shēnqǐng dàikuǎn xūyào tígōng nǎxiē cáiliào? Shěnpī shíjiān xūyào duō jiǔ?",vi:"Đăng ký vay cần cung cấp những giấy tờ gì? Thời gian xét duyệt mất bao lâu?",hl:["贷款"]},
+      {role:"员工",zh:"需要提供身份证、收入证明、银行流水和购房合同，审批一般需要五到七个工作日。",py:"Xūyào tígōng shēnfènzhèng, shōurù zhèngmíng, yínháng liúshuǐ hé gòufáng hétóng, shěnpī yībān xūyào wǔ dào qī gè gōngzuòrì.",vi:"Cần cung cấp CMND, chứng minh thu nhập, sao kê ngân hàng và hợp đồng mua nhà, xét duyệt thường mất 5-7 ngày làm việc.",hl:["收入证明"]},
+      {role:"客户",zh:"请问目前的贷款利率是多少？按月还款的话还款额大概是多少？",py:"Qǐngwèn mùqián de dàikuǎn lìlǜ shì duōshǎo? Àn yuè huánkuǎn de huà huánkuǎn é dàgài shì duōshǎo?",vi:"Xin hỏi lãi suất vay hiện tại là bao nhiêu? Nếu trả góp hàng tháng thì số tiền trả khoảng bao nhiêu?",hl:["贷款利率","还款"]},
+      {role:"员工",zh:"目前执行基准贷款利率，按等额还款方式，贷款三十年每月还款约四千五百元，还款期间请勿逾期，否则将产生罚息。",py:"Mùqián zhíxíng jīzhǔn dàikuǎn lìlǜ, àn děng'é huánkuǎn fāngshì, dàikuǎn sānshí nián měi yuè huánkuǎn yuē sìqiān wǔbǎi yuán, huánkuǎn qījiān qǐng wù yúqī, fǒuzé jiāng chǎnshēng fá xī.",vi:"Hiện áp dụng lãi suất cơ bản, theo hình thức trả đều hàng tháng, vay 30 năm mỗi tháng trả khoảng 4.500 tệ, trong thời gian trả nợ vui lòng không để quá hạn, nếu không sẽ phát sinh lãi phạt.",hl:["贷款利率","还款","逾期","罚息"]}
+    ]
+  },
+  forex: {
+    scene: "📍 Khách hàng cần đổi ngoại tệ và chuyển tiền quốc tế trước chuyến công tác",
+    lines: [
+      {role:"客户",zh:"您好，我要去美国出差，请问今天的美元汇率是多少？",py:"Nín hǎo, wǒ yào qù Měiguó chūchāi, qǐngwèn jīntiān de měiyuán huìlǜ shì duōshǎo?",vi:"Xin chào, tôi sắp đi công tác Mỹ, xin hỏi tỷ giá đô la hôm nay là bao nhiêu?",hl:["汇率"]},
+      {role:"员工",zh:"今天美元对人民币的汇率是1比7.15，目前外汇市场波动较小，是兑换外汇的好时机。",py:"Jīntiān měiyuán duì rénmínbì de huìlǜ shì 1 bǐ 7.15, mùqián wàihuì shìchǎng bōdòng jiào xiǎo, shì duìhuàn wàihuì de hǎo shíjī.",vi:"Tỷ giá đô la Mỹ so với nhân dân tệ hôm nay là 1:7,15, hiện thị trường ngoại hối biến động nhỏ, là thời điểm tốt để đổi ngoại tệ.",hl:["汇率","外汇"]},
+      {role:"客户",zh:"好，我想兑换一千美元现钞，另外还需要办理一笔国际汇款。",py:"Hǎo, wǒ xiǎng duìhuàn yīqiān měiyuán xiànchāo, lìngwài hái xūyào bànlǐ yī bǐ guójì huìkuǎn.",vi:"Được, tôi muốn đổi 1.000 đô tiền mặt, ngoài ra cần làm thêm một lệnh chuyển tiền quốc tế.",hl:["外汇","国际汇款"]},
+      {role:"员工",zh:"兑换外汇需要携带护照，国际汇款还需填写汇款申请单并提供收款方的账户信息。",py:"Duìhuàn wàihuì xūyào xiédài hùzhào, guójì huìkuǎn hái xūyào tiánxiě huìkuǎn shēnqǐng dān bìng tígōng shōukuǎn fāng de zhànghù xìnxī.",vi:"Đổi ngoại tệ cần mang theo hộ chiếu, chuyển tiền quốc tế còn cần điền phiếu yêu cầu chuyển tiền và cung cấp thông tin tài khoản bên nhận.",hl:["外汇","国际汇款"]},
+      {role:"客户",zh:"请问跨境汇款到账时间一般需要多久？手续费大概是多少？",py:"Qǐngwèn kuàjìng huìkuǎn dàozhàng shíjiān yībān xūyào duō jiǔ? Shǒuxùfèi dàgài shì duōshǎo?",vi:"Xin hỏi chuyển tiền xuyên biên giới thường mất bao lâu để đến tài khoản? Phí dịch vụ khoảng bao nhiêu?",hl:["跨境","汇款"]},
+      {role:"员工",zh:"一般三到五个工作日到账，手续费按汇款金额的千分之一收取，请注意汇率波动风险，建议锁定汇率。",py:"Yībān sān dào wǔ gè gōngzuòrì dàozhàng, shǒuxùfèi àn huìkuǎn jīné de qiānfēn zhī yī shōuqǔ, qǐng zhùyì huìlǜ bōdòng fēngxiǎn, jiànyì suǒdìng huìlǜ.",vi:"Thường 3-5 ngày làm việc đến tài khoản, phí thu 0,1% theo số tiền chuyển, lưu ý rủi ro biến động tỷ giá, khuyên nên cố định tỷ giá.",hl:["汇款","汇率"]}
+    ]
+  },
+  invest: {
+    scene: "📍 Khách hàng tư vấn mua sản phẩm đầu tư tài chính",
+    lines: [
+      {role:"客户",zh:"您好，我有一些闲置资金，想购买理财产品，请问有什么推荐？",py:"Nín hǎo, wǒ yǒu yīxiē xiánzhì zījīn, xiǎng gòumǎi lǐcái chǎnpǐn, qǐngwèn yǒu shénme tuījiàn?",vi:"Xin chào, tôi có một khoản tiền nhàn rỗi muốn mua sản phẩm đầu tư tài chính, xin hỏi có gì giới thiệu không?",hl:["理财产品","资金"]},
+      {role:"员工",zh:"我们有低风险的固定收益产品，年化收益率约3%到4%，也有中等风险的混合型基金，收益更高但有一定波动。",py:"Wǒmen yǒu dī fēngxiǎn de gùdìng shōuyì chǎnpǐn, niánhuà shōuyìlǜ yuē 3% dào 4%, yě yǒu zhōngděng fēngxiǎn de hùnhé xíng jījīn, shōuyì gèng gāo dàn yǒu yīdìng bōdòng.",vi:"Chúng tôi có sản phẩm thu nhập cố định rủi ro thấp, tỷ suất lợi nhuận hàng năm khoảng 3-4%, cũng có quỹ hỗn hợp rủi ro trung bình, lợi nhuận cao hơn nhưng có biến động.",hl:["理财产品","收益率","基金"]},
+      {role:"客户",zh:"我风险承受能力比较低，更倾向于稳健型投资，资产配置要以安全为主。",py:"Wǒ fēngxiǎn chéngshòu nénglì bǐjiào dī, gèng qīngxiàng yú wěnjiàn xíng tóuzī, zīchǎn pèizhì yào yǐ ānquán wéi zhǔ.",vi:"Khả năng chịu rủi ro của tôi khá thấp, thiên về đầu tư ổn định hơn, phân bổ tài sản cần ưu tiên an toàn.",hl:["投资","资产"]},
+      {role:"员工",zh:"那我推荐您购买国债或者保本型理财产品，本金安全，收益稳定，非常适合稳健型投资者。",py:"Nà wǒ tuījiàn nín gòumǎi guózhài huòzhě bǎoběn xíng lǐcái chǎnpǐn, běnjīn ānquán, shōuyì wěndìng, fēicháng shìhé wěnjiàn xíng tóuzīzhě.",vi:"Vậy tôi khuyên quý khách mua trái phiếu chính phủ hoặc sản phẩm đầu tư bảo toàn gốc, vốn gốc an toàn, lợi nhuận ổn định, rất phù hợp cho nhà đầu tư thận trọng.",hl:["国债","理财产品","投资"]},
+      {role:"客户",zh:"好的。请问购买起点金额是多少？收益是如何计算的？",py:"Hǎo de. Qǐngwèn gòumǎi qǐdiǎn jīné shì duōshǎo? Shōuyì shì rúhé jìsuàn de?",vi:"Được. Xin hỏi số tiền mua tối thiểu là bao nhiêu? Lợi nhuận được tính như thế nào?",hl:["收益"]},
+      {role:"员工",zh:"最低一万元起购，按投资金额和持有期限计算收益，到期后自动赎回，收益直接划入您的账户。",py:"Zuìdī yī wàn yuán qǐ gòu, àn tóuzī jīné hé chíyǒu qīxiàn jìsuàn shōuyì, dào qī hòu zìdòng shúhuí, shōuyì zhíjiē huà rù nín de zhànghù.",vi:"Mua tối thiểu 10.000 tệ, tính lợi nhuận theo số tiền đầu tư và thời gian nắm giữ, đến hạn tự động tất toán, lợi nhuận chuyển thẳng vào tài khoản của quý khách.",hl:["投资","收益"]}
+    ]
+  },
+  payment: {
+    scene: "📍 Doanh nghiệp đến ngân hàng xử lý thanh toán và chuyển khoản",
+    lines: [
+      {role:"客户",zh:"您好，我们公司需要向供应商支付一笔货款，请问如何办理对公转账？",py:"Nín hǎo, wǒmen gōngsī xūyào xiàng gōngyìngshāng zhīfù yī bǐ huòkuǎn, qǐngwèn rúhé bànlǐ duìgōng zhuǎnzhàng?",vi:"Xin chào, công ty chúng tôi cần thanh toán một khoản tiền hàng cho nhà cung cấp, xin hỏi cách thực hiện chuyển khoản doanh nghiệp?",hl:["支付","转账"]},
+      {role:"员工",zh:"可以通过柜台或企业网银办理转账汇款，需要提供对方的账号、开户行名称和收款人信息。",py:"Kěyǐ tōngguò guìtái huò qǐyè wǎng yín bànlǐ zhuǎnzhàng huìkuǎn, xūyào tígōng duìfāng de zhànghào, kāihù háng míngchēng hé shōukuǎn rén xìnxī.",vi:"Có thể thực hiện chuyển tiền qua quầy giao dịch hoặc ngân hàng doanh nghiệp trực tuyến, cần cung cấp số tài khoản, tên ngân hàng mở tài khoản và thông tin người nhận.",hl:["转账","汇款"]},
+      {role:"客户",zh:"这笔是跨行大额转账，通过支付清算系统，到账时间大概需要多久？",py:"Zhè bǐ shì kuà háng dà é zhuǎnzhàng, tōngguò zhīfù qīngsuàn xìtǒng, dàozhàng shíjiān dàgài xūyào duō jiǔ?",vi:"Đây là chuyển khoản liên ngân hàng số tiền lớn, qua hệ thống thanh toán bù trừ, thời gian đến tài khoản khoảng bao lâu?",hl:["转账","支付","清算"]},
+      {role:"员工",zh:"通过人民银行支付清算系统，工作日大额转账当天即可到账，小额转账实时到账。",py:"Tōngguò Rénmín Yínháng zhīfù qīngsuàn xìtǒng, gōngzuòrì dà é zhuǎnzhàng dāngtiān jí kě dàozhàng, xiǎo é zhuǎnzhàng shíshí dàozhàng.",vi:"Qua hệ thống thanh toán bù trừ của Ngân hàng Nhân dân, chuyển khoản lớn ngày làm việc đến tài khoản trong ngày, chuyển khoản nhỏ đến tức thì.",hl:["支付","清算"]},
+      {role:"客户",zh:"我们每月还需要给员工代发工资，可以办理批量付款业务吗？",py:"Wǒmen měi yuè hái xūyào gěi yuángōng dàifā gōngzī, kěyǐ bànlǐ pīliàng fùkuǎn yèwù ma?",vi:"Mỗi tháng chúng tôi còn cần chi hộ lương cho nhân viên, có thể thực hiện dịch vụ thanh toán hàng loạt không?",hl:["付款"]},
+      {role:"员工",zh:"当然可以！申请工资代发服务后，您只需提交工资发放清单，系统自动完成结算，安全高效。",py:"Dāngrán kěyǐ! Shēnqǐng gōngzī dàifā fúwù hòu, nín zhǐ xū tíjiāo gōngzī fāfàng qīngdān, xìtǒng zìdòng wánchéng jiésuàn, ānquán gāoxiào.",vi:"Tất nhiên! Sau khi đăng ký dịch vụ chi hộ lương, quý vị chỉ cần nộp bảng lương, hệ thống tự động hoàn tất quyết toán, an toàn và hiệu quả.",hl:["结算","付款"]}
+    ]
+  },
+  risk: {
+    scene: "📍 Khách hàng phát hiện giao dịch bất thường và đến ngân hàng xử lý",
+    lines: [
+      {role:"客户",zh:"您好，我收到短信提示账户有异常交易，请帮我查询一下。",py:"Nín hǎo, wǒ shōudào duǎnxìn tíshì zhànghù yǒu yìcháng jiāoyì, qǐng bāng wǒ cháxún yīxià.",vi:"Xin chào, tôi nhận được tin nhắn cảnh báo tài khoản có giao dịch bất thường, nhờ giúp tôi kiểm tra.",hl:["交易"]},
+      {role:"员工",zh:"好的，请出示身份证件。系统显示您的账户昨晚触发了风险预警，有一笔可疑交易被系统拦截。",py:"Hǎo de, qǐng chūshì shēnfèn zhèngjiàn. Xìtǒng xiǎnshì nín de zhànghù zuó wǎn chùfā le fēngxiǎn yùjǐng, yǒu yī bǐ kěyí jiāoyì bèi xìtǒng lǎnjié.",vi:"Vâng, vui lòng xuất trình giấy tờ tùy thân. Hệ thống cho thấy tài khoản của quý khách tối qua đã kích hoạt cảnh báo rủi ro, một giao dịch đáng ngờ đã bị hệ thống chặn lại.",hl:["风险","交易"]},
+      {role:"客户",zh:"我没有做过这笔交易，会不会是信用卡欺诈？我的资金安全吗？",py:"Wǒ méiyǒu zuòguò zhè bǐ jiāoyì, huì bu huì shì xìnyòngkǎ qīzhà? Wǒ de zījīn ānquán ma?",vi:"Tôi không thực hiện giao dịch này, có phải là gian lận thẻ tín dụng không? Tiền của tôi có an toàn không?",hl:["交易","信用卡"]},
+      {role:"员工",zh:"请放心！我们的风险控制系统已经冻结了该账户，您的资产安全不受影响，这是银行的风险管理机制在保护您。",py:"Qǐng fàngxīn! Wǒmen de fēngxiǎn kòngzhì xìtǒng yǐjīng dòngjiē le gāi zhànghù, nín de zīchǎn ānquán bù shòu yǐngxiǎng, zhè shì yínháng de fēngxiǎn guǎnlǐ jīzhì zài bǎohù nín.",vi:"Xin đừng lo! Hệ thống kiểm soát rủi ro của chúng tôi đã đóng băng tài khoản đó, tài sản của quý khách an toàn không bị ảnh hưởng, đây là cơ chế quản lý rủi ro của ngân hàng đang bảo vệ quý khách.",hl:["风险","风险管理"]},
+      {role:"客户",zh:"好的，我该怎么配合处理？这会影响我的信用记录吗？",py:"Hǎo de, wǒ gāi zěnme pèihé chǔlǐ? Zhè huì yǐngxiǎng wǒ de xìnyòng jìlù ma?",vi:"Được, tôi cần phối hợp xử lý như thế nào? Điều này có ảnh hưởng đến hồ sơ tín dụng của tôi không?",hl:["信用"]},
+      {role:"员工",zh:"请您填写异常交易申报表，配合我们的风险管控流程，信用记录完全不受影响，我们会尽快为您解冻账户。",py:"Qǐng nín tiánxiě yìcháng jiāoyì shēnbào biǎo, pèihé wǒmen de fēngxiǎn guǎnkòng liúchéng, xìnyòng jìlù wánquán bù shòu yǐngxiǎng, wǒmen huì jǐnkuài wèi nín jiědòng zhànghù.",vi:"Vui lòng điền mẫu khai báo giao dịch bất thường, phối hợp với quy trình kiểm soát rủi ro của chúng tôi, hồ sơ tín dụng hoàn toàn không bị ảnh hưởng, chúng tôi sẽ sớm mở khóa tài khoản cho quý khách.",hl:["交易","风险"]}
+    ]
+  },
+  regulation: {
+    scene: "📍 Ngân hàng yêu cầu khách hàng cập nhật thông tin theo quy định pháp lý",
+    lines: [
+      {role:"员工",zh:"您好，根据监管规定，我行需要对您的账户进行定期合规审查，请配合更新信息。",py:"Nín hǎo, gēnjù jiānguǎn guīdìng, wǒ háng xūyào duì nín de zhànghù jìnxíng dìngqī héguī shěnchá, qǐng pèihé gēngxīn xìnxī.",vi:"Xin chào, theo quy định giám sát, ngân hàng chúng tôi cần thực hiện kiểm tra tuân thủ định kỳ đối với tài khoản của quý khách, vui lòng phối hợp cập nhật thông tin.",hl:["监管","合规"]},
+      {role:"客户",zh:"好的，请问需要我提供哪些材料？这是强制性的要求吗？",py:"Hǎo de, qǐngwèn xūyào wǒ tígōng nǎxiē cáiliào? Zhè shì qiángzhìxìng de yāoqiú ma?",vi:"Vâng, xin hỏi tôi cần cung cấp những tài liệu gì? Đây có phải yêu cầu bắt buộc không?",hl:[]},
+      {role:"员工",zh:"需要更新您的实名认证信息，并提供资金来源证明，这是央行反洗钱法规的强制要求，所有客户都需执行。",py:"Xūyào gēngxīn nín de shímíng rènzhèng xìnxī, bìng tígōng zījīn láiyuán zhèngmíng, zhè shì yāngháng fǎn xǐqián fǎguī de qiángzhì yāoqiú, suǒyǒu kèhù dōu xū zhíxíng.",vi:"Cần cập nhật thông tin xác minh danh tính thực và cung cấp bằng chứng nguồn gốc tiền, đây là yêu cầu bắt buộc theo quy định chống rửa tiền của ngân hàng trung ương, tất cả khách hàng đều phải thực hiện.",hl:["实名","反洗钱"]},
+      {role:"客户",zh:"我明白，防范洗钱和金融犯罪确实重要。请问审查期间会影响我正常使用账户吗？",py:"Wǒ míngbai, fángfàn xǐqián hé jīnróng fànzuì quèshí zhòngyào. Qǐngwèn shěnchá qījiān huì yǐngxiǎng wǒ zhèngcháng shǐyòng zhànghù ma?",vi:"Tôi hiểu, phòng ngừa rửa tiền và tội phạm tài chính thực sự quan trọng. Xin hỏi trong thời gian kiểm tra có ảnh hưởng đến việc sử dụng tài khoản bình thường không?",hl:["洗钱"]},
+      {role:"员工",zh:"审查期间账户正常使用，不受影响。根据《银行业监督管理法》，我行有义务执行这些合规审查。",py:"Shěnchá qījiān zhànghù zhèngcháng shǐyòng, bù shòu yǐngxiǎng. Gēnjù 《Yínhángyè Jiāndū Guǎnlǐ Fǎ》, wǒ háng yǒu yìwù zhíxíng zhèxiē héguī shěnchá.",vi:"Trong thời gian kiểm tra tài khoản sử dụng bình thường, không bị ảnh hưởng. Theo Luật Giám sát Quản lý Ngân hàng, chúng tôi có nghĩa vụ thực hiện các cuộc kiểm tra tuân thủ này.",hl:["监管","合规"]},
+      {role:"客户",zh:"明白了，我会积极配合。请问审查大概需要多长时间完成？",py:"Míngbai le, wǒ huì jījí pèihé. Qǐngwèn shěnchá dàgài xūyào duō cháng shíjiān wánchéng?",vi:"Hiểu rồi, tôi sẽ tích cực phối hợp. Xin hỏi kiểm tra cần khoảng bao lâu để hoàn thành?",hl:[]},
+      {role:"员工",zh:"一般三到五个工作日完成审查，感谢您对银行合规工作的理解与支持！",py:"Yībān sān dào wǔ gè gōngzuòrì wánchéng shěnchá, gǎnxiè nín duì yínháng héguī gōngzuò de lǐjiě yǔ zhīchí!",vi:"Thường 3-5 ngày làm việc hoàn thành kiểm tra, cảm ơn quý khách đã thông cảm và hỗ trợ công tác tuân thủ của ngân hàng!",hl:["合规"]}
+    ]
+  },
+  digital: {
+    scene: "📍 Khách hàng trẻ muốn đăng ký ngân hàng số và thanh toán điện tử",
+    lines: [
+      {role:"客户",zh:"您好，我想开通手机银行APP，请问如何注册？支持哪些功能？",py:"Nín hǎo, wǒ xiǎng kāitōng shǒujī yínháng APP, qǐngwèn rúhé zhùcè? Zhīchí nǎxiē gōngnéng?",vi:"Xin chào, tôi muốn kích hoạt ứng dụng ngân hàng di động, xin hỏi cách đăng ký? Hỗ trợ những tính năng gì?",hl:["手机银行"]},
+      {role:"员工",zh:"您可以在手机上下载我行APP，用银行卡号和身份证完成实名注册，支持转账、缴费、理财、电子支付全部功能。",py:"Nín kěyǐ zài shǒujī shàng xiàzài wǒ háng APP, yòng yínhángkǎ hào hé shēnfènzhèng wánchéng shímíng zhùcè, zhīchí zhuǎnzhàng, jiǎofèi, lǐcái, diànzǐ zhīfù quánbù gōngnéng.",vi:"Quý khách có thể tải ứng dụng ngân hàng về điện thoại, dùng số thẻ ngân hàng và CMND để đăng ký xác thực danh tính thực, hỗ trợ đầy đủ chuyển khoản, nộp phí, đầu tư tài chính, thanh toán điện tử.",hl:["手机银行","电子支付"]},
+      {role:"客户",zh:"安全性怎么样？我担心手机银行被黑客攻击导致资金损失。",py:"Ānquán xìng zěnme yàng? Wǒ dānyōu shǒujī yínháng bèi hēikè gōngjī dǎozhì zījīn sǔnshī.",vi:"Bảo mật như thế nào? Tôi lo ngại ngân hàng di động bị hacker tấn công gây mất tiền.",hl:["手机银行"]},
+      {role:"员工",zh:"我们采用人脸识别、指纹验证和动态密码三重加密技术，数字银行安全系统达到银行业最高标准。",py:"Wǒmen cǎiyòng rénliǎn shíbié, zhǐwén yànzhèng hé dòngtài mìmǎ sān chóng jiāmì jìshù, shùzì yínháng ānquán xìtǒng dádào yínhángyè zuìgāo biāozhǔn.",vi:"Chúng tôi sử dụng ba lớp mã hóa: nhận diện khuôn mặt, xác minh vân tay và mật khẩu động, hệ thống bảo mật ngân hàng số đạt tiêu chuẩn cao nhất ngành ngân hàng.",hl:["数字银行"]},
+      {role:"客户",zh:"我平时用第三方支付，手机银行和它相比有什么优势？",py:"Wǒ píngshí yòng dìsānfāng zhīfù, shǒujī yínháng hé tā xiāngbǐ yǒu shénme yōushì?",vi:"Tôi thường dùng thanh toán bên thứ ba, ngân hàng di động so với nó có ưu điểm gì?",hl:["手机银行"]},
+      {role:"员工",zh:"第三方支付适合小额消费，我们的数字银行更适合大额转账和理财投资，单笔额度更高，数据加密更安全，还可以使用快捷支付绑定多张银行卡。",py:"Dìsānfāng zhīfù shìhé xiǎo é xiāofèi, wǒmen de shùzì yínháng gèng shìhé dà é zhuǎnzhàng hé lǐcái tóuzī, dān bǐ édù gèng gāo, shùjù jiāmì gèng ānquán, hái kěyǐ shǐyòng kuàijié zhīfù bǎngdìng duō zhāng yínhángkǎ.",vi:"Thanh toán bên thứ ba phù hợp tiêu dùng nhỏ, ngân hàng số của chúng tôi phù hợp chuyển khoản lớn và đầu tư tài chính, hạn mức mỗi giao dịch cao hơn, mã hóa dữ liệu an toàn hơn, còn có thể dùng thanh toán nhanh liên kết nhiều thẻ ngân hàng.",hl:["数字银行","快捷支付"]}
+    ]
+  },
+  corporate: {
+    scene: "📍 Doanh nghiệp mới thành lập đến mở tài khoản và tư vấn vay vốn",
+    lines: [
+      {role:"客户",zh:"您好，我们公司刚刚成立，需要开立对公账户，另外也想了解企业融资方案。",py:"Nín hǎo, wǒmen gōngsī gānggāng chénglì, xūyào kāilì duìgōng zhànghù, lìngwài yě xiǎng liǎojiě qǐyè rónzī fāng'àn.",vi:"Xin chào, công ty chúng tôi vừa thành lập, cần mở tài khoản doanh nghiệp, ngoài ra cũng muốn tìm hiểu phương án tài trợ vốn doanh nghiệp.",hl:["企业","融资"]},
+      {role:"员工",zh:"欢迎！开立企业对公账户需要营业执照、法人身份证和公司章程，请问贵公司是什么类型的企业？",py:"Huānyíng! Kāilì qǐyè duìgōng zhànghù xūyào yíngyè zhízhào, fǎrén shēnfènzhèng hé gōngsī zhāngchéng, qǐngwèn guì gōngsī shì shénme lèixíng de qǐyè?",vi:"Xin chào mừng! Mở tài khoản doanh nghiệp cần giấy phép kinh doanh, CMND người đại diện pháp lý và điều lệ công ty, xin hỏi quý công ty là loại hình doanh nghiệp gì?",hl:["企业"]},
+      {role:"客户",zh:"我们是有限责任公司，主要从事贸易业务，目前需要流动资金支持，希望申请企业贷款。",py:"Wǒmen shì yǒuxiàn zérèn gōngsī, zhǔyào cóngshì màoyì yèwù, mùqián xūyào liúdòng zījīn zhīchí, xīwàng shēnqǐng qǐyè dàikuǎn.",vi:"Chúng tôi là công ty TNHH, chủ yếu kinh doanh thương mại, hiện cần hỗ trợ vốn lưu động, muốn đăng ký vay vốn doanh nghiệp.",hl:["企业","贷款"]},
+      {role:"员工",zh:"我们提供流动资金贷款、供应链金融和票据贴现等多种企业金融服务，可以根据贵公司的经营状况定制方案。",py:"Wǒmen tígōng liúdòng zījīn dàikuǎn, gōngyìng liàn jīnróng hé piàojù tiēxiàn děng duō zhǒng qǐyè jīnróng fúwù, kěyǐ gēnjù guì gōngsī de jīngyíng zhuàngkuàng dìngzhì fāng'àn.",vi:"Chúng tôi cung cấp nhiều dịch vụ tài chính doanh nghiệp như vay vốn lưu động, tài chính chuỗi cung ứng và chiết khấu hối phiếu, có thể tùy chỉnh phương án theo tình hình kinh doanh của quý công ty.",hl:["贷款","企业"]},
+      {role:"客户",zh:"企业贷款的审批流程需要多长时间？利率是如何确定的？",py:"Qǐyè dàikuǎn de shěnpī liúchéng xūyào duō cháng shíjiān? Lìlǜ shì rúhé quèdìng de?",vi:"Quy trình xét duyệt vay vốn doanh nghiệp mất bao lâu? Lãi suất được xác định như thế nào?",hl:["贷款","利率"]},
+      {role:"员工",zh:"审批一般五到七个工作日，贷款利率根据企业信用评级、抵押资产和经营年限综合评定，建议您预约我们的企业客户经理详细洽谈。",py:"Shěnpī yībān wǔ dào qī gè gōngzuòrì, dàikuǎn lìlǜ gēnjù qǐyè xìnyòng píngjí, dǐyā zīchǎn hé jīngyíng niánxiàn zōnghé píngdìng, jiànyì nín yùyuē wǒmen de qǐyè kèhù jīnglǐ xiángxì qiàtán.",vi:"Xét duyệt thường 5-7 ngày làm việc, lãi suất vay được đánh giá tổng hợp dựa trên xếp hạng tín dụng doanh nghiệp, tài sản thế chấp và số năm hoạt động, khuyên quý vị đặt hẹn với chuyên viên khách hàng doanh nghiệp để trao đổi chi tiết.",hl:["贷款","利率","信用"]}
+    ]
+  },
+  accounting: {
+    scene: "📍 Khách hàng cần sao kê tài khoản để nộp hồ sơ vay và kiểm tra bất thường",
+    lines: [
+      {role:"客户",zh:"您好，我需要打印最近六个月的银行流水账单，用于申请签证，请问如何办理？",py:"Nín hǎo, wǒ xūyào dǎyìn zuìjìn liù gè yuè de yínháng liúshuǐ zhàngdān, yòng yú shēnqǐng qiānzhèng, qǐngwèn rúhé bànlǐ?",vi:"Xin chào, tôi cần in sao kê ngân hàng 6 tháng gần nhất để dùng xin visa, xin hỏi cách thực hiện?",hl:["账单"]},
+      {role:"员工",zh:"好的，请出示身份证。请问您需要中文还是英文版本的银行对账单？",py:"Hǎo de, qǐng chūshì shēnfènzhèng. Qǐngwèn nín xūyào zhōngwén háishì yīngwén bǎnběn de yínháng duìzhàngdān?",vi:"Vâng, vui lòng xuất trình CMND. Xin hỏi quý khách cần bản đối chiếu tài khoản ngân hàng bằng tiếng Trung hay tiếng Anh?",hl:["对账单"]},
+      {role:"客户",zh:"需要中文版，请问对账单上能显示所有的收入和支出记录吗？",py:"Xūyào zhōngwén bǎn, qǐngwèn duìzhàngdān shàng néng xiǎnshì suǒyǒu de shōurù hé zhīchū jìlù ma?",vi:"Cần bản tiếng Trung, xin hỏi bản đối chiếu tài khoản có thể hiển thị tất cả giao dịch thu vào và chi ra không?",hl:["对账单"]},
+      {role:"员工",zh:"可以的，银行对账单会详细列出每笔借贷记录，包括交易日期、金额、摘要和账户余额。",py:"Kěyǐ de, yínháng duìzhàngdān huì xiángxì lièchū měi bǐ jiè dài jìlù, bāokuò jiāoyì rìqī, jīné, zhāiyào hé zhànghù yú'é.",vi:"Được, bảng đối chiếu tài khoản ngân hàng sẽ liệt kê chi tiết từng giao dịch ghi nợ và ghi có, bao gồm ngày giao dịch, số tiền, mô tả và số dư tài khoản.",hl:["对账单","借","贷"]},
+      {role:"客户",zh:"另外，我们财务说账目上有一笔未入账的款项，请帮我核查一下账务情况。",py:"Lìngwài, wǒmen cáiwù shuō zhàngmù shàng yǒu yī bǐ wèi rù zhàng de kuǎnxiàng, qǐng bāng wǒ héchá yīxià zhàngwù qíngkuàng.",vi:"Ngoài ra, kế toán của chúng tôi nói trong sổ sách có một khoản chưa vào tài khoản, nhờ kiểm tra lại tình hình kế toán giúp tôi.",hl:["账务","入账"]},
+      {role:"员工",zh:"好的，我来核对一下。有时跨行转账存在一到两天的入账时差，请提供对方的汇款凭证，方便我们进行账务核查和调账处理。",py:"Hǎo de, wǒ lái héduì yīxià. Yǒushí kuà háng zhuǎnzhàng cúnzài yī dào liǎng tiān de rùzhàng shíchā, qǐng tígōng duìfāng de huìkuǎn píngzhèng, fāngbiàn wǒmen jìnxíng zhàngwù héchá hé diào zhàng chǔlǐ.",vi:"Vâng, để tôi kiểm tra. Đôi khi chuyển khoản liên ngân hàng có độ trễ vào tài khoản 1-2 ngày, vui lòng cung cấp chứng từ chuyển tiền của bên kia để chúng tôi tiến hành kiểm tra kế toán và xử lý điều chỉnh.",hl:["账务","入账","凭证"]}
+    ]
+  },
+  service: {
+    scene: "📍 Khách hàng đến ngân hàng khiếu nại và xử lý thẻ bị nuốt tại ATM",
+    lines: [
+      {role:"客户",zh:"您好，我的银行卡在ATM机上被吞卡了，我应该如何处理？",py:"Nín hǎo, wǒ de yínhángkǎ zài ATM jī shàng bèi tūnkǎ le, wǒ yīnggāi rúhé chǔlǐ?",vi:"Xin chào, thẻ ngân hàng của tôi bị nuốt vào máy ATM, tôi cần xử lý như thế nào?",hl:["银行卡"]},
+      {role:"员工",zh:"非常抱歉给您带来不便！吞卡是ATM的安全保护机制。请出示身份证，我立即为您办理挂失和补办手续。",py:"Fēicháng bàoqiàn gěi nín dài lái bùbiàn! Tūnkǎ shì ATM de ānquán bǎohù jīzhì. Qǐng chūshì shēnfènzhèng, wǒ lìjí wèi nín bànlǐ guàshī hé bǔbàn shǒuxù.",vi:"Rất xin lỗi đã gây bất tiện cho quý khách! Nuốt thẻ là cơ chế bảo vệ an toàn của ATM. Vui lòng xuất trình CMND, tôi sẽ ngay lập tức làm thủ tục báo mất và làm lại thẻ cho quý khách.",hl:["挂失","补办"]},
+      {role:"客户",zh:"好的，请问补办银行卡需要多长时间？卡里的钱会不会有问题？",py:"Hǎo de, qǐngwèn bǔbàn yínhángkǎ xūyào duō cháng shíjiān? Kǎ lǐ de qián huì bu huì yǒu wèntí?",vi:"Được, xin hỏi làm lại thẻ ngân hàng mất bao lâu? Tiền trong thẻ có vấn đề gì không?",hl:["银行卡","补办"]},
+      {role:"员工",zh:"补办银行卡当场即可完成，您账户内的资金完全安全，新卡会继承原卡的所有功能和账户信息。",py:"Bǔbàn yínhángkǎ dāngchǎng jí kě wánchéng, nín zhànghù nèi de zījīn wánquán ānquán, xīn kǎ huì jìchéng yuán kǎ de suǒyǒu gōngnéng hé zhànghù xìnxī.",vi:"Làm lại thẻ ngân hàng có thể hoàn thành ngay tại chỗ, tiền trong tài khoản của quý khách hoàn toàn an toàn, thẻ mới sẽ kế thừa tất cả tính năng và thông tin tài khoản của thẻ cũ.",hl:["银行卡","补办"]},
+      {role:"客户",zh:"谢谢！另外我想顺便投诉一下，这台ATM机的屏幕显示很不清楚，导致我操作失误。",py:"Xièxie! Lìngwài wǒ xiǎng shùnbiàn tóusù yīxià, zhè tái ATM jī de píngmù xiǎnshì hěn bù qīngchǔ, dǎozhì wǒ cāozuò shīwù.",vi:"Cảm ơn! Ngoài ra tôi muốn nhân tiện khiếu nại, màn hình của máy ATM này hiển thị rất không rõ ràng, khiến tôi thao tác nhầm.",hl:["投诉"]},
+      {role:"员工",zh:"感谢您的宝贵意见！我会立即上报设备维护部门处理。您也可以填写客户满意度调查表，您的反馈对我们改善服务非常重要。",py:"Gǎnxiè nín de bǎoguì yìjiàn! Wǒ huì lìjí shàngbào shèbèi wéihù bùmén chǔlǐ. Nín yě kěyǐ tiánxiě kèhù mǎnyìdù diàochá biǎo, nín de fǎnkuì duì wǒmen gǎishàn fúwù fēicháng zhòngyào.",vi:"Cảm ơn ý kiến quý báu của quý khách! Tôi sẽ ngay lập tức báo cáo bộ phận bảo trì thiết bị xử lý. Quý khách cũng có thể điền phiếu khảo sát mức độ hài lòng của khách hàng, phản hồi của quý khách rất quan trọng để chúng tôi cải thiện dịch vụ.",hl:["投诉","满意度"]}
+    ]
+  }
+};
+
+// Tooltip element
+const _tt = document.createElement('div');
+_tt.className = 'hl-tooltip';
+document.body.appendChild(_tt);
+
+function showTooltip(e, zh, py, vi) {
+  _tt.innerHTML = `<div class="ht-zh">${zh}</div><div class="ht-py">${py}</div><div class="ht-vi">${vi}</div>`;
+  _tt.classList.add('show');
+  posTooltip(e);
+}
+function hideTooltip() { _tt.classList.remove('show'); }
+function posTooltip(e) {
+  const x = Math.min(e.clientX + 12, window.innerWidth - 220);
+  const y = Math.min(e.clientY + 12, window.innerHeight - 80);
+  _tt.style.left = x + 'px'; _tt.style.top = y + 'px';
+}
+document.addEventListener('mousemove', e => { if (_tt.classList.contains('show')) posTooltip(e); });
+document.addEventListener('click', e => { if (!e.target.classList.contains('vocab-hl')) hideTooltip(); });
 
 /* SAMPLE DATA — 5 từ đầy đủ để app hoạt động ngay.
    Sau khi chạy generate_vocab_data.py, copy nội dung
@@ -23852,10 +24048,74 @@ function openSituation(id) {
   document.getElementById('sit-grid').style.display = 'none';
   const sec = SECTIONS[id];
   document.getElementById('sit-title').textContent = sec.icon + ' ' + sec.name;
+
+  // Build lookup map: zh → {py, vi} từ mảng words
+  const wordMap = {};
+  words.filter(w => w.section === id).forEach(w => { wordMap[w.zh] = w; });
+
+  // Render dialogue
+  const dlg = DIALOGUES[id];
+  const sitEl = document.getElementById('sit-words');
+
+  // Scene description
+  const sceneEl = document.getElementById('sit-scene');
+  sceneEl.textContent = dlg ? dlg.scene : '';
+
+  // Dialogue lines
+  const dlgContainer = document.getElementById('sit-dialogue');
+  if (dlg) {
+    dlgContainer.innerHTML = dlg.lines.map(line => {
+      const isStaff = line.role === '员工';
+      // Highlight vocab words in zh text
+      let zhHtml = line.zh;
+      (line.hl || []).forEach(word => {
+        const w = wordMap[word];
+        if (w) {
+          const tip = `onmouseenter="showTooltip(event,'${w.zh}','${w.py}','${w.vi}')" onmouseleave="hideTooltip()"`;
+          zhHtml = zhHtml.replace(new RegExp(word.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'), 'g'),
+            `<span class="vocab-hl" ${tip}>${word}</span>`);
+        }
+      });
+      return `<div class="dl-line ${isStaff ? 'staff' : 'customer'}">
+        <div class="dl-avatar ${isStaff ? 'staff-av' : 'customer-av'}">${isStaff ? '👩‍💼' : '🧑'}</div>
+        <div class="dl-bubble">
+          <div class="dl-role">${isStaff ? '🏦 Nhân viên' : '👤 Khách hàng'}</div>
+          <div class="dl-zh">${zhHtml}</div>
+          <div class="dl-py">${line.py}</div>
+          <div class="dl-vi">${line.vi}</div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  // Vocab chips section
   const sitWords = words.filter(w => w.section === id);
-  const list = document.getElementById('sit-vocab-list');
-  list.innerHTML = sitWords.map((w, i) => buildVocabRow(w, i)).join('');
-  document.getElementById('sit-words').classList.add('show');
+  document.getElementById('sit-vocab-chips').innerHTML = sitWords.map(w =>
+    `<div class="vocab-chip" onclick="expandWordDetail('${w.zh}')">
+      <div class="vc-zh">${w.zh}</div>
+      <div class="vc-vi">${w.vi}</div>
+    </div>`
+  ).join('');
+  document.getElementById('sit-vocab-chips').classList.remove('show');
+  document.getElementById('sit-vocab-toggle-text').textContent = `Xem ${sitWords.length} từ vựng trong chủ đề này ▸`;
+
+  sitEl.classList.add('show');
+}
+
+function toggleSitVocab() {
+  const chips = document.getElementById('sit-vocab-chips');
+  const toggle = document.getElementById('sit-vocab-toggle-text');
+  const isShow = chips.classList.toggle('show');
+  const count = currentSituation ? words.filter(w => w.section === currentSituation).length : 0;
+  toggle.textContent = isShow ? `Ẩn từ vựng ▾` : `Xem ${count} từ vựng trong chủ đề này ▸`;
+}
+
+function expandWordDetail(zh) {
+  switchTab('vocab');
+  setTimeout(() => {
+    const el = document.querySelector(`[data-zh="${zh}"]`);
+    if (el) { el.scrollIntoView({behavior:'smooth',block:'center'}); el.click(); }
+  }, 100);
 }
 
 function closeSituation() {
