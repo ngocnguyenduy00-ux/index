@@ -1,0 +1,3003 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🏦 Học Từ Vựng Tiếng Trung – Ngân Hàng</title>
+<style>
+/* ===================== RESET & BASE ===================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --blue:    #1d4ed8;
+  --blue2:   #3b82f6;
+  --blue-bg: #eff6ff;
+  --red:     #dc2626;
+  --green:   #16a34a;
+  --green-bg:#dcfce7;
+  --amber:   #d97706;
+  --amber-bg:#fef3c7;
+  --purple:  #7c3aed;
+  --purple-bg:#f5f3ff;
+  --cyan:    #0891b2;
+  --pink:    #be185d;
+  --gray:    #6b7280;
+  --card-bg: #ffffff;
+  --body-bg: #f1f5f9;
+  --border:  #e2e8f0;
+  --text:    #1e293b;
+  --muted:   #64748b;
+  --shadow:  0 2px 12px rgba(0,0,0,0.08);
+  --radius:  12px;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Segoe UI', 'Apple Color Emoji', system-ui, sans-serif;
+  background: var(--body-bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ===================== HEADER ===================== */
+.site-header {
+  background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 60%, #2563eb 100%);
+  color: white;
+  padding: 1.2rem 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 4px 20px rgba(29,78,216,0.3);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.site-header .logo { font-size: 2rem; }
+.site-header .title-block h1 { font-size: 1.3rem; font-weight: 700; }
+.site-header .title-block p  { font-size: 0.8rem; opacity: 0.8; margin-top: 1px; }
+.site-header .counter-badge {
+  margin-left: auto;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ===================== TABS ===================== */
+.tabs-wrapper {
+  background: var(--card-bg);
+  border-bottom: 2px solid var(--border);
+  position: sticky;
+  top: 72px;
+  z-index: 99;
+}
+.tabs-nav {
+  display: flex;
+  gap: 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  overflow-x: auto;
+}
+.tab-btn {
+  padding: 0.9rem 1.4rem;
+  border: none;
+  background: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  white-space: nowrap;
+  transition: color .2s, border-color .2s;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.tab-btn.active { color: var(--blue); border-bottom-color: var(--blue); }
+.tab-btn:hover:not(.active) { color: var(--text); }
+
+/* ===================== TAB CONTENT ===================== */
+.tab-pane { display: none; padding: 2rem 1.5rem; max-width: 1200px; margin: 0 auto; }
+.tab-pane.active { display: block; }
+
+/* ===================== GROUP ACCORDION ===================== */
+.group-accordion {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  margin-bottom: 1.25rem;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.group-head {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  user-select: none;
+  background: linear-gradient(135deg, #1e3a8a, #2563eb);
+  color: white;
+  transition: opacity .2s;
+}
+.group-head:hover { opacity: 0.95; }
+.group-num {
+  width: 32px; height: 32px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.9rem; flex-shrink: 0;
+}
+.group-head h2 { font-size: 1rem; font-weight: 700; flex: 1; }
+.group-head .sub { font-size: 0.78rem; opacity: 0.8; }
+.group-head .chevron { font-size: 1.1rem; transition: transform .3s; flex-shrink: 0; }
+.group-head.open .chevron { transform: rotate(180deg); }
+
+.group-body { display: none; padding: 1.5rem; }
+.group-body.open { display: block; }
+
+/* ===================== WORD GRID ===================== */
+.word-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+  gap: 1.2rem;
+  margin-bottom: 1.2rem;
+}
+
+/* ===================== WORD CARD ===================== */
+.word-card {
+  background: var(--body-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.1rem;
+  transition: box-shadow .2s;
+}
+.word-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+
+.word-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.7rem;
+  flex-wrap: wrap;
+}
+.word-num {
+  width: 22px; height: 22px;
+  background: var(--blue);
+  color: white;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.word-cn {
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: var(--blue);
+  letter-spacing: 1px;
+  cursor: pointer;
+  line-height: 1;
+}
+.word-cn:hover { color: var(--blue2); }
+.word-py {
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-style: italic;
+  flex-shrink: 0;
+}
+.word-viet {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: white;
+  padding: 0.2rem 0.65rem;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+/* audio btn */
+.audio-btn {
+  margin-left: auto;
+  background: var(--blue-bg);
+  border: 1px solid #bfdbfe;
+  color: var(--blue);
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all .2s;
+  flex-shrink: 0;
+}
+.audio-btn:hover { background: var(--blue); color: white; }
+.audio-btn.playing { background: var(--blue); color: white; animation: pulse 1s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.6} }
+
+/* phrase box */
+.phrase-box {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.75rem;
+  background: var(--blue-bg);
+  border-radius: 6px;
+  border-left: 3px solid var(--blue2);
+  margin-bottom: 0.6rem;
+  font-size: 0.88rem;
+  flex-wrap: wrap;
+}
+.phrase-box .ph-cn { font-weight: 600; color: var(--blue); }
+.phrase-box .ph-sep { color: var(--muted); }
+.phrase-box .ph-vn { color: var(--muted); font-size: 0.82rem; }
+
+/* etymology box */
+.etym-box {
+  padding: 0.45rem 0.75rem;
+  background: var(--purple-bg);
+  border-radius: 6px;
+  border-left: 3px solid var(--purple);
+  margin-bottom: 0.7rem;
+  font-size: 0.82rem;
+  color: #5b21b6;
+  line-height: 1.5;
+}
+.etym-box::before { content: "📖 "; }
+
+/* examples */
+.examples-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.45rem;
+}
+.example-item {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.7rem 0.85rem;
+  margin-bottom: 0.5rem;
+}
+.ex-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.4rem;
+  margin-bottom: 0.15rem;
+}
+.ex-cn { font-size: 1rem; font-weight: 500; flex: 1; cursor: pointer; }
+.ex-cn:hover { color: var(--blue2); }
+.ex-py { font-size: 0.78rem; color: var(--muted); font-style: italic; }
+.ex-vn { font-size: 0.82rem; color: var(--green); }
+
+/* grammar visualization */
+.gram-label {
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin: 0.4rem 0 0.25rem;
+  font-weight: 600;
+}
+.gram-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: flex-end;
+}
+.chip {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3px 8px 4px;
+  border-radius: 6px;
+  color: white;
+  font-weight: 600;
+  line-height: 1;
+  min-width: 30px;
+}
+.chip .c-word { font-size: 1rem; }
+.chip .c-role { font-size: 0.6rem; opacity: 0.9; margin-top: 2px; }
+
+/* grammar pattern */
+.gram-pattern {
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: 0.35rem;
+  font-style: italic;
+}
+.gram-pattern span { color: var(--text); font-weight: 600; }
+
+/* role colors */
+.r-S    { background: #2563eb; }
+.r-V    { background: #dc2626; }
+.r-O    { background: #16a34a; }
+.r-ADV  { background: #d97706; }
+.r-ADJ  { background: #7c3aed; }
+.r-TIME { background: #0891b2; }
+.r-PLACE{ background: #059669; }
+.r-MOD  { background: #9ca3af; }
+.r-COMP { background: #be185d; }
+.r-NEG  { background: #6366f1; }
+.r-CONJ { background: #64748b; }
+.r-QUES { background: #f97316; }
+
+/* grammar legend */
+.gram-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0.5rem 0.75rem;
+  background: #f8fafc;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  border: 1px solid var(--border);
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+.legend-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ===================== STORY CARDS ===================== */
+.story-section-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.story-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--amber);
+}
+.story-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+.story-group-badge {
+  background: var(--amber);
+  color: white;
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+.story-card-header h3 { font-size: 1rem; color: var(--text); }
+.story-btn { margin-left: auto; }
+
+.story-body { }
+.story-para {
+  margin-bottom: 0.8rem;
+  padding: 0.6rem 0.8rem;
+  background: var(--body-bg);
+  border-radius: 6px;
+}
+.story-cn {
+  font-size: 1rem;
+  line-height: 1.8;
+  margin-bottom: 0.2rem;
+  cursor: pointer;
+}
+.story-vn {
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-style: italic;
+  line-height: 1.6;
+}
+.hl-word {
+  color: var(--blue);
+  font-weight: 700;
+  border-bottom: 2px dotted var(--blue2);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.hl-word:hover { background: var(--blue-bg); border-radius: 3px; }
+
+/* vocab chips in story */
+.story-vocab-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed var(--border);
+}
+.story-vocab-chips .sv-chip {
+  padding: 0.2rem 0.6rem;
+  background: var(--blue-bg);
+  border: 1px solid #bfdbfe;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  color: var(--blue);
+  font-weight: 600;
+  cursor: pointer;
+}
+.story-vocab-chips .sv-chip:hover { background: var(--blue); color: white; }
+
+/* ===================== PRACTICE ===================== */
+.practice-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+.practice-header h2 { font-size: 1.2rem; font-weight: 700; }
+
+.mode-switcher {
+  display: flex;
+  gap: 0.5rem;
+  background: var(--body-bg);
+  padding: 4px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+.mode-btn {
+  padding: 0.5rem 1.2rem;
+  border: none;
+  background: none;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--muted);
+  transition: all .2s;
+}
+.mode-btn.active {
+  background: var(--card-bg);
+  color: var(--blue);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+/* group filter */
+.group-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1.25rem;
+}
+.gf-btn {
+  padding: 0.3rem 0.8rem;
+  border: 1px solid var(--border);
+  background: white;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all .2s;
+  font-weight: 500;
+}
+.gf-btn.active { background: var(--blue); color: white; border-color: var(--blue); }
+
+/* stats bar */
+.stats-bar {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+.stat-pill {
+  padding: 0.3rem 0.9rem;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+.sp-total   { background: var(--blue-bg);  color: var(--blue); }
+.sp-correct { background: var(--green-bg); color: var(--green); }
+.sp-wrong   { background: #fee2e2;         color: var(--red); }
+.sp-left    { background: var(--amber-bg); color: var(--amber); }
+
+/* progress */
+.progress-wrap { margin-bottom: 1.25rem; }
+.progress-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.progress-bar {
+  height: 8px;
+  background: var(--border);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--blue2), var(--blue));
+  border-radius: 99px;
+  transition: width .5s ease;
+}
+
+/* ---- FLASHCARD ---- */
+.fc-area { max-width: 560px; margin: 0 auto; }
+.fc-perspective { perspective: 1200px; height: 280px; cursor: pointer; margin-bottom: 1.25rem; }
+.fc-card {
+  width: 100%; height: 100%;
+  transform-style: preserve-3d;
+  transition: transform .6s cubic-bezier(.4,0,.2,1);
+  position: relative;
+  border-radius: var(--radius);
+}
+.fc-card.flipped { transform: rotateY(180deg); }
+.fc-face {
+  position: absolute; inset: 0;
+  backface-visibility: hidden;
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+  text-align: center;
+}
+.fc-front { background: linear-gradient(135deg, #1e3a8a, #2563eb); color: white; }
+.fc-back  { background: linear-gradient(135deg, #064e3b, #059669); color: white; transform: rotateY(180deg); }
+.fc-cn-big { font-size: 3.5rem; font-weight: 700; margin-bottom: 0.3rem; line-height: 1; }
+.fc-py-big { font-size: 1.1rem; opacity: .75; margin-bottom: 0.8rem; }
+.fc-hint   { font-size: 0.8rem; opacity: .55; }
+.fc-vn-big { font-size: 1.4rem; font-weight: 700; margin-bottom: 0.4rem; }
+.fc-phrase-small { font-size: 0.85rem; opacity: .85; margin-bottom: 0.3rem; }
+.fc-etym-small   { font-size: 0.78rem; opacity: .7; max-width: 360px; }
+.fc-audio-row { display: flex; gap: 0.5rem; margin-top: 0.6rem; }
+.fc-audio-btn {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: white;
+  padding: 0.3rem 0.7rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.78rem;
+  transition: background .2s;
+}
+.fc-audio-btn:hover { background: rgba(255,255,255,0.3); }
+
+.fc-flip-hint { text-align: center; font-size: 0.78rem; color: var(--muted); margin-bottom: 1rem; }
+
+/* rating */
+.rating-area {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s;
+}
+.rating-area.visible { opacity: 1; pointer-events: all; }
+.rate-btn {
+  padding: 0.6rem 1.6rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 700;
+  transition: transform .2s, box-shadow .2s;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.rate-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+.rate-hard  { background: #fee2e2; color: var(--red); }
+.rate-ok    { background: var(--amber-bg); color: var(--amber); }
+.rate-easy  { background: var(--green-bg); color: var(--green); }
+
+/* ---- MULTIPLE CHOICE ---- */
+.mc-area { max-width: 600px; margin: 0 auto; }
+.mc-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  margin-bottom: 1.25rem;
+  text-align: center;
+}
+.mc-hint { font-size: 0.75rem; color: var(--muted); margin-bottom: 0.5rem; }
+.mc-cn   { font-size: 3rem; font-weight: 700; color: var(--blue); margin-bottom: 0.2rem; cursor: pointer; line-height: 1.2; }
+.mc-py   { font-size: 0.95rem; color: var(--muted); font-style: italic; margin-bottom: 0.3rem; }
+.mc-phrase { font-size: 0.85rem; color: var(--muted); }
+
+.mc-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+.mc-opt {
+  padding: 0.85rem 0.75rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  text-align: center;
+  background: white;
+  transition: all .2s;
+  font-weight: 500;
+  line-height: 1.3;
+}
+.mc-opt:hover:not(.locked) { border-color: var(--blue2); background: var(--blue-bg); }
+.mc-opt.correct { border-color: var(--green); background: var(--green-bg); color: #065f46; font-weight: 700; }
+.mc-opt.wrong   { border-color: var(--red);   background: #fee2e2; color: #991b1b; }
+.mc-opt.locked  { pointer-events: none; }
+
+.mc-feedback {
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+  min-height: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+.mc-feedback.ok  { color: var(--green); }
+.mc-feedback.bad { color: var(--red); }
+
+.next-btn {
+  display: block;
+  margin: 0 auto;
+  padding: 0.65rem 2rem;
+  background: var(--blue);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 700;
+  transition: background .2s, transform .2s;
+  opacity: 0;
+  pointer-events: none;
+}
+.next-btn.visible { opacity: 1; pointer-events: all; }
+.next-btn:hover { background: var(--blue2); transform: translateY(-1px); }
+
+/* finish screen */
+.finish-screen {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.finish-screen .big-icon { font-size: 4rem; margin-bottom: 1rem; }
+.finish-screen h2 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+.finish-screen p { color: var(--muted); margin-bottom: 1.5rem; }
+.restart-btn {
+  padding: 0.75rem 2rem;
+  background: var(--blue);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+/* ===================== TOAST ===================== */
+#toast {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  background: #1e293b;
+  color: white;
+  padding: 0.65rem 1.2rem;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  z-index: 999;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity .3s, transform .3s;
+  pointer-events: none;
+  max-width: 300px;
+}
+#toast.show { opacity: 1; transform: translateY(0); }
+
+/* ===================== LOADING ===================== */
+.loading-placeholder {
+  text-align: center;
+  padding: 3rem;
+  color: var(--muted);
+  font-size: 1rem;
+}
+.loading-placeholder .spinner {
+  width: 40px; height: 40px;
+  border: 4px solid var(--border);
+  border-top-color: var(--blue);
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
+  margin: 0 auto 1rem;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 768px) {
+  .site-header { padding: 1rem; }
+  .site-header .title-block h1 { font-size: 1rem; }
+  .site-header .counter-badge { display: none; }
+  .tab-pane { padding: 1rem; }
+  .word-grid { grid-template-columns: 1fr; }
+  .mc-options { grid-template-columns: 1fr; }
+  .fc-cn-big { font-size: 2.8rem; }
+  .practice-header { gap: 0.5rem; }
+}
+
+/* ===================== SCROLLBAR ===================== */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--border); }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+
+/* ===================== MISC ===================== */
+.section-divider {
+  border: none;
+  border-top: 1px dashed var(--border);
+  margin: 1rem 0;
+}
+.empty-state {
+  text-align: center;
+  padding: 2rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* ===================== RUBY / PINYIN ===================== */
+/* py-wrap: the inline span wrapping annotated text nodes */
+.py-wrap { display: inline; }
+
+/* Base ruby annotation style */
+ruby rt {
+  font-size: 0.48em;
+  font-style: italic;
+  font-weight: 600;
+  white-space: nowrap;
+  user-select: none;
+  letter-spacing: 0;
+}
+
+/* 1) Từ chính trong word card – chữ lớn, rt nhỏ, màu xanh nhạt */
+.word-cn { line-height: 2.8; }
+.word-cn ruby rt { font-size: 0.28em; color: #93c5fd; }
+
+/* 2) Chip ngữ pháp – nền màu, rt trắng */
+.c-word  { line-height: 2.2; }
+.c-word  ruby rt { color: rgba(255,255,255,0.9); font-size: 0.52em; }
+
+/* 3) Flashcard mặt trước – chữ rất lớn, rt nhỏ */
+.fc-cn-big { line-height: 1.8; }
+.fc-cn-big ruby rt { font-size: 0.2em; color: rgba(255,255,255,0.75); letter-spacing: 0; }
+
+/* 4) Phrase box */
+.ph-cn { line-height: 2.4; }
+.ph-cn ruby rt { font-size: 0.5em; color: #2563eb; }
+
+/* 5) Câu chuyện */
+.story-cn { line-height: 2.3; }
+.story-cn ruby rt { font-size: 0.46em; color: #3b82f6; }
+
+/* 6) Tô màu từ vựng trong câu chuyện */
+.story-cn ruby.vocab-hl {
+  font-weight: 700;
+  color: #1d4ed8;
+}
+.story-cn ruby.vocab-hl rt {
+  color: #1d4ed8;
+  font-weight: 700;
+}
+
+/* 7) Nút phát âm từng dòng câu chuyện */
+.story-spk {
+  display: inline-block; background: none; border: 1px solid #cbd5e1;
+  border-radius: 4px; cursor: pointer; font-size: 0.78em;
+  opacity: 0.55; margin-left: 8px; padding: 1px 5px;
+  vertical-align: middle; transition: opacity 0.2s, background 0.2s;
+  line-height: 1.4;
+}
+.story-spk:hover { opacity: 1; background: #eff6ff; }
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header">
+  <div class="logo">🏦</div>
+  <div class="title-block">
+    <h1>Học Từ Vựng Tiếng Trung – Ngân Hàng</h1>
+    <p>100 từ phổ biến · 10 nhóm · Câu chuyện · Luyện tập Anki</p>
+  </div>
+  <div class="counter-badge" id="headerCounter">⏳ Đang tải...</div>
+</header>
+
+<!-- ===== TABS NAV ===== -->
+<div class="tabs-wrapper">
+  <nav class="tabs-nav">
+    <button class="tab-btn active" onclick="switchTab('vocab',this)">📚 Từ Vựng <small>(100 từ)</small></button>
+    <button class="tab-btn" onclick="switchTab('stories',this)">📖 Câu Chuyện <small>(10 nhóm)</small></button>
+    <button class="tab-btn" onclick="switchTab('practice',this)">🎯 Luyện Tập Anki</button>
+  </nav>
+</div>
+
+<!-- ===== TAB: VOCAB ===== -->
+<div class="tab-pane active" id="tab-vocab">
+  <div id="vocabContainer">
+    <div class="loading-placeholder">
+      <div class="spinner"></div>
+      <p>Đang tải dữ liệu từ vựng...</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TAB: STORIES ===== -->
+<div class="tab-pane" id="tab-stories">
+  <div class="story-section-title">📖 10 Câu Chuyện Hài Hước – Học Từ Vựng Qua Trí Tưởng Tượng</div>
+  <div id="storiesContainer">
+    <div class="loading-placeholder">
+      <div class="spinner"></div>
+      <p>Đang tải câu chuyện...</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TAB: PRACTICE ===== -->
+<div class="tab-pane" id="tab-practice">
+  <!-- Header -->
+  <div class="practice-header">
+    <h2>🎯 Luyện Tập Anki</h2>
+    <div class="mode-switcher">
+      <button class="mode-btn active" id="btnFlashcard" onclick="switchMode('flashcard')">🃏 Flashcard</button>
+      <button class="mode-btn" id="btnMultiChoice" onclick="switchMode('multichoice')">📝 Trắc Nghiệm</button>
+    </div>
+  </div>
+
+  <!-- Group filter -->
+  <div class="group-filter" id="groupFilter">
+    <button class="gf-btn active" data-g="all" onclick="filterGroup(this,'all')">🌐 Tất cả</button>
+    <!-- filled by JS -->
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-bar" id="statsBar">
+    <div class="stat-pill sp-total">📦 Tổng: <span id="st-total">0</span></div>
+    <div class="stat-pill sp-correct">✅ Đúng: <span id="st-correct">0</span></div>
+    <div class="stat-pill sp-wrong">❌ Sai: <span id="st-wrong">0</span></div>
+    <div class="stat-pill sp-left">🔄 Còn lại: <span id="st-left">0</span></div>
+  </div>
+
+  <!-- Progress -->
+  <div class="progress-wrap">
+    <div class="progress-meta">
+      <span id="progressLabel">0 / 0</span>
+      <span id="progressPct">0%</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  </div>
+
+  <!-- Flashcard mode -->
+  <div id="flashcardMode">
+    <div class="fc-area">
+      <div class="fc-flip-hint">👆 Nhấp vào thẻ để lật</div>
+      <div class="fc-perspective" onclick="flipCard()">
+        <div class="fc-card" id="fcCard">
+          <div class="fc-face fc-front">
+            <div class="fc-cn-big" id="fc-cn">?</div>
+            <div class="fc-py-big" id="fc-py">pinyin</div>
+            <div class="fc-hint">Nhấp để xem nghĩa ▶</div>
+          </div>
+          <div class="fc-face fc-back">
+            <div class="fc-vn-big" id="fc-vn">nghĩa</div>
+            <div class="fc-phrase-small" id="fc-phrase">cụm từ</div>
+            <div class="fc-etym-small" id="fc-etym">nguồn gốc</div>
+            <div class="fc-audio-row">
+              <button class="fc-audio-btn" onclick="event.stopPropagation();speakFC()">🔊 Nghe</button>
+              <button class="fc-audio-btn" onclick="event.stopPropagation();speakFCSlow()">🐢 Chậm</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="rating-area" id="ratingArea">
+        <button class="rate-btn rate-hard" onclick="rateCard('hard')">😓 Khó</button>
+        <button class="rate-btn rate-ok"   onclick="rateCard('ok')">😐 Được</button>
+        <button class="rate-btn rate-easy" onclick="rateCard('easy')">😄 Dễ</button>
+      </div>
+      <div id="fcFinish" class="finish-screen" style="display:none;">
+        <div class="big-icon">🎉</div>
+        <h2>Hoàn thành vòng học!</h2>
+        <p id="fcScore"></p>
+        <button class="restart-btn" onclick="restartFC()">🔄 Học lại</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Multiple choice mode -->
+  <div id="multiChoiceMode" style="display:none;">
+    <div class="mc-area">
+      <div class="mc-card" id="mcCard">
+        <div class="mc-hint">Chọn nghĩa đúng của từ bên dưới</div>
+        <div class="mc-cn" id="mc-cn" onclick="speakMC()">?</div>
+        <div class="mc-py" id="mc-py">pinyin</div>
+        <div class="mc-phrase" id="mc-phrase">cụm từ</div>
+      </div>
+      <div class="mc-options" id="mcOptions"></div>
+      <div class="mc-feedback" id="mcFeedback"></div>
+      <button class="next-btn" id="mcNextBtn" onclick="nextMC()">Tiếp theo →</button>
+      <div id="mcFinish" class="finish-screen" style="display:none;">
+        <div class="big-icon">🏆</div>
+        <h2>Hoàn thành bài kiểm tra!</h2>
+        <p id="mcScore"></p>
+        <button class="restart-btn" onclick="restartMC()">🔄 Làm lại</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TOAST ===== -->
+<div id="toast"></div>
+
+<!-- ===== SCRIPTS ===== -->
+<script>
+/* ================================================
+   AUDIO ENGINE – Web Speech API (zh-CN)
+   ================================================ */
+const SYN = window.speechSynthesis;
+
+function speak(text, lang = 'zh-CN', rate = 0.85) {
+  if (!SYN) return showToast('Trình duyệt không hỗ trợ TTS');
+  SYN.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang  = lang;
+  u.rate  = rate;
+  u.pitch = 1;
+  // prefer a zh-CN voice
+  const voices = SYN.getVoices();
+  const zhVoice = voices.find(v => v.lang.startsWith('zh') && v.lang.includes('CN'))
+                || voices.find(v => v.lang.startsWith('zh'));
+  if (zhVoice) u.voice = zhVoice;
+  SYN.speak(u);
+}
+
+function speakSlow(text) { speak(text, 'zh-CN', 0.5); }
+
+// wait for voices to load
+if (SYN && SYN.onvoiceschanged !== undefined) {
+  SYN.onvoiceschanged = () => {}; // trigger load
+}
+
+/* ================================================
+   TAB SWITCHER
+   ================================================ */
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+/* ================================================
+   ACCORDION
+   ================================================ */
+function toggleGroup(id) {
+  const head = document.getElementById('gh-' + id);
+  const body = document.getElementById('gb-' + id);
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  head.classList.toggle('open', !isOpen);
+}
+
+/* ================================================
+   GRAMMAR CHIP RENDERER
+   ================================================ */
+const ROLE_CONFIG = {
+  S:     { label: 'Chủ ngữ',    cls: 'r-S'     },
+  V:     { label: 'Động từ',    cls: 'r-V'     },
+  O:     { label: 'Tân ngữ',    cls: 'r-O'     },
+  ADV:   { label: 'Trạng ngữ',  cls: 'r-ADV'   },
+  ADJ:   { label: 'Tính từ',    cls: 'r-ADJ'   },
+  TIME:  { label: 'Thời gian',  cls: 'r-TIME'  },
+  PLACE: { label: 'Địa điểm',   cls: 'r-PLACE' },
+  MOD:   { label: 'Trợ từ',     cls: 'r-MOD'   },
+  COMP:  { label: 'Bổ ngữ',     cls: 'r-COMP'  },
+  NEG:   { label: 'Phủ định',   cls: 'r-NEG'   },
+  CONJ:  { label: 'Liên từ',    cls: 'r-CONJ'  },
+  QUES:  { label: 'Câu hỏi',    cls: 'r-QUES'  },
+};
+
+function renderChips(parts) {
+  if (!parts || !parts.length) return '';
+  return parts.map(p => {
+    const cfg = ROLE_CONFIG[p.r] || { label: p.r, cls: 'r-MOD' };
+    return `<span class="chip ${cfg.cls}" title="${cfg.label}">
+              <span class="c-word">${p.w}</span>
+              <span class="c-role">${p.r}</span>
+            </span>`;
+  }).join('');
+}
+
+function buildPattern(parts) {
+  if (!parts || !parts.length) return '';
+  return parts.map(p => `<span>${p.r}</span>`).join(' + ');
+}
+
+/* Grammar legend */
+function buildLegend(parts) {
+  if (!parts) return '';
+  const roles = [...new Set(parts.map(p => p.r))];
+  return roles.map(r => {
+    const cfg = ROLE_CONFIG[r] || { label: r, cls: 'r-MOD' };
+    const color = getComputedRoleColor(r);
+    return `<div class="legend-item">
+      <div class="legend-dot" style="background:${color}"></div>
+      <span>${r} = ${cfg.label}</span>
+    </div>`;
+  }).join('');
+}
+
+const ROLE_COLORS = {
+  S:'#2563eb',V:'#dc2626',O:'#16a34a',ADV:'#d97706',ADJ:'#7c3aed',
+  TIME:'#0891b2',PLACE:'#059669',MOD:'#9ca3af',COMP:'#be185d',
+  NEG:'#6366f1',CONJ:'#64748b',QUES:'#f97316'
+};
+function getComputedRoleColor(r) { return ROLE_COLORS[r] || '#9ca3af'; }
+
+/* ================================================
+   WORD CARD RENDERER
+   ================================================ */
+function renderWordCard(w) {
+  const exHtml = (w.examples || []).map((ex, i) => {
+    const chips = renderChips(ex.parts);
+    const pattern = buildPattern(ex.parts);
+    const legend = buildLegend(ex.parts);
+    return `
+    <div class="example-item">
+      <div class="ex-row">
+        <span class="ex-cn" onclick="speak('${esc(ex.cn)}')" title="🔊 Nghe">${ex.cn}</span>
+        <button class="audio-btn" onclick="speak('${esc(ex.cn)}')" title="Nghe câu">🔊</button>
+      </div>
+      <div class="ex-py">${ex.py}</div>
+      <div class="ex-vn">🇻🇳 ${ex.vn}</div>
+      ${chips ? `
+        <div class="gram-label">Phân tích cú pháp:</div>
+        <div class="gram-chips">${chips}</div>
+        ${legend ? `<div class="gram-legend" style="margin-top:0.4rem">${legend}</div>` : ''}
+        ${pattern ? `<div class="gram-pattern">Cấu trúc: ${pattern}</div>` : ''}
+      ` : ''}
+    </div>`;
+  }).join('');
+
+  return `
+  <div class="word-card" id="wc-${w.id}">
+    <div class="word-card-header">
+      <div class="word-num">${w.id}</div>
+      <div class="word-cn" onclick="speak('${esc(w.cn)}')" title="🔊 Nhấp để nghe">${w.cn}</div>
+      <div class="word-py">${w.py}</div>
+      <div class="word-viet">${w.viet}</div>
+      <button class="audio-btn" onclick="speak('${esc(w.cn)}')" title="Nghe phát âm">🔊</button>
+    </div>
+    <div class="phrase-box">
+      <span class="ph-cn">${w.phrase}</span>
+      <span class="ph-sep">→</span>
+      <span class="ph-vn">${w.phraseViet}</span>
+      <button class="audio-btn" style="margin-left:auto" onclick="speak('${esc(w.phrase)}')" title="Nghe cụm từ">🔊</button>
+    </div>
+    <div class="etym-box">${w.etym}</div>
+    <div class="examples-label">📝 Câu ví dụ</div>
+    ${exHtml}
+  </div>`;
+}
+
+/* ================================================
+   GROUP RENDERER
+   ================================================ */
+function renderGroups(groups) {
+  const container = document.getElementById('vocabContainer');
+  if (!container) return;
+  container.innerHTML = groups.map(g => {
+    const wordsHtml = g.words.map(renderWordCard).join('');
+    return `
+    <div class="group-accordion">
+      <div class="group-head" id="gh-${g.id}" onclick="toggleGroup(${g.id})">
+        <div class="group-num">${g.id}</div>
+        <div style="flex:1">
+          <h2>${g.nameCn} – ${g.nameVi}</h2>
+          <div class="sub">Nhóm ${g.id} · ${g.words.length} từ</div>
+        </div>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="group-body" id="gb-${g.id}">
+        <div class="word-grid">${wordsHtml}</div>
+      </div>
+    </div>`;
+  }).join('');
+  // open first group by default
+  if (groups.length) toggleGroup(groups[0].id);
+}
+
+/* ================================================
+   STORY RENDERER
+   ================================================ */
+function renderStories(groups) {
+  const container = document.getElementById('storiesContainer');
+  if (!container) return;
+  container.innerHTML = groups.map(g => {
+    if (!g.story) return '';
+    const parasHtml = (g.story.paras || []).map(p => `
+      <div class="story-para">
+        <div class="story-cn" onclick="speak('${esc(p.cn)}')">${p.cn}</div>
+        <div class="story-vn">${p.vn}</div>
+      </div>`).join('');
+    const chipsHtml = g.words.map(w =>
+      `<span class="sv-chip" onclick="speak('${esc(w.cn)}')" title="${w.viet}">${w.cn} ${w.py}</span>`
+    ).join('');
+    return `
+    <div class="story-card">
+      <div class="story-card-header">
+        <span class="story-group-badge">Nhóm ${g.id}</span>
+        <h3>${g.nameCn} – ${g.story.title}</h3>
+        <button class="audio-btn story-btn" onclick="readStory(${g.id})">🔊 Đọc toàn bộ</button>
+      </div>
+      <div class="story-body" id="story-body-${g.id}">${parasHtml}</div>
+      <div class="story-vocab-chips">${chipsHtml}</div>
+    </div>`;
+  }).join('');
+}
+
+function readStory(gId) {
+  const el = document.getElementById('story-body-' + gId);
+  if (!el) return;
+  const text = [...el.querySelectorAll('.story-cn')].map(e => e.textContent).join('。');
+  speak(text);
+}
+
+/* ================================================
+   PRACTICE ENGINE
+   ================================================ */
+let practiceWords = [];
+let practiceMode  = 'flashcard';
+let currentFilter = 'all';
+
+// FC state
+let fcQueue = [], fcIdx = 0, fcFlipped = false;
+let fcCorrect = 0, fcHard = 0;
+
+// MC state
+let mcQueue = [], mcIdx = 0;
+let mcCorrect = 0, mcWrong = 0;
+
+function filterGroup(btn, g) {
+  document.querySelectorAll('.gf-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentFilter = g;
+  initPractice();
+}
+
+function getFilteredWords() {
+  if (!window.ALL_WORDS) return [];
+  if (currentFilter === 'all') return [...window.ALL_WORDS];
+  return window.ALL_WORDS.filter(w => w.group == currentFilter);
+}
+
+function shuffleArr(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function switchMode(m) {
+  practiceMode = m;
+  document.getElementById('btnFlashcard').classList.toggle('active', m === 'flashcard');
+  document.getElementById('btnMultiChoice').classList.toggle('active', m === 'multichoice');
+  document.getElementById('flashcardMode').style.display   = m === 'flashcard'   ? '' : 'none';
+  document.getElementById('multiChoiceMode').style.display = m === 'multichoice' ? '' : 'none';
+  initPractice();
+}
+
+function initPractice() {
+  const words = getFilteredWords();
+  if (practiceMode === 'flashcard') {
+    fcQueue = shuffleArr([...words]);
+    fcIdx = 0; fcFlipped = false; fcCorrect = 0; fcHard = 0;
+    document.getElementById('fcFinish').style.display = 'none';
+    document.getElementById('fcCard').closest('.fc-perspective').style.display = '';
+    document.getElementById('ratingArea').classList.remove('visible');
+    renderFC();
+  } else {
+    mcQueue = shuffleArr([...words]);
+    mcIdx = 0; mcCorrect = 0; mcWrong = 0;
+    document.getElementById('mcFinish').style.display = 'none';
+    document.getElementById('mcCard').style.display = '';
+    document.getElementById('mcOptions').style.display = '';
+    renderMC();
+  }
+  updateStats();
+  updateProgress();
+}
+
+function updateStats() {
+  const words = getFilteredWords();
+  const total = words.length;
+  document.getElementById('st-total').textContent = total;
+  if (practiceMode === 'flashcard') {
+    const done = Math.min(fcIdx, fcQueue.length);
+    document.getElementById('st-correct').textContent = fcCorrect;
+    document.getElementById('st-wrong').textContent   = fcHard;
+    document.getElementById('st-left').textContent    = Math.max(0, total - done);
+  } else {
+    document.getElementById('st-correct').textContent = mcCorrect;
+    document.getElementById('st-wrong').textContent   = mcWrong;
+    document.getElementById('st-left').textContent    = Math.max(0, mcQueue.length - mcIdx);
+  }
+}
+
+function updateProgress() {
+  const words = getFilteredWords();
+  const total = words.length || 1;
+  let done = 0;
+  if (practiceMode === 'flashcard') done = Math.min(fcIdx, fcQueue.length);
+  else done = Math.min(mcIdx, mcQueue.length);
+  const pct = Math.round((done / total) * 100);
+  document.getElementById('progressLabel').textContent = `${done} / ${total}`;
+  document.getElementById('progressPct').textContent   = `${pct}%`;
+  document.getElementById('progressFill').style.width  = pct + '%';
+}
+
+/* ----- FLASHCARD ----- */
+function renderFC() {
+  if (fcIdx >= fcQueue.length) {
+    document.getElementById('fcFinish').style.display = '';
+    document.getElementById('fcCard').closest('.fc-perspective').style.display = 'none';
+    document.getElementById('ratingArea').classList.remove('visible');
+    document.getElementById('fcScore').textContent =
+      `✅ Dễ: ${fcCorrect}  ·  ❌ Khó: ${fcHard}  ·  Tổng: ${fcQueue.length}`;
+    return;
+  }
+  const w = fcQueue[fcIdx];
+  document.getElementById('fc-cn').textContent    = w.cn;
+  document.getElementById('fc-py').textContent    = w.py;
+  document.getElementById('fc-vn').textContent    = w.viet;
+  document.getElementById('fc-phrase').textContent= `${w.phrase} → ${w.phraseViet}`;
+  document.getElementById('fc-etym').textContent  = w.etym.replace(/^📖 /,'');
+  // reset flip
+  fcFlipped = false;
+  document.getElementById('fcCard').classList.remove('flipped');
+  document.getElementById('ratingArea').classList.remove('visible');
+}
+
+function flipCard() {
+  if (fcIdx >= fcQueue.length) return;
+  fcFlipped = !fcFlipped;
+  document.getElementById('fcCard').classList.toggle('flipped', fcFlipped);
+  if (fcFlipped) {
+    document.getElementById('ratingArea').classList.add('visible');
+    const w = fcQueue[fcIdx];
+    speak(w.cn);
+  }
+}
+
+function rateCard(rating) {
+  if (!fcFlipped) return;
+  if (rating === 'easy') fcCorrect++;
+  else if (rating === 'hard') {
+    fcHard++;
+    // push hard cards to end of queue
+    fcQueue.push(fcQueue[fcIdx]);
+  }
+  fcIdx++;
+  updateStats();
+  updateProgress();
+  renderFC();
+}
+
+function speakFC() {
+  if (fcIdx < fcQueue.length) speak(fcQueue[fcIdx].cn);
+}
+function speakFCSlow() {
+  if (fcIdx < fcQueue.length) speakSlow(fcQueue[fcIdx].cn);
+}
+
+function restartFC() {
+  fcQueue = shuffleArr([...getFilteredWords()]);
+  fcIdx = 0; fcFlipped = false; fcCorrect = 0; fcHard = 0;
+  document.getElementById('fcFinish').style.display = 'none';
+  document.getElementById('fcCard').closest('.fc-perspective').style.display = '';
+  renderFC();
+  updateStats();
+  updateProgress();
+}
+
+/* ----- MULTIPLE CHOICE ----- */
+function getWrongOptions(correct, count = 3) {
+  const pool = (window.ALL_WORDS || []).filter(w => w.id !== correct.id);
+  shuffleArr(pool);
+  return pool.slice(0, count);
+}
+
+function renderMC() {
+  if (mcIdx >= mcQueue.length) {
+    document.getElementById('mcFinish').style.display = '';
+    document.getElementById('mcCard').style.display = 'none';
+    document.getElementById('mcOptions').style.display = 'none';
+    document.getElementById('mcFeedback').textContent = '';
+    document.getElementById('mcNextBtn').classList.remove('visible');
+    document.getElementById('mcScore').textContent =
+      `✅ Đúng: ${mcCorrect}  ·  ❌ Sai: ${mcWrong}  ·  Tỷ lệ: ${Math.round(mcCorrect/(mcCorrect+mcWrong||1)*100)}%`;
+    return;
+  }
+  const w = mcQueue[mcIdx];
+  document.getElementById('mc-cn').textContent     = w.cn;
+  document.getElementById('mc-py').textContent     = w.py;
+  document.getElementById('mc-phrase').textContent = w.phrase + ' → ' + w.phraseViet;
+  document.getElementById('mcFeedback').textContent = '';
+  document.getElementById('mcFeedback').className  = 'mc-feedback';
+  document.getElementById('mcNextBtn').classList.remove('visible');
+
+  // build options
+  const wrongs = getWrongOptions(w, 3);
+  const opts = shuffleArr([w, ...wrongs]);
+  const optContainer = document.getElementById('mcOptions');
+  optContainer.style.display = '';
+  optContainer.innerHTML = opts.map(o => `
+    <button class="mc-opt" onclick="checkMC(this,'${esc(o.viet)}','${esc(w.viet)}')" data-v="${esc(o.viet)}">
+      ${o.viet}
+    </button>`).join('');
+}
+
+function checkMC(btn, chosen, correct) {
+  // lock all
+  document.querySelectorAll('.mc-opt').forEach(b => b.classList.add('locked'));
+  const fb = document.getElementById('mcFeedback');
+  if (chosen === correct) {
+    btn.classList.add('correct');
+    fb.textContent = '🎉 Chính xác!';
+    fb.className = 'mc-feedback ok';
+    mcCorrect++;
+    speak(mcQueue[mcIdx].cn);
+  } else {
+    btn.classList.add('wrong');
+    // highlight correct
+    document.querySelectorAll('.mc-opt').forEach(b => {
+      if (b.getAttribute('data-v') === correct) b.classList.add('correct');
+    });
+    fb.textContent = `❌ Sai rồi! Đáp án đúng: "${correct}"`;
+    fb.className = 'mc-feedback bad';
+    mcWrong++;
+  }
+  document.getElementById('mcNextBtn').classList.add('visible');
+  updateStats();
+  updateProgress();
+}
+
+function nextMC() {
+  mcIdx++;
+  renderMC();
+}
+
+function speakMC() {
+  if (mcIdx < mcQueue.length) speak(mcQueue[mcIdx].cn);
+}
+
+function restartMC() {
+  mcQueue = shuffleArr([...getFilteredWords()]);
+  mcIdx = 0; mcCorrect = 0; mcWrong = 0;
+  document.getElementById('mcFinish').style.display = 'none';
+  document.getElementById('mcCard').style.display = '';
+  renderMC();
+  updateStats();
+  updateProgress();
+}
+
+/* ================================================
+   TOAST
+   ================================================ */
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+/* ================================================
+   HELPERS
+   ================================================ */
+function esc(str) {
+  return (str || '').replace(/'/g, "\\'").replace(/\n/g, ' ');
+}
+
+/* ================================================
+   INIT CALLED AFTER DATA LOADS
+   ================================================ */
+function initApp(groups) {
+  window.ALL_GROUPS = groups;
+  window.ALL_WORDS  = groups.flatMap(g => g.words);
+
+  // update header counter
+  document.getElementById('headerCounter').textContent =
+    `📦 ${window.ALL_WORDS.length} từ · ${groups.length} nhóm`;
+
+  // build group filter btns
+  const gf = document.getElementById('groupFilter');
+  groups.forEach(g => {
+    const btn = document.createElement('button');
+    btn.className = 'gf-btn';
+    btn.setAttribute('data-g', g.id);
+    btn.textContent = `${g.id}. ${g.nameVi.split(' ').slice(0,2).join(' ')}`;
+    btn.onclick = () => { filterGroup(btn, g.id); };
+    gf.appendChild(btn);
+  });
+
+  // render vocabulary & stories
+  renderGroups(groups);
+  renderStories(groups);
+
+  // init practice
+  switchMode('flashcard');
+
+  console.log('✅ App ready:', window.ALL_WORDS.length, 'words loaded');
+}
+</script>
+
+<!-- DATA scripts will be injected below by subsequent parts -->
+<script id="vocabDataScript">
+/* ================================================
+   VOCABULARY DATA – ALL GROUPS
+   ================================================ */
+const GROUPS_1_5 = [
+  /* ======== GROUP 1: Ngân hàng cơ bản ======== */
+  {
+    id: 1, nameCn: '银行基础', nameVi: 'Ngân Hàng Cơ Bản',
+    words: [
+      {
+        id:1, group:1,
+        cn:'银行', py:'yínháng', viet:'ngân hàng',
+        phrase:'去银行办业务', phraseViet:'đến ngân hàng giao dịch',
+        etym:'银(yín)=bạc/tiền quý + 行(háng)=nơi kinh doanh → "nơi kinh doanh tiền bạc". Chữ 银 có bộ 钅(kim loại) + 艮(giới hạn) → kim loại quý được kiểm soát.',
+        examples:[
+          { cn:'我每周去银行存钱。', py:'Wǒ měi zhōu qù yínháng cún qián.',
+            vn:'Tôi đến ngân hàng gửi tiền mỗi tuần.',
+            parts:[{w:'我',r:'S'},{w:'每周',r:'TIME'},{w:'去',r:'V'},{w:'银行',r:'PLACE'},{w:'存钱',r:'V'}] },
+          { cn:'这家银行的服务很好。', py:'Zhè jiā yínháng de fúwù hěn hǎo.',
+            vn:'Dịch vụ của ngân hàng này rất tốt.',
+            parts:[{w:'这家银行',r:'S'},{w:'的',r:'MOD'},{w:'服务',r:'S'},{w:'很',r:'ADV'},{w:'好',r:'ADJ'}] }
+        ]
+      },
+      {
+        id:2, group:1,
+        cn:'账户', py:'zhànghù', viet:'tài khoản',
+        phrase:'开一个账户', phraseViet:'mở một tài khoản',
+        etym:'账(zhàng)=sổ sách kế toán (bộ 贝 tiền tệ + 长 dài) + 户(hù)=hộ/nhà → "hộ sổ sách tài chính cá nhân".',
+        examples:[
+          { cn:'我想开一个账户。', py:'Wǒ xiǎng kāi yī gè zhànghù.',
+            vn:'Tôi muốn mở một tài khoản.',
+            parts:[{w:'我',r:'S'},{w:'想',r:'V'},{w:'开',r:'V'},{w:'一个账户',r:'O'}] },
+          { cn:'我的账户里有多少钱？', py:'Wǒ de zhànghù lǐ yǒu duōshao qián?',
+            vn:'Tài khoản của tôi có bao nhiêu tiền?',
+            parts:[{w:'我的账户',r:'S'},{w:'里',r:'MOD'},{w:'有',r:'V'},{w:'多少钱',r:'QUES'}] }
+        ]
+      },
+      {
+        id:3, group:1,
+        cn:'存款', py:'cúnkuǎn', viet:'tiền gửi / tiết kiệm',
+        phrase:'银行存款很安全', phraseViet:'tiền gửi ngân hàng rất an toàn',
+        etym:'存(cún)=cất giữ/lưu trữ (bộ 子 đứa trẻ + 才 tài năng → nuôi dưỡng) + 款(kuǎn)=tiền/khoản → "lưu giữ tiền tại ngân hàng".',
+        examples:[
+          { cn:'他把钱存到银行里。', py:'Tā bǎ qián cún dào yínháng lǐ.',
+            vn:'Anh ấy gửi tiền vào ngân hàng.',
+            parts:[{w:'他',r:'S'},{w:'把钱',r:'O'},{w:'存到',r:'V'},{w:'银行里',r:'PLACE'}] },
+          { cn:'我的存款利率是三个百分点。', py:'Wǒ de cúnkuǎn lìlǜ shì sān gè bǎifēndiǎn.',
+            vn:'Lãi suất tiền gửi của tôi là ba phần trăm.',
+            parts:[{w:'我的存款',r:'S'},{w:'利率',r:'S'},{w:'是',r:'V'},{w:'三个百分点',r:'O'}] }
+        ]
+      },
+      {
+        id:4, group:1,
+        cn:'取款', py:'qǔkuǎn', viet:'rút tiền',
+        phrase:'ATM取款', phraseViet:'rút tiền tại ATM',
+        etym:'取(qǔ)=lấy (bộ 耳 tai + 又 tay → cầm tai kẻ thù = lấy chiến lợi phẩm → "lấy") + 款(kuǎn)=tiền → "lấy tiền ra".',
+        examples:[
+          { cn:'我去ATM取款。', py:'Wǒ qù ATM qǔkuǎn.',
+            vn:'Tôi đi rút tiền ở ATM.',
+            parts:[{w:'我',r:'S'},{w:'去',r:'V'},{w:'ATM',r:'PLACE'},{w:'取款',r:'V'}] },
+          { cn:'每次取款不能超过五千元。', py:'Měi cì qǔkuǎn bù néng chāoguò wǔqiān yuán.',
+            vn:'Mỗi lần rút tiền không được vượt quá 5.000 tệ.',
+            parts:[{w:'每次',r:'TIME'},{w:'取款',r:'S'},{w:'不能',r:'NEG'},{w:'超过',r:'V'},{w:'五千元',r:'O'}] }
+        ]
+      },
+      {
+        id:5, group:1,
+        cn:'转账', py:'zhuǎnzhàng', viet:'chuyển khoản',
+        phrase:'手机转账', phraseViet:'chuyển khoản bằng điện thoại',
+        etym:'转(zhuǎn)=xoay chuyển/dịch chuyển + 账(zhàng)=tài khoản/sổ sách → "dịch chuyển tiền từ tài khoản này sang tài khoản khác".',
+        examples:[
+          { cn:'我用手机转账给他。', py:'Wǒ yòng shǒujī zhuǎnzhàng gěi tā.',
+            vn:'Tôi chuyển khoản cho anh ấy bằng điện thoại.',
+            parts:[{w:'我',r:'S'},{w:'用手机',r:'ADV'},{w:'转账',r:'V'},{w:'给他',r:'O'}] },
+          { cn:'转账需要对方的账号。', py:'Zhuǎnzhàng xūyào duìfāng de zhànghào.',
+            vn:'Chuyển khoản cần số tài khoản của đối phương.',
+            parts:[{w:'转账',r:'S'},{w:'需要',r:'V'},{w:'对方的账号',r:'O'}] }
+        ]
+      },
+      {
+        id:6, group:1,
+        cn:'余额', py:'yú\'é', viet:'số dư',
+        phrase:'查询余额', phraseViet:'kiểm tra số dư',
+        etym:'余(yú)=còn lại/thừa (bộ 食 thức ăn + 余 → thức ăn thừa) + 额(é)=số tiền/trán (bộ 页 đầu + 客 khách → phần trên đầu = số lượng) → "số tiền còn lại".',
+        examples:[
+          { cn:'我的账户余额不足。', py:'Wǒ de zhànghù yú\'é bùzú.',
+            vn:'Số dư tài khoản của tôi không đủ.',
+            parts:[{w:'我的账户',r:'S'},{w:'余额',r:'S'},{w:'不足',r:'ADJ'}] },
+          { cn:'请查询一下余额。', py:'Qǐng cháxún yīxià yú\'é.',
+            vn:'Vui lòng kiểm tra số dư một lần.',
+            parts:[{w:'请',r:'MOD'},{w:'查询',r:'V'},{w:'一下',r:'COMP'},{w:'余额',r:'O'}] }
+        ]
+      },
+      {
+        id:7, group:1,
+        cn:'密码', py:'mìmǎ', viet:'mật khẩu / mã PIN',
+        phrase:'设置银行密码', phraseViet:'đặt mật khẩu ngân hàng',
+        etym:'密(mì)=bí mật (bộ 宀 mái nhà + 必 nhất định → trong nhà nhất định giữ bí mật) + 码(mǎ)=mã số/con số → "con số bí mật".',
+        examples:[
+          { cn:'请不要告诉别人你的密码。', py:'Qǐng bú yào gàosù biérén nǐ de mìmǎ.',
+            vn:'Vui lòng đừng nói mật khẩu của bạn cho người khác.',
+            parts:[{w:'请',r:'MOD'},{w:'不要',r:'NEG'},{w:'告诉',r:'V'},{w:'别人',r:'O'},{w:'你的密码',r:'O'}] },
+          { cn:'我忘记了银行卡密码。', py:'Wǒ wàngjìle yínhángkǎ mìmǎ.',
+            vn:'Tôi quên mật khẩu thẻ ngân hàng rồi.',
+            parts:[{w:'我',r:'S'},{w:'忘记了',r:'V'},{w:'银行卡密码',r:'O'}] }
+        ]
+      },
+      {
+        id:8, group:1,
+        cn:'利息', py:'lìxī', viet:'tiền lãi',
+        phrase:'存款利息', phraseViet:'lãi suất tiền gửi',
+        etym:'利(lì)=lợi ích (bộ 禾 lúa + 刀 dao → thu hoạch lúa = lợi) + 息(xī)=hơi thở/nghỉ ngơi/sinh sôi → "tiền sinh ra từ tiền gốc khi nghỉ ngơi".',
+        examples:[
+          { cn:'这个账户的利息很高。', py:'Zhège zhànghù de lìxī hěn gāo.',
+            vn:'Lãi suất của tài khoản này rất cao.',
+            parts:[{w:'这个账户',r:'S'},{w:'的',r:'MOD'},{w:'利息',r:'S'},{w:'很',r:'ADV'},{w:'高',r:'ADJ'}] },
+          { cn:'我每月收到利息。', py:'Wǒ měi yuè shōudào lìxī.',
+            vn:'Tôi nhận tiền lãi mỗi tháng.',
+            parts:[{w:'我',r:'S'},{w:'每月',r:'TIME'},{w:'收到',r:'V'},{w:'利息',r:'O'}] }
+        ]
+      },
+      {
+        id:9, group:1,
+        cn:'贷款', py:'dàikuǎn', viet:'vay tiền / khoản vay',
+        phrase:'申请贷款', phraseViet:'nộp đơn xin vay tiền',
+        etym:'贷(dài)=cho vay/vay mượn (bộ 贝 tiền tệ + 代 thay thế → lấy tiền thay thế cho ai đó tạm thời) + 款(kuǎn)=tiền → "tiền được cho mượn tạm thời".',
+        examples:[
+          { cn:'我申请了一笔贷款买房。', py:'Wǒ shēnqǐngle yī bǐ dàikuǎn mǎi fáng.',
+            vn:'Tôi đã nộp đơn xin một khoản vay để mua nhà.',
+            parts:[{w:'我',r:'S'},{w:'申请了',r:'V'},{w:'一笔贷款',r:'O'},{w:'买房',r:'V'}] },
+          { cn:'贷款利率是多少？', py:'Dàikuǎn lìlǜ shì duōshao?',
+            vn:'Lãi suất vay là bao nhiêu?',
+            parts:[{w:'贷款利率',r:'S'},{w:'是',r:'V'},{w:'多少',r:'QUES'}] }
+        ]
+      },
+      {
+        id:10, group:1,
+        cn:'开户', py:'kāihù', viet:'mở tài khoản',
+        phrase:'到银行开户', phraseViet:'đến ngân hàng mở tài khoản',
+        etym:'开(kāi)=mở (hình tượng hai bàn tay mở cổng) + 户(hù)=hộ/nhà/tài khoản → "mở cánh cửa tài khoản mới".',
+        examples:[
+          { cn:'我想在这家银行开户。', py:'Wǒ xiǎng zài zhè jiā yínháng kāihù.',
+            vn:'Tôi muốn mở tài khoản tại ngân hàng này.',
+            parts:[{w:'我',r:'S'},{w:'想',r:'V'},{w:'在这家银行',r:'PLACE'},{w:'开户',r:'V'}] },
+          { cn:'开户需要带身份证。', py:'Kāihù xūyào dài shēnfènzhèng.',
+            vn:'Mở tài khoản cần mang theo CCCD.',
+            parts:[{w:'开户',r:'S'},{w:'需要',r:'V'},{w:'带',r:'V'},{w:'身份证',r:'O'}] }
+        ]
+      }
+    ],
+    story: {
+      title:'Con Vịt Mở Tài Khoản Bằng Tiếng Vịt Kêu',
+      paras:[
+        { cn:'从前，有一只鸭子想去银行(yínháng)开户(kāihù)。它穿着西装，自信地走进大厅。',
+          vn:'Ngày xưa, có một con vịt muốn đến ngân hàng mở tài khoản. Nó mặc vest, tự tin bước vào sảnh ngân hàng.' },
+        { cn:'柜员问："密码(mìmǎ)是什么？"鸭子说："嘎嘎嘎！"柜员愣住了："好的…系统接受了。"',
+          vn:'Giao dịch viên hỏi: "Mật khẩu là gì?" Con vịt nói: "Quạc quạc quạc!" Giao dịch viên đứng sững: "Ờ... hệ thống chấp nhận rồi."' },
+        { cn:'鸭子把面包屑当存款(cúnkuǎn)存进去，查询余额(yú\'é)时显示"500粒面包屑"。',
+          vn:'Con vịt gửi vụn bánh mì vào như tiền gửi, khi kiểm tra số dư hiển thị "500 mảnh vụn bánh mì".' },
+        { cn:'它想取款(qǔkuǎn)，ATM吐出了虫子。鸭子大喊："这不是我存的钱！"',
+          vn:'Nó muốn rút tiền, ATM nhả ra những con sâu. Con vịt hét to: "Đây không phải tiền tôi gửi!"' },
+        { cn:'绝望中，鸭子申请了贷款(dàikuǎn)买了一个池塘，并立刻转账(zhuǎnzhàng)到另一个账户(zhànghù)。',
+          vn:'Tuyệt vọng, con vịt vay tiền mua một cái ao, rồi ngay lập tức chuyển khoản sang tài khoản khác.' },
+        { cn:'银行经理说："你的利息(lìxī)将以蚯蚓支付，每周一结算。"鸭子满意地点头："嘎！"',
+          vn:'Giám đốc ngân hàng nói: "Tiền lãi của bạn sẽ trả bằng giun đất, thanh toán mỗi thứ Hai." Con vịt gật đầu hài lòng: "Quạc!"' }
+      ]
+    }
+  },
+
+  /* ======== GROUP 2: Phương thức thanh toán ======== */
+  {
+    id: 2, nameCn: '支付方式', nameVi: 'Thanh Toán & Thẻ',
+    words: [
+      {
+        id:11, group:2,
+        cn:'信用卡', py:'xìnyòngkǎ', viet:'thẻ tín dụng',
+        phrase:'刷信用卡购物', phraseViet:'mua sắm bằng thẻ tín dụng',
+        etym:'信用(xìnyòng)=uy tín (信=tin tưởng + 用=sử dụng → sử dụng sự tin tưởng) + 卡(kǎ)=thẻ (từ tiếng Anh "card") → "thẻ dựa trên uy tín tín dụng".',
+        examples:[
+          { cn:'我用信用卡付款。', py:'Wǒ yòng xìnyòngkǎ fùkuǎn.',
+            vn:'Tôi thanh toán bằng thẻ tín dụng.',
+            parts:[{w:'我',r:'S'},{w:'用信用卡',r:'ADV'},{w:'付款',r:'V'}] },
+          { cn:'信用卡的额度是一万元。', py:'Xìnyòngkǎ de édù shì yī wàn yuán.',
+            vn:'Hạn mức thẻ tín dụng là 10.000 tệ.',
+            parts:[{w:'信用卡',r:'S'},{w:'的额度',r:'S'},{w:'是',r:'V'},{w:'一万元',r:'O'}] }
+        ]
+      },
+      {
+        id:12, group:2,
+        cn:'借记卡', py:'jièjìkǎ', viet:'thẻ ghi nợ / thẻ ATM',
+        phrase:'借记卡直接扣款', phraseViet:'thẻ ghi nợ trừ tiền trực tiếp',
+        etym:'借记(jièjì)=bút toán nợ trong kế toán (借=nợ phải trả + 记=ghi chép) + 卡=thẻ → "thẻ ghi trực tiếp vào tài khoản thực".',
+        examples:[
+          { cn:'借记卡和信用卡不一样。', py:'Jièjìkǎ hé xìnyòngkǎ bù yīyàng.',
+            vn:'Thẻ ghi nợ và thẻ tín dụng khác nhau.',
+            parts:[{w:'借记卡',r:'S'},{w:'和信用卡',r:'CONJ'},{w:'不',r:'NEG'},{w:'一样',r:'ADJ'}] },
+          { cn:'用借记卡消费会直接扣账户的钱。', py:'Yòng jièjìkǎ xiāofèi huì zhíjiē kòu zhànghù de qián.',
+            vn:'Dùng thẻ ghi nợ chi tiêu sẽ trừ tiền tài khoản trực tiếp.',
+            parts:[{w:'用借记卡',r:'ADV'},{w:'消费',r:'V'},{w:'会',r:'MOD'},{w:'直接',r:'ADV'},{w:'扣账户的钱',r:'V'}] }
+        ]
+      },
+      {
+        id:13, group:2,
+        cn:'ATM机', py:'ATM jī', viet:'máy ATM',
+        phrase:'ATM机24小时服务', phraseViet:'máy ATM phục vụ 24/7',
+        etym:'ATM = Automated Teller Machine (Máy giao dịch tự động) + 机(jī)=máy móc → người Trung Quốc thêm 机 để Hán hóa từ tiếng Anh.',
+        examples:[
+          { cn:'附近有ATM机吗？', py:'Fùjìn yǒu ATM jī ma?',
+            vn:'Gần đây có máy ATM không?',
+            parts:[{w:'附近',r:'PLACE'},{w:'有',r:'V'},{w:'ATM机',r:'O'},{w:'吗',r:'QUES'}] },
+          { cn:'这台ATM机坏了，不能取款。', py:'Zhè tái ATM jī huài le, bù néng qǔkuǎn.',
+            vn:'Máy ATM này hỏng rồi, không rút tiền được.',
+            parts:[{w:'这台ATM机',r:'S'},{w:'坏了',r:'V'},{w:'不能',r:'NEG'},{w:'取款',r:'V'}] }
+        ]
+      },
+      {
+        id:14, group:2,
+        cn:'刷卡', py:'shuākǎ', viet:'quẹt thẻ',
+        phrase:'刷卡付款', phraseViet:'thanh toán bằng quẹt thẻ',
+        etym:'刷(shuā)=chà/quét (bộ 刀 dao + 帀 bao quanh → dùng dao quét sạch → cử chỉ quẹt nhanh) + 卡(kǎ)=thẻ → "quẹt thẻ nhanh như dùng dao".',
+        examples:[
+          { cn:'这里可以刷卡吗？', py:'Zhèlǐ kěyǐ shuākǎ ma?',
+            vn:'Ở đây có thể quẹt thẻ không?',
+            parts:[{w:'这里',r:'PLACE'},{w:'可以',r:'MOD'},{w:'刷卡',r:'V'},{w:'吗',r:'QUES'}] },
+          { cn:'我刷卡买了一件衣服。', py:'Wǒ shuākǎ mǎile yī jiàn yīfu.',
+            vn:'Tôi quẹt thẻ mua một bộ quần áo.',
+            parts:[{w:'我',r:'S'},{w:'刷卡',r:'V'},{w:'买了',r:'V'},{w:'一件衣服',r:'O'}] }
+        ]
+      },
+      {
+        id:15, group:2,
+        cn:'网上银行', py:'wǎngshàng yínháng', viet:'ngân hàng trực tuyến',
+        phrase:'网上银行转账方便', phraseViet:'ngân hàng online chuyển khoản tiện lợi',
+        etym:'网上(wǎngshàng)=trên mạng (网=lưới/mạng lưới + 上=trên → trên mạng lưới internet) + 银行=ngân hàng → "ngân hàng tồn tại trên mạng lưới internet".',
+        examples:[
+          { cn:'我用网上银行查账单。', py:'Wǒ yòng wǎngshàng yínháng chá zhàngdān.',
+            vn:'Tôi dùng ngân hàng trực tuyến để xem sao kê.',
+            parts:[{w:'我',r:'S'},{w:'用网上银行',r:'ADV'},{w:'查',r:'V'},{w:'账单',r:'O'}] },
+          { cn:'网上银行操作简单方便。', py:'Wǎngshàng yínháng cāozuò jiǎndān fāngbiàn.',
+            vn:'Thao tác ngân hàng trực tuyến đơn giản tiện lợi.',
+            parts:[{w:'网上银行',r:'S'},{w:'操作',r:'S'},{w:'简单',r:'ADJ'},{w:'方便',r:'ADJ'}] }
+        ]
+      },
+      {
+        id:16, group:2,
+        cn:'手机银行', py:'shǒujī yínháng', viet:'mobile banking',
+        phrase:'用手机银行查账', phraseViet:'dùng mobile banking xem tài khoản',
+        etym:'手机(shǒujī)=điện thoại di động (手=tay + 机=máy → "máy cầm tay") + 银行=ngân hàng → "ngân hàng trong chiếc máy cầm tay".',
+        examples:[
+          { cn:'手机银行比去柜台方便多了。', py:'Shǒujī yínháng bǐ qù guìtái fāngbiàn duō le.',
+            vn:'Mobile banking tiện lợi hơn đến quầy giao dịch nhiều.',
+            parts:[{w:'手机银行',r:'S'},{w:'比去柜台',r:'ADV'},{w:'方便',r:'ADJ'},{w:'多了',r:'COMP'}] },
+          { cn:'我下载了手机银行的APP。', py:'Wǒ xiàzàile shǒujī yínháng de APP.',
+            vn:'Tôi đã tải app mobile banking.',
+            parts:[{w:'我',r:'S'},{w:'下载了',r:'V'},{w:'手机银行的APP',r:'O'}] }
+        ]
+      },
+      {
+        id:17, group:2,
+        cn:'二维码', py:'èrwéimǎ', viet:'mã QR',
+        phrase:'扫二维码付款', phraseViet:'quét mã QR để thanh toán',
+        etym:'二维(èrwéi)=hai chiều (二=hai + 维=chiều kích/chiều không gian) + 码(mǎ)=mã → "mã được mã hóa trong không gian hai chiều" = mã QR vuông.',
+        examples:[
+          { cn:'扫这个二维码就可以付款。', py:'Sǎo zhège èrwéimǎ jiù kěyǐ fùkuǎn.',
+            vn:'Quét mã QR này là có thể thanh toán.',
+            parts:[{w:'扫',r:'V'},{w:'这个二维码',r:'O'},{w:'就',r:'ADV'},{w:'可以',r:'MOD'},{w:'付款',r:'V'}] },
+          { cn:'请出示你的收款二维码。', py:'Qǐng chūshì nǐ de shōukuǎn èrwéimǎ.',
+            vn:'Vui lòng xuất trình mã QR nhận tiền của bạn.',
+            parts:[{w:'请',r:'MOD'},{w:'出示',r:'V'},{w:'你的收款二维码',r:'O'}] }
+        ]
+      },
+      {
+        id:18, group:2,
+        cn:'电子支付', py:'diànzǐ zhīfù', viet:'thanh toán điện tử',
+        phrase:'电子支付越来越普及', phraseViet:'thanh toán điện tử ngày càng phổ biến',
+        etym:'电子(diànzǐ)=điện tử (电=điện + 子=hạt nhỏ → hạt điện tử) + 支付(zhīfù)=thanh toán (支=chi ra + 付=trả) → "trả tiền qua kênh điện tử".',
+        examples:[
+          { cn:'现在很多人使用电子支付。', py:'Xiànzài hěn duō rén shǐyòng diànzǐ zhīfù.',
+            vn:'Hiện nay nhiều người sử dụng thanh toán điện tử.',
+            parts:[{w:'现在',r:'TIME'},{w:'很多人',r:'S'},{w:'使用',r:'V'},{w:'电子支付',r:'O'}] },
+          { cn:'电子支付比现金更安全。', py:'Diànzǐ zhīfù bǐ xiànjīn gèng ānquán.',
+            vn:'Thanh toán điện tử an toàn hơn tiền mặt.',
+            parts:[{w:'电子支付',r:'S'},{w:'比现金',r:'ADV'},{w:'更',r:'ADV'},{w:'安全',r:'ADJ'}] }
+        ]
+      },
+      {
+        id:19, group:2,
+        cn:'付款', py:'fùkuǎn', viet:'trả tiền / thanh toán',
+        phrase:'马上付款', phraseViet:'thanh toán ngay',
+        etym:'付(fù)=trao đưa/giao nộp (bộ 人 người + 寸 tấc → dùng tay trao cho người) + 款(kuǎn)=tiền/khoản → "trao tiền cho người khác".',
+        examples:[
+          { cn:'请在三天内完成付款。', py:'Qǐng zài sān tiān nèi wánchéng fùkuǎn.',
+            vn:'Vui lòng hoàn thành thanh toán trong vòng 3 ngày.',
+            parts:[{w:'请',r:'MOD'},{w:'在三天内',r:'TIME'},{w:'完成',r:'V'},{w:'付款',r:'O'}] },
+          { cn:'他已经付款了。', py:'Tā yǐjīng fùkuǎn le.',
+            vn:'Anh ấy đã thanh toán rồi.',
+            parts:[{w:'他',r:'S'},{w:'已经',r:'ADV'},{w:'付款了',r:'V'}] }
+        ]
+      },
+      {
+        id:20, group:2,
+        cn:'收款', py:'shōukuǎn', viet:'nhận tiền',
+        phrase:'收款码', phraseViet:'mã nhận tiền (QR)',
+        etym:'收(shōu)=thu nhận/thu về (bộ 攴 đánh nhẹ + 丩 cuộn lại → thu gom lại) + 款(kuǎn)=tiền → "thu nhận tiền từ người khác".',
+        examples:[
+          { cn:'商家用二维码收款。', py:'Shāngjiā yòng èrwéimǎ shōukuǎn.',
+            vn:'Người bán dùng mã QR để nhận tiền.',
+            parts:[{w:'商家',r:'S'},{w:'用二维码',r:'ADV'},{w:'收款',r:'V'}] },
+          { cn:'我今天收款一千元。', py:'Wǒ jīntiān shōukuǎn yīqiān yuán.',
+            vn:'Hôm nay tôi nhận được 1.000 tệ.',
+            parts:[{w:'我',r:'S'},{w:'今天',r:'TIME'},{w:'收款',r:'V'},{w:'一千元',r:'O'}] }
+        ]
+      }
+    ],
+    story: {
+      title:'Robot Lạc Vào Rừng Với 5 Thẻ Ngân Hàng',
+      paras:[
+        { cn:'一个机器人带着信用卡(xìnyòngkǎ)和借记卡(jièjìkǎ)迷路进了丛林，它四处寻找ATM机(ATM jī)。',
+          vn:'Một con robot mang theo thẻ tín dụng và thẻ ghi nợ bị lạc vào rừng nhiệt đới, đang đi khắp nơi tìm máy ATM.' },
+        { cn:'它找到一棵大树，对着树皮刷卡(shuākǎ)，树说："我不接受银联！"',
+          vn:'Nó tìm thấy một cái cây to, quẹt thẻ vào vỏ cây, cái cây nói: "Tôi không chấp nhận UnionPay!"' },
+        { cn:'机器人打开手机银行(shǒujī yínháng)，信号由鹦鹉传递，结果把账户转给了猴子。',
+          vn:'Robot mở mobile banking, tín hiệu được truyền qua con vẹt, kết quả là tài khoản bị chuyển cho một con khỉ.' },
+        { cn:'老虎走来，机器人展示二维码(èrwéimǎ)，老虎把手机吞掉了。"这不是扫码方式！"',
+          vn:'Con hổ đi đến, robot xuất trình mã QR, con hổ nuốt chửng cái điện thoại. "Đây không phải cách quét mã!"' },
+        { cn:'最后，一只猩猩帮助机器人完成电子支付(diànzǐ zhīfù)，付款(fùkuǎn)了一根香蕉，收款(shōukuǎn)了一张叶子收据。',
+          vn:'Cuối cùng, một con đười ươi giúp robot hoàn thành thanh toán điện tử, trả tiền một quả chuối và nhận về một biên lai là chiếc lá.' },
+        { cn:'机器人连上网上银行(wǎngshàng yínháng)，给总部发了一封邮件："需要更多电池和香蕉。"',
+          vn:'Robot kết nối ngân hàng trực tuyến, gửi email về tổng hành dinh: "Cần thêm pin và chuối."' }
+      ]
+    }
+  },
+
+  /* ======== GROUP 3: Vay & Tín dụng ======== */
+  {
+    id: 3, nameCn: '贷款与信用', nameVi: 'Vay & Tín Dụng',
+    words: [
+      {
+        id:21, group:3,
+        cn:'房贷', py:'fángdài', viet:'vay mua nhà / thế chấp nhà',
+        phrase:'申请房贷买房', phraseViet:'vay tiền mua nhà',
+        etym:'房(fáng)=nhà (bộ 户 nhà + 方 vuông → ngôi nhà vuông vức) + 贷(dài)=cho vay (bộ 贝 tiền + 代 thay thế → tiền cho mượn thay thế) → "khoản vay để mua nhà".',
+        examples:[
+          { cn:'我们的房贷还有十年。', py:'Wǒmen de fángdài hái yǒu shí nián.',
+            vn:'Khoản vay mua nhà của chúng tôi còn 10 năm.',
+            parts:[{w:'我们的房贷',r:'S'},{w:'还',r:'ADV'},{w:'有',r:'V'},{w:'十年',r:'O'}] },
+          { cn:'房贷利率降了，很多人去重新贷款。', py:'Fángdài lìlǜ jiàngle, hěn duō rén qù chóngxīn dàikuǎn.',
+            vn:'Lãi suất vay nhà giảm, nhiều người đi vay lại.',
+            parts:[{w:'房贷利率',r:'S'},{w:'降了',r:'V'},{w:'很多人',r:'S'},{w:'去',r:'V'},{w:'重新贷款',r:'V'}] }
+        ]
+      },
+      {
+        id:22, group:3,
+        cn:'车贷', py:'chēdài', viet:'vay mua xe',
+        phrase:'办理车贷手续', phraseViet:'làm thủ tục vay mua xe',
+        etym:'车(chē)=xe (chữ tượng hình bánh xe nhìn từ trên xuống) + 贷(dài)=cho vay → "khoản vay để mua phương tiện bánh xe".',
+        examples:[
+          { cn:'我贷款买了一辆新车。', py:'Wǒ dàikuǎn mǎile yī liàng xīn chē.',
+            vn:'Tôi vay tiền mua một chiếc xe mới.',
+            parts:[{w:'我',r:'S'},{w:'贷款',r:'V'},{w:'买了',r:'V'},{w:'一辆新车',r:'O'}] },
+          { cn:'车贷每月还两千元。', py:'Chēdài měi yuè huán liǎng qiān yuán.',
+            vn:'Tiền trả góp xe mỗi tháng 2.000 tệ.',
+            parts:[{w:'车贷',r:'S'},{w:'每月',r:'TIME'},{w:'还',r:'V'},{w:'两千元',r:'O'}] }
+        ]
+      },
+      {
+        id:23, group:3,
+        cn:'利率', py:'lìlǜ', viet:'lãi suất',
+        phrase:'年利率百分之五', phraseViet:'lãi suất năm 5%',
+        etym:'利(lì)=lợi ích/lãi + 率(lǜ)=tỷ lệ/tốc độ (bộ 糸 sợi dây + 十 mười → nhiều sợi dây đan vào nhau = tỷ lệ phức tạp) → "tỷ lệ sinh lợi".',
+        examples:[
+          { cn:'央行调整了基准利率。', py:'Yāngháng tiáozhěngle jīzhǔn lìlǜ.',
+            vn:'Ngân hàng trung ương đã điều chỉnh lãi suất cơ bản.',
+            parts:[{w:'央行',r:'S'},{w:'调整了',r:'V'},{w:'基准利率',r:'O'}] },
+          { cn:'贷款利率比存款利率高。', py:'Dàikuǎn lìlǜ bǐ cúnkuǎn lìlǜ gāo.',
+            vn:'Lãi suất vay cao hơn lãi suất gửi.',
+            parts:[{w:'贷款利率',r:'S'},{w:'比',r:'ADV'},{w:'存款利率',r:'ADV'},{w:'高',r:'ADJ'}] }
+        ]
+      },
+      {
+        id:24, group:3,
+        cn:'本金', py:'běnjīn', viet:'vốn gốc',
+        phrase:'先还本金再付利息', phraseViet:'trả vốn gốc trước rồi trả lãi',
+        etym:'本(běn)=gốc/nguồn gốc (chữ 木 cây thêm dấu ở phần gốc → phần gốc rễ của cây) + 金(jīn)=tiền/vàng → "tiền gốc ban đầu, phần nền tảng".',
+        examples:[
+          { cn:'每月还款包括本金和利息。', py:'Měi yuè huánkuǎn bāokuò běnjīn hé lìxī.',
+            vn:'Tiền trả hàng tháng bao gồm vốn gốc và tiền lãi.',
+            parts:[{w:'每月还款',r:'S'},{w:'包括',r:'V'},{w:'本金',r:'O'},{w:'和利息',r:'O'}] },
+          { cn:'我先偿还了本金。', py:'Wǒ xiān chánghuánle běnjīn.',
+            vn:'Tôi đã trả hết vốn gốc trước.',
+            parts:[{w:'我',r:'S'},{w:'先',r:'ADV'},{w:'偿还了',r:'V'},{w:'本金',r:'O'}] }
+        ]
+      },
+      {
+        id:25, group:3,
+        cn:'还款', py:'huánkuǎn', viet:'trả nợ / hoàn trả',
+        phrase:'按时还款', phraseViet:'trả nợ đúng hạn',
+        etym:'还(huán)=trả lại/quay về (bộ 辶 đi lại + 不 không → chuyển động quay trở lại) + 款(kuǎn)=tiền → "đưa tiền trở về tay chủ nợ".',
+        examples:[
+          { cn:'请按时还款，避免逾期。', py:'Qǐng ànshí huánkuǎn, bìmiǎn yúqī.',
+            vn:'Vui lòng trả nợ đúng hạn để tránh bị quá hạn.',
+            parts:[{w:'请',r:'MOD'},{w:'按时',r:'ADV'},{w:'还款',r:'V'},{w:'避免逾期',r:'V'}] },
+          { cn:'他每月按时还款，信用很好。', py:'Tā měi yuè ànshí huánkuǎn, xìnyòng hěn hǎo.',
+            vn:'Anh ấy mỗi tháng trả đúng hạn, tín dụng rất tốt.',
+            parts:[{w:'他',r:'S'},{w:'每月',r:'TIME'},{w:'按时',r:'ADV'},{w:'还款',r:'V'},{w:'信用',r:'S'},{w:'很好',r:'ADJ'}] }
+        ]
+      },
+      {
+        id:26, group:3,
+        cn:'分期付款', py:'fēnqī fùkuǎn', viet:'trả góp / trả dần',
+        phrase:'十二期分期付款', phraseViet:'trả góp 12 kỳ',
+        etym:'分期(fēnqī)=chia ra theo kỳ hạn (分=chia + 期=kỳ hạn/giai đoạn) + 付款=trả tiền → "chia nhỏ khoản tiền trả thành nhiều kỳ".',
+        examples:[
+          { cn:'我选择分期付款买手机。', py:'Wǒ xuǎnzé fēnqī fùkuǎn mǎi shǒujī.',
+            vn:'Tôi chọn trả góp để mua điện thoại.',
+            parts:[{w:'我',r:'S'},{w:'选择',r:'V'},{w:'分期付款',r:'V'},{w:'买手机',r:'V'}] },
+          { cn:'分期付款可以减轻压力。', py:'Fēnqī fùkuǎn kěyǐ jiǎnqīng yālì.',
+            vn:'Trả góp có thể giảm bớt áp lực tài chính.',
+            parts:[{w:'分期付款',r:'S'},{w:'可以',r:'MOD'},{w:'减轻',r:'V'},{w:'压力',r:'O'}] }
+        ]
+      },
+      {
+        id:27, group:3,
+        cn:'逾期', py:'yúqī', viet:'quá hạn',
+        phrase:'贷款逾期有罚款', phraseViet:'vay quá hạn sẽ bị phạt',
+        etym:'逾(yú)=vượt qua/vượt hơn (bộ 辶 di chuyển + 俞 → vượt lên trên giới hạn) + 期(qī)=kỳ hạn/thời hạn → "vượt qua thời hạn quy định".',
+        examples:[
+          { cn:'逾期还款会影响征信。', py:'Yúqī huánkuǎn huì yǐngxiǎng zhēngxìn.',
+            vn:'Trả nợ quá hạn sẽ ảnh hưởng đến hồ sơ tín dụng.',
+            parts:[{w:'逾期还款',r:'S'},{w:'会',r:'MOD'},{w:'影响',r:'V'},{w:'征信',r:'O'}] },
+          { cn:'请不要逾期，否则要交罚款。', py:'Qǐng bú yào yúqī, fǒuzé yào jiāo fákuǎn.',
+            vn:'Xin đừng để quá hạn, nếu không phải nộp phạt.',
+            parts:[{w:'请',r:'MOD'},{w:'不要',r:'NEG'},{w:'逾期',r:'V'},{w:'否则',r:'CONJ'},{w:'要交罚款',r:'V'}] }
+        ]
+      },
+      {
+        id:28, group:3,
+        cn:'抵押', py:'dǐyā', viet:'thế chấp',
+        phrase:'用房子抵押贷款', phraseViet:'thế chấp nhà để vay tiền',
+        etym:'抵(dǐ)=chống đỡ/bù đắp (bộ 手 tay + 氐 đến tận đáy → dùng tay chặn lại) + 押(yā)=giam giữ/thế chấp (bộ 手 + 甲 vỏ giáp → giữ chặt bằng tay) → "giữ tài sản làm đảm bảo".',
+        examples:[
+          { cn:'他用房子作为抵押申请贷款。', py:'Tā yòng fángzi zuòwéi dǐyā shēnqǐng dàikuǎn.',
+            vn:'Anh ấy dùng nhà làm thế chấp để xin vay tiền.',
+            parts:[{w:'他',r:'S'},{w:'用房子',r:'ADV'},{w:'作为抵押',r:'ADV'},{w:'申请',r:'V'},{w:'贷款',r:'O'}] },
+          { cn:'抵押品包括房产和车辆。', py:'Dǐyā pǐn bāokuò fángchǎn hé chēliàng.',
+            vn:'Tài sản thế chấp bao gồm bất động sản và xe cộ.',
+            parts:[{w:'抵押品',r:'S'},{w:'包括',r:'V'},{w:'房产',r:'O'},{w:'和车辆',r:'O'}] }
+        ]
+      },
+      {
+        id:29, group:3,
+        cn:'信用', py:'xìnyòng', viet:'tín dụng / uy tín',
+        phrase:'保持良好信用', phraseViet:'duy trì tín dụng tốt',
+        etym:'信(xìn)=niềm tin (bộ 人 người + 言 lời nói → lời nói của người đáng tin cậy) + 用(yòng)=sử dụng → "sử dụng sự tin tưởng như công cụ tài chính".',
+        examples:[
+          { cn:'信用好的人更容易获得贷款。', py:'Xìnyòng hǎo de rén gèng róngyì huòdé dàikuǎn.',
+            vn:'Người có tín dụng tốt dễ vay tiền hơn.',
+            parts:[{w:'信用好的人',r:'S'},{w:'更',r:'ADV'},{w:'容易',r:'ADJ'},{w:'获得',r:'V'},{w:'贷款',r:'O'}] },
+          { cn:'他的信用记录非常好。', py:'Tā de xìnyòng jìlù fēicháng hǎo.',
+            vn:'Hồ sơ tín dụng của anh ấy rất tốt.',
+            parts:[{w:'他的信用记录',r:'S'},{w:'非常',r:'ADV'},{w:'好',r:'ADJ'}] }
+        ]
+      },
+      {
+        id:30, group:3,
+        cn:'征信', py:'zhēngxìn', viet:'thẩm định tín dụng',
+        phrase:'征信查询', phraseViet:'truy vấn hồ sơ tín dụng',
+        etym:'征(zhēng)=điều tra/thu thập (bộ 彳 bước đi + 正 ngay thẳng → đi điều tra sự thật) + 信(xìn)=tín dụng/niềm tin → "điều tra thu thập thông tin về mức độ tín nhiệm".',
+        examples:[
+          { cn:'申请贷款前，银行会查征信。', py:'Shēnqǐng dàikuǎn qián, yínháng huì chá zhēngxìn.',
+            vn:'Trước khi cho vay, ngân hàng sẽ kiểm tra hồ sơ tín dụng.',
+            parts:[{w:'申请贷款前',r:'TIME'},{w:'银行',r:'S'},{w:'会',r:'MOD'},{w:'查',r:'V'},{w:'征信',r:'O'}] },
+          { cn:'我的征信报告没有问题。', py:'Wǒ de zhēngxìn bàogào méiyǒu wèntí.',
+            vn:'Báo cáo tín dụng của tôi không có vấn đề gì.',
+            parts:[{w:'我的征信报告',r:'S'},{w:'没有',r:'NEG'},{w:'问题',r:'O'}] }
+        ]
+      }
+    ],
+    story: {
+      title:'Người Ngoài Hành Tinh Mua Mặt Trăng Trả Góp',
+      paras:[
+        { cn:'一个外星人来到地球，想用房贷(fángdài)买下月亮。银行员工惊呆了："您确定？月亮没有地址！"',
+          vn:'Một người ngoài hành tinh đến Trái Đất muốn vay thế chấp nhà mua Mặt Trăng. Nhân viên ngân hàng sửng sốt: "Ông chắc chứ? Mặt Trăng không có địa chỉ!"' },
+        { cn:'外星人说："我有车贷(chēdài)要还，所以先买月亮，再卖给太阳。"逻辑无懈可击。',
+          vn:'Người ngoài hành tinh nói: "Tôi còn nợ mua xe, nên mua Mặt Trăng trước, rồi bán cho Mặt Trời." Lý luận không thể bác bỏ.' },
+        { cn:'利率(lìlǜ)是多少？"每年三颗星星。"本金(běnjīn)是一千亿彗星。',
+          vn:'Lãi suất là bao nhiêu? "Mỗi năm ba ngôi sao." Vốn gốc là một nghìn tỷ sao chổi.' },
+        { cn:'外星人同意分期付款(fēnqī fùkuǎn)，每个月还款(huánkuǎn)一颗卫星，但第一期就逾期(yúqī)了，因为它的飞船坏了。',
+          vn:'Người ngoài hành tinh đồng ý trả góp, mỗi tháng trả một vệ tinh, nhưng kỳ đầu tiên đã quá hạn vì phi thuyền bị hỏng.' },
+        { cn:'银行要求抵押(dǐyā)，外星人用土星环担保。信用(xìnyòng)评分：满分！征信(zhēngxìn)报告：跨星系良好。',
+          vn:'Ngân hàng yêu cầu thế chấp, người ngoài hành tinh dùng vành đai Sao Thổ làm đảm bảo. Điểm tín dụng: tuyệt đối! Báo cáo tín dụng: Tốt xuyên thiên hà.' }
+      ]
+    }
+  },
+
+  /* ======== GROUP 4: Đầu tư & Tài chính ======== */
+  {
+    id: 4, nameCn: '投资理财', nameVi: 'Đầu Tư & Tài Chính',
+    words: [
+      {
+        id:31, group:4,
+        cn:'投资', py:'tóuzī', viet:'đầu tư',
+        phrase:'长期投资回报高', phraseViet:'đầu tư dài hạn sinh lời cao',
+        etym:'投(tóu)=ném/đầu vào (bộ 手 tay + 殳 cán giáo → ném vật gì vào) + 资(zī)=vốn/nguồn lực (bộ 贝 tiền + 次 lần → tiền bỏ ra nhiều lần) → "ném tiền vào dự án để sinh lợi".',
+        examples:[
+          { cn:'他把积蓄都投资了股票。', py:'Tā bǎ jīxù dōu tóuzī le gǔpiào.',
+            vn:'Anh ấy đầu tư hết tiền tiết kiệm vào cổ phiếu.',
+            parts:[{w:'他',r:'S'},{w:'把积蓄',r:'O'},{w:'都',r:'ADV'},{w:'投资了',r:'V'},{w:'股票',r:'O'}] },
+          { cn:'投资有风险，入市需谨慎。', py:'Tóuzī yǒu fēngxiǎn, rùshì xū jǐnshèn.',
+            vn:'Đầu tư có rủi ro, vào thị trường cần thận trọng.',
+            parts:[{w:'投资',r:'S'},{w:'有',r:'V'},{w:'风险',r:'O'},{w:'入市',r:'V'},{w:'需',r:'MOD'},{w:'谨慎',r:'ADJ'}] }
+        ]
+      },
+      {
+        id:32, group:4,
+        cn:'基金', py:'jījīn', viet:'quỹ đầu tư',
+        phrase:'购买基金理财', phraseViet:'mua quỹ để đầu tư tài chính',
+        etym:'基(jī)=nền tảng/cơ sở (bộ 土 đất + 其 → nền đất vững chắc) + 金(jīn)=tiền/vàng → "tiền được tập hợp trên nền tảng chung = quỹ tập thể".',
+        examples:[
+          { cn:'我每月定投一只基金。', py:'Wǒ měi yuè dìng tóu yī zhī jījīn.',
+            vn:'Tôi đầu tư định kỳ một quỹ mỗi tháng.',
+            parts:[{w:'我',r:'S'},{w:'每月',r:'TIME'},{w:'定投',r:'V'},{w:'一只基金',r:'O'}] },
+          { cn:'这只基金今年涨了20%。', py:'Zhè zhī jījīn jīnnián zhǎngle 20%.',
+            vn:'Quỹ này năm nay tăng 20%.',
+            parts:[{w:'这只基金',r:'S'},{w:'今年',r:'TIME'},{w:'涨了',r:'V'},{w:'20%',r:'COMP'}] }
+        ]
+      },
+      {
+        id:33, group:4,
+        cn:'股票', py:'gǔpiào', viet:'cổ phiếu',
+        phrase:'买卖股票', phraseViet:'mua bán cổ phiếu',
+        etym:'股(gǔ)=cổ phần (bộ 月 thịt + 殳 → phần thân thể → từng phần của công ty) + 票(piào)=phiếu/vé (chữ 示 chỉ ra + 更 biến đổi → chứng chỉ có thể giao dịch) → "chứng chỉ thể hiện cổ phần trong công ty".',
+        examples:[
+          { cn:'他买了一百股苹果公司的股票。', py:'Tā mǎile yī bǎi gǔ Píngguǒ gōngsī de gǔpiào.',
+            vn:'Anh ấy mua 100 cổ phiếu của công ty Apple.',
+            parts:[{w:'他',r:'S'},{w:'买了',r:'V'},{w:'一百股',r:'O'},{w:'苹果公司的股票',r:'O'}] },
+          { cn:'今天股票市场大跌。', py:'Jīntiān gǔpiào shìchǎng dà diē.',
+            vn:'Hôm nay thị trường chứng khoán sụt giảm mạnh.',
+            parts:[{w:'今天',r:'TIME'},{w:'股票市场',r:'S'},{w:'大跌',r:'V'}] }
+        ]
+      },
+      {
+        id:34, group:4,
+        cn:'债券', py:'zhàiquàn', viet:'trái phiếu',
+        phrase:'购买国债券', phraseViet:'mua trái phiếu chính phủ',
+        etym:'债(zhài)=nợ (bộ 贝 tiền + 责 trách nhiệm → trách nhiệm với tiền bạc = khoản nợ) + 券(quàn)=phiếu/chứng chỉ (bộ 刀 dao + 券 cuộn giấy → cắt ra từng phần) → "chứng chỉ thể hiện khoản nợ".',
+        examples:[
+          { cn:'政府发行了新的国债券。', py:'Zhèngfǔ fāxíngle xīn de guó zhàiquàn.',
+            vn:'Chính phủ đã phát hành trái phiếu quốc gia mới.',
+            parts:[{w:'政府',r:'S'},{w:'发行了',r:'V'},{w:'新的国债券',r:'O'}] },
+          { cn:'债券比股票风险低。', py:'Zhàiquàn bǐ gǔpiào fēngxiǎn dī.',
+            vn:'Trái phiếu ít rủi ro hơn cổ phiếu.',
+            parts:[{w:'债券',r:'S'},{w:'比股票',r:'ADV'},{w:'风险',r:'S'},{w:'低',r:'ADJ'}] }
+        ]
+      },
+      {
+        id:35, group:4,
+        cn:'理财', py:'lǐcái', viet:'quản lý tài chính',
+        phrase:'学习理财知识', phraseViet:'học kiến thức quản lý tài chính',
+        etym:'理(lǐ)=quản lý/sắp xếp (bộ 玉 ngọc + 里 bên trong → cắt ngọc theo thớ = sắp xếp có trật tự) + 财(cái)=tài chính (bộ 贝 tiền + 才 tài năng → tài năng kiếm tiền) → "sắp xếp tiền bạc theo trật tự".',
+        examples:[
+          { cn:'年轻人应该学习理财。', py:'Niánqīng rén yīnggāi xuéxí lǐcái.',
+            vn:'Người trẻ nên học cách quản lý tài chính.',
+            parts:[{w:'年轻人',r:'S'},{w:'应该',r:'MOD'},{w:'学习',r:'V'},{w:'理财',r:'O'}] },
+          { cn:'她把钱存在理财账户里。', py:'Tā bǎ qián cún zài lǐcái zhànghù lǐ.',
+            vn:'Cô ấy gửi tiền vào tài khoản quản lý tài chính.',
+            parts:[{w:'她',r:'S'},{w:'把钱',r:'O'},{w:'存在',r:'V'},{w:'理财账户里',r:'PLACE'}] }
+        ]
+      },
+      {
+        id:36, group:4,
+        cn:'收益', py:'shōuyì', viet:'lợi nhuận / thu nhập',
+        phrase:'投资收益可观', phraseViet:'lợi nhuận đầu tư đáng kể',
+        etym:'收(shōu)=thu về/nhận (gom lại) + 益(yì)=lợi ích/tăng thêm (bộ 皿 đồ đựng + nước tràn ra → lợi ích tràn ra) → "thu về phần lợi ích tăng thêm".',
+        examples:[
+          { cn:'这个项目的收益很可观。', py:'Zhège xiàngmù de shōuyì hěn kěguān.',
+            vn:'Lợi nhuận của dự án này rất đáng kể.',
+            parts:[{w:'这个项目',r:'S'},{w:'的收益',r:'S'},{w:'很',r:'ADV'},{w:'可观',r:'ADJ'}] },
+          { cn:'年收益率达到了10%。', py:'Nián shōuyì lǜ dádàole 10%.',
+            vn:'Tỷ suất lợi nhuận hàng năm đạt 10%.',
+            parts:[{w:'年收益率',r:'S'},{w:'达到了',r:'V'},{w:'10%',r:'O'}] }
+        ]
+      },
+      {
+        id:37, group:4,
+        cn:'风险', py:'fēngxiǎn', viet:'rủi ro',
+        phrase:'高收益高风险', phraseViet:'lợi nhuận cao rủi ro cao',
+        etym:'风(fēng)=gió (sức mạnh vô hình, khó đoán) + 险(xiǎn)=nguy hiểm/hiểm trở (bộ 阜 đồi cao + 佥 mọi người → chỗ cao nguy hiểm mọi người đều thấy) → "nguy hiểm như gió thổi khó lường trước".',
+        examples:[
+          { cn:'投资前要评估风险。', py:'Tóuzī qián yào pínggū fēngxiǎn.',
+            vn:'Trước khi đầu tư cần đánh giá rủi ro.',
+            parts:[{w:'投资前',r:'TIME'},{w:'要',r:'MOD'},{w:'评估',r:'V'},{w:'风险',r:'O'}] },
+          { cn:'分散投资可以降低风险。', py:'Fēnsàn tóuzī kěyǐ jiàngdī fēngxiǎn.',
+            vn:'Đa dạng hóa đầu tư có thể giảm rủi ro.',
+            parts:[{w:'分散投资',r:'S'},{w:'可以',r:'MOD'},{w:'降低',r:'V'},{w:'风险',r:'O'}] }
+        ]
+      },
+      {
+        id:38, group:4,
+        cn:'保险', py:'bǎoxiǎn', viet:'bảo hiểm',
+        phrase:'购买人寿保险', phraseViet:'mua bảo hiểm nhân thọ',
+        etym:'保(bǎo)=bảo vệ (bộ 人 người + 呆 giữ nguyên → người giữ vững người khác = bảo vệ) + 险(xiǎn)=nguy hiểm → "bảo vệ trước những nguy hiểm bất ngờ".',
+        examples:[
+          { cn:'我买了一份医疗保险。', py:'Wǒ mǎile yī fèn yīliáo bǎoxiǎn.',
+            vn:'Tôi mua một gói bảo hiểm y tế.',
+            parts:[{w:'我',r:'S'},{w:'买了',r:'V'},{w:'一份',r:'O'},{w:'医疗保险',r:'O'}] },
+          { cn:'保险可以保障你的财产安全。', py:'Bǎoxiǎn kěyǐ bǎozhàng nǐ de cáichǎn ānquán.',
+            vn:'Bảo hiểm có thể đảm bảo an toàn tài sản của bạn.',
+            parts:[{w:'保险',r:'S'},{w:'可以',r:'MOD'},{w:'保障',r:'V'},{w:'你的财产安全',r:'O'}] }
+        ]
+      },
+      {
+        id:39, group:4,
+        cn:'分红', py:'fēnhóng', viet:'cổ tức / chia lợi nhuận',
+        phrase:'年终分红', phraseViet:'chia cổ tức cuối năm',
+        etym:'分(fēn)=chia ra (bộ 八 chia đôi + 刀 dao → dùng dao chia đôi) + 红(hóng)=đỏ/lợi nhuận (trong văn hóa Trung Quốc, màu đỏ = may mắn, lãi = 红利) → "chia phần màu đỏ = chia lợi nhuận".',
+        examples:[
+          { cn:'公司今年给股东分红。', py:'Gōngsī jīnnián gěi gǔdōng fēnhóng.',
+            vn:'Năm nay công ty chia cổ tức cho cổ đông.',
+            parts:[{w:'公司',r:'S'},{w:'今年',r:'TIME'},{w:'给股东',r:'O'},{w:'分红',r:'V'}] },
+          { cn:'每股分红是0.5元。', py:'Měi gǔ fēnhóng shì 0.5 yuán.',
+            vn:'Cổ tức mỗi cổ phiếu là 0,5 tệ.',
+            parts:[{w:'每股',r:'S'},{w:'分红',r:'S'},{w:'是',r:'V'},{w:'0.5元',r:'O'}] }
+        ]
+      },
+      {
+        id:40, group:4,
+        cn:'资产', py:'zīchǎn', viet:'tài sản',
+        phrase:'净资产增加', phraseViet:'tài sản ròng tăng lên',
+        etym:'资(zī)=vốn/nguồn lực (bộ 贝 tiền + 次 lần lượt → tiền được tích lũy qua nhiều lần) + 产(chǎn)=sản sinh/tài sản (bộ 彦 tài năng + 生 sinh ra → sinh ra của cải) → "của cải được tích lũy".',
+        examples:[
+          { cn:'他的总资产超过一百万。', py:'Tā de zǒng zīchǎn chāoguò yī bǎi wàn.',
+            vn:'Tổng tài sản của anh ấy vượt quá một triệu.',
+            parts:[{w:'他的总资产',r:'S'},{w:'超过',r:'V'},{w:'一百万',r:'O'}] },
+          { cn:'固定资产包括房子和车。', py:'Gùdìng zīchǎn bāokuò fángzi hé chē.',
+            vn:'Tài sản cố định bao gồm nhà và xe.',
+            parts:[{w:'固定资产',r:'S'},{w:'包括',r:'V'},{w:'房子',r:'O'},{w:'和车',r:'O'}] }
+        ]
+      }
+    ],
+    story: {
+      title:'Bà Ngoại 80 Tuổi Trở Thành Nhà Đầu Tư Huyền Thoại',
+      paras:[
+        { cn:'八十岁的王奶奶突然决定投资(tóuzī)股票(gǔpiào)市场，因为她看到电视上说"人人都能赚钱"。',
+          vn:'Bà ngoại Vương 80 tuổi đột nhiên quyết định đầu tư chứng khoán vì bà xem TV thấy nói "ai cũng kiếm được tiền".' },
+        { cn:'她买了一只基金(jījīn)，命名为"王奶奶养老基金"。第二天它涨了1%，她喊道："我是股神！"',
+          vn:'Bà mua một quỹ đầu tư đặt tên là "Quỹ Hưu Trí Bà Vương". Ngày hôm sau tăng 1%, bà hét lên: "Ta là thần chứng khoán!"' },
+        { cn:'她还买了债券(zhàiquàn)，说那是"保险(bǎoxiǎn)的投资"。收益(shōuyì)很稳，但她想要更多分红(fēnhóng)。',
+          vn:'Bà còn mua trái phiếu, nói đó là "đầu tư an toàn". Lợi nhuận rất ổn định nhưng bà muốn có nhiều cổ tức hơn.' },
+        { cn:'孙子说："奶奶，投资有风险(fēngxiǎn)。"她说："我都活了80年了，还怕什么风险？"',
+          vn:'Cháu trai nói: "Bà ơi, đầu tư có rủi ro đó." Bà nói: "Bà đã sống 80 năm rồi, còn sợ rủi ro gì nữa?"' },
+        { cn:'最终，王奶奶的总资产(zīchǎn)增加了5%，她用理财(lǐcái)赚的钱买了一百斤饺子，请全村人吃。',
+          vn:'Cuối cùng, tổng tài sản của bà Vương tăng 5%, bà dùng tiền kiếm từ quản lý tài chính mua 50kg sủi cảo, đãi cả làng ăn.' }
+      ]
+    }
+  },
+
+  /* ======== GROUP 5: Ngoại hối & Tỷ giá ======== */
+  {
+    id: 5, nameCn: '外汇兑换', nameVi: 'Ngoại Hối & Tỷ Giá',
+    words: [
+      {
+        id:41, group:5,
+        cn:'汇率', py:'huìlǜ', viet:'tỷ giá hối đoái',
+        phrase:'今天汇率是多少', phraseViet:'hôm nay tỷ giá là bao nhiêu',
+        etym:'汇(huì)=tập hợp/hội tụ (bộ 氵 nước + 彙 gom lại → nước chảy tụ về = tập trung) + 率(lǜ)=tỷ lệ → "tỷ lệ quy đổi khi các đồng tiền hội tụ với nhau".',
+        examples:[
+          { cn:'今天美元对人民币的汇率是7.2。', py:'Jīntiān měiyuán duì rénmínbì de huìlǜ shì 7.2.',
+            vn:'Hôm nay tỷ giá đô la Mỹ so với nhân dân tệ là 7,2.',
+            parts:[{w:'今天',r:'TIME'},{w:'美元对人民币',r:'S'},{w:'的汇率',r:'S'},{w:'是',r:'V'},{w:'7.2',r:'O'}] },
+          { cn:'汇率每天都在变化。', py:'Huìlǜ měitiān dōu zài biànhuà.',
+            vn:'Tỷ giá thay đổi mỗi ngày.',
+            parts:[{w:'汇率',r:'S'},{w:'每天',r:'TIME'},{w:'都',r:'ADV'},{w:'在变化',r:'V'}] }
+        ]
+      },
+      {
+        id:42, group:5,
+        cn:'兑换', py:'duìhuàn', viet:'đổi tiền / quy đổi',
+        phrase:'在机场兑换外币', phraseViet:'đổi ngoại tệ tại sân bay',
+        etym:'兑(duì)=đổi chác/vui vẻ (chữ 兄 anh trai + 儿 đứa trẻ + 口 miệng → hai người vui vẻ trao đổi) + 换(huàn)=đổi/thay thế (bộ 手 tay + 奂 rực rỡ → đổi tay = giao dịch) → "vui vẻ trao đổi thứ này lấy thứ khác".',
+        examples:[
+          { cn:'我想把美元兑换成人民币。', py:'Wǒ xiǎng bǎ měiyuán duìhuàn chéng rénmínbì.',
+            vn:'Tôi muốn đổi đô la Mỹ sang nhân dân tệ.',
+            parts:[{w:'我',r:'S'},{w:'想',r:'V'},{w:'把美元',r:'O'},{w:'兑换成',r:'V'},{w:'人民币',r:'O'}] },
+          { cn:'银行的兑换汇率比机场好。', py:'Yínháng de duìhuàn huìlǜ bǐ jīchǎng hǎo.',
+            vn:'Tỷ giá đổi tiền tại ngân hàng tốt hơn sân bay.',
+            parts:[{w:'银行的兑换汇率',r:'S'},{w:'比机场',r:'ADV'},{w:'好',r:'ADJ'}] }
+        ]
+      },
+      {
+        id:43, group:5,
+        cn:'外币', py:'wàibì', viet:'ngoại tệ',
+        phrase:'携带外币入境', phraseViet:'mang ngoại tệ nhập cảnh',
+        etym:'外(wài)=ngoài/bên ngoài (bộ 夕 buổi tối + 卜 bói toán → bói toán ngoài trời buổi tối = xa lạ = ngoài) + 币(bì)=tiền tệ (bộ 巾 vải + 廾 hai tay = tấm vải dùng làm tiền nguyên thủy) → "tiền tệ từ bên ngoài".',
+        examples:[
+          { cn:'出国旅行需要兑换外币。', py:'Chūguó lǚxíng xūyào duìhuàn wàibì.',
+            vn:'Đi du lịch nước ngoài cần đổi ngoại tệ.',
+            parts:[{w:'出国旅行',r:'S'},{w:'需要',r:'V'},{w:'兑换',r:'V'},{w:'外币',r:'O'}] },
+          { cn:'银行可以兑换多种外币。', py:'Yínháng kěyǐ duìhuàn duō zhǒng wàibì.',
+            vn:'Ngân hàng có thể đổi nhiều loại ngoại tệ.',
+            parts:[{w:'银行',r:'S'},{w:'可以',r:'MOD'},{w:'兑换',r:'V'},{w:'多种外币',r:'O'}] }
+        ]
+      },
+      {
+        id:44, group:5,
+        cn:'人民币', py:'rénmínbì', viet:'nhân dân tệ (CNY)',
+        phrase:'人民币国际化', phraseViet:'quốc tế hóa đồng nhân dân tệ',
+        etym:'人民(rénmín)=nhân dân (人=người + 民=dân chúng) + 币(bì)=tiền tệ → "tiền tệ của nhân dân" — tên gọi chính thức phản ánh tư tưởng "tiền tệ thuộc về nhân dân" sau 1949.',
+        examples:[
+          { cn:'人民币是中国的法定货币。', py:'Rénmínbì shì Zhōngguó de fǎdìng huòbì.',
+            vn:'Nhân dân tệ là đồng tiền pháp định của Trung Quốc.',
+            parts:[{w:'人民币',r:'S'},{w:'是',r:'V'},{w:'中国的法定货币',r:'O'}] },
+          { cn:'这里接受人民币支付吗？', py:'Zhèlǐ jiēshòu rénmínbì zhīfù ma?',
+            vn:'Ở đây có nhận thanh toán bằng nhân dân tệ không?',
+            parts:[{w:'这里',r:'PLACE'},{w:'接受',r:'V'},{w:'人民币支付',r:'O'},{w:'吗',r:'QUES'}] }
+        ]
+      },
+      {
+        id:45, group:5,
+        cn:'美元', py:'měiyuán', viet:'đô la Mỹ (USD)',
+        phrase:'美元汇率上涨', phraseViet:'tỷ giá đô la Mỹ tăng',
+        etym:'美(měi)=Mỹ/đẹp (bộ 羊 con cừu + 大 to lớn → con cừu to = đẹp; sau này dùng để phiên âm "America") + 元(yuán)=đơn vị tiền tệ (đầu tiên = đơn vị đầu tiên) → "đơn vị tiền của nước Mỹ đẹp".',
+        examples:[
+          { cn:'我有一千美元要换成人民币。', py:'Wǒ yǒu yīqiān měiyuán yào huàn chéng rénmínbì.',
+            vn:'Tôi có 1.000 đô la Mỹ muốn đổi sang nhân dân tệ.',
+            parts:[{w:'我',r:'S'},{w:'有',r:'V'},{w:'一千美元',r:'O'},{w:'要换成',r:'V'},{w:'人民币',r:'O'}] },
+          { cn:'美元是世界储备货币。', py:'Měiyuán shì shìjiè chǔbèi huòbì.',
+            vn:'Đô la Mỹ là đồng tiền dự trữ của thế giới.',
+            parts:[{w:'美元',r:'S'},{w:'是',r:'V'},{w:'世界储备货币',r:'O'}] }
+        ]
+      },
+      {
+        id:46, group:5,
+        cn:'欧元', py:'ōuyuán', viet:'Euro (EUR)',
+        phrase:'欧元区国家', phraseViet:'các nước khu vực đồng Euro',
+        etym:'欧(ōu)=Âu (phiên âm "Euro/Europe" sang tiếng Trung: 欧洲 = Châu Âu) + 元(yuán)=đơn vị tiền tệ → "đơn vị tiền tệ của Châu Âu".',
+        examples:[
+          { cn:'欧元和美元哪个更稳定？', py:'Ōuyuán hé měiyuán nǎge gèng wěndìng?',
+            vn:'Euro và đô la Mỹ cái nào ổn định hơn?',
+            parts:[{w:'欧元',r:'S'},{w:'和美元',r:'CONJ'},{w:'哪个',r:'QUES'},{w:'更',r:'ADV'},{w:'稳定',r:'ADJ'}] },
+          { cn:'我去欧洲旅行，换了五百欧元。', py:'Wǒ qù Ōuzhōu lǚxíng, huànle wǔbǎi ōuyuán.',
+            vn:'Tôi đi du lịch châu Âu, đổi 500 Euro.',
+            parts:[{w:'我',r:'S'},{w:'去欧洲',r:'V'},{w:'旅行',r:'V'},{w:'换了',r:'V'},{w:'五百欧元',r:'O'}] }
+        ]
+      },
+      {
+        id:47, group:5,
+        cn:'汇款', py:'huìkuǎn', viet:'chuyển tiền (quốc tế)',
+        phrase:'国际电汇汇款', phraseViet:'chuyển tiền điện báo quốc tế',
+        etym:'汇(huì)=tập hợp/hội tụ (tiền từ nhiều nơi tập hợp về) + 款(kuǎn)=tiền → "gom tiền lại chuyển đi xa, như nước từ nhiều suối hội tụ chảy ra biển".',
+        examples:[
+          { cn:'我给家人汇款回国。', py:'Wǒ gěi jiārén huìkuǎn huí guó.',
+            vn:'Tôi chuyển tiền về nước cho gia đình.',
+            parts:[{w:'我',r:'S'},{w:'给家人',r:'O'},{w:'汇款',r:'V'},{w:'回国',r:'V'}] },
+          { cn:'国际汇款需要几天时间。', py:'Guójì huìkuǎn xūyào jǐ tiān shíjiān.',
+            vn:'Chuyển tiền quốc tế cần vài ngày.',
+            parts:[{w:'国际汇款',r:'S'},{w:'需要',r:'V'},{w:'几天时间',r:'O'}] }
+        ]
+      },
+      {
+        id:48, group:5,
+        cn:'结算', py:'jiésuàn', viet:'thanh toán / quyết toán',
+        phrase:'月末结算账目', phraseViet:'quyết toán tài khoản cuối tháng',
+        etym:'结(jié)=kết thúc/thắt nút (bộ 糸 sợi dây + 吉 may mắn → thắt nút kết thúc tốt đẹp) + 算(suàn)=tính toán (bộ 竹 tre + 具 dụng cụ → dùng bàn tính tre) → "tính toán để kết thúc giao dịch".',
+        examples:[
+          { cn:'每月底进行一次结算。', py:'Měi yuèdǐ jìnxíng yī cì jiésuàn.',
+            vn:'Cuối mỗi tháng tiến hành quyết toán một lần.',
+            parts:[{w:'每月底',r:'TIME'},{w:'进行',r:'V'},{w:'一次结算',r:'O'}] },
+          { cn:'双方完成了货款结算。', py:'Shuāngfāng wánchéngle huòkuǎn jiésuàn.',
+            vn:'Hai bên đã hoàn thành thanh toán tiền hàng.',
+            parts:[{w:'双方',r:'S'},{w:'完成了',r:'V'},{w:'货款结算',r:'O'}] }
+        ]
+      },
+      {
+        id:49, group:5,
+        cn:'手续费', py:'shǒuxùfèi', viet:'phí dịch vụ / phí thủ tục',
+        phrase:'转账手续费', phraseViet:'phí thủ tục chuyển khoản',
+        etym:'手续(shǒuxù)=thủ tục (手=tay + 续=tiếp nối → làm từng bước bằng tay) + 费(fèi)=phí (bộ 贝 tiền + 弗 không → tiền không giữ lại được = phải chi ra) → "khoản phí phải trả để hoàn thành thủ tục".',
+        examples:[
+          { cn:'转账需要收取0.1%的手续费。', py:'Zhuǎnzhàng xūyào shōuqǔ 0.1% de shǒuxùfèi.',
+            vn:'Chuyển khoản cần thu 0,1% phí dịch vụ.',
+            parts:[{w:'转账',r:'S'},{w:'需要',r:'V'},{w:'收取',r:'V'},{w:'0.1%的手续费',r:'O'}] },
+          { cn:'跨行转账手续费比本行高。', py:'Kuà háng zhuǎnzhàng shǒuxùfèi bǐ běn háng gāo.',
+            vn:'Phí chuyển khoản liên ngân hàng cao hơn cùng ngân hàng.',
+            parts:[{w:'跨行转账',r:'S'},{w:'手续费',r:'S'},{w:'比本行',r:'ADV'},{w:'高',r:'ADJ'}] }
+        ]
+      },
+      {
+        id:50, group:5,
+        cn:'外汇', py:'wàihuì', viet:'ngoại hối',
+        phrase:'外汇储备', phraseViet:'dự trữ ngoại hối',
+        etym:'外(wài)=ngoài → 汇(huì)=tập hợp tiền tệ (từ nhiều nguồn ngoại quốc tụ về) → "tiền tệ của nước ngoài tập hợp lại". Khác với 外币 (chỉ đồng tiền cụ thể), 外汇 chỉ thị trường/hệ thống ngoại hối.',
+        examples:[
+          { cn:'中国有大量的外汇储备。', py:'Zhōngguó yǒu dàliàng de wàihuì chǔbèi.',
+            vn:'Trung Quốc có lượng dự trữ ngoại hối lớn.',
+            parts:[{w:'中国',r:'S'},{w:'有',r:'V'},{w:'大量的',r:'ADV'},{w:'外汇储备',r:'O'}] },
+          { cn:'外汇市场每天的交易量很大。', py:'Wàihuì shìchǎng měitiān de jiāoyì liàng hěn dà.',
+            vn:'Khối lượng giao dịch thị trường ngoại hối mỗi ngày rất lớn.',
+            parts:[{w:'外汇市场',r:'S'},{w:'每天的交易量',r:'S'},{w:'很',r:'ADV'},{w:'大',r:'ADJ'}] }
+        ]
+      }
+    ],
+    story: {
+      title:'Con Khỉ Đổi Chuối Lấy Đô La Và Trở Thành Triệu Phú',
+      paras:[
+        { cn:'一只猴子拿着一百根香蕉去银行，要求按照汇率(huìlǜ)兑换(duìhuàn)美元(měiyuán)。',
+          vn:'Một con khỉ mang 100 quả chuối đến ngân hàng, yêu cầu quy đổi sang đô la Mỹ theo tỷ giá.' },
+        { cn:'银行员工困惑地说："香蕉不是外币(wàibì)！"猴子反驳："在猴子国，香蕉就是人民币(rénmínbì)！"',
+          vn:'Nhân viên ngân hàng bối rối: "Chuối không phải ngoại tệ!" Con khỉ phản bác: "Ở Nước Khỉ, chuối chính là nhân dân tệ!"' },
+        { cn:'猴子要给妈妈汇款(huìkuǎn)，但国际汇款的手续费(shǒuxùfèi)是五根香蕉，猴子大叫："太贵了！"',
+          vn:'Con khỉ muốn chuyển tiền cho mẹ nhưng phí dịch vụ chuyển tiền quốc tế là 5 quả chuối, con khỉ hét: "Đắt quá!"' },
+        { cn:'最终通过结算(jiésuàn)，猴子换到了欧元(ōuyuán)，决定去欧洲买更多的香蕉。',
+          vn:'Cuối cùng qua quyết toán, con khỉ đổi được Euro, quyết định đến châu Âu mua thêm nhiều chuối.' },
+        { cn:'外汇(wàihuì)市场新闻头条："香蕉对美元创历史新高，猴子外汇储备全球第一！"',
+          vn:'Tin tức thị trường ngoại hối: "Chuối so với đô la lập kỷ lục lịch sử, dự trữ ngoại hối của Nước Khỉ đứng đầu thế giới!"' }
+      ]
+    }
+  }
+];
+
+</script>
+
+<script>
+/* ================================================
+   VOCABULARY DATA – GROUP 6–10  (50 từ sau)
+   ================================================ */
+const GROUPS_6_10 = [
+  {
+    id: 6, nameCn: '银行文件', nameVi: 'Chứng Từ & Giấy Tờ',
+    words: [
+      { id:51,group:6,cn:'存折',py:'cúnzhé',viet:'sổ tiết kiệm',phrase:'银行存折',phraseViet:'sổ tiết kiệm ngân hàng',
+        etym:'存(cún)=cất giữ + 折(zhé)=gấp/cuốn sách nhỏ → "cuốn sách nhỏ ghi chép tiền được cất giữ".',
+        examples:[
+          {cn:'我的存折不见了。',py:'Wǒ de cúnzhé bú jiàn le.',vn:'Sổ tiết kiệm của tôi biến mất rồi.',parts:[{w:'我的存折',r:'S'},{w:'不见了',r:'V'}]},
+          {cn:'这本存折里有两万元。',py:'Zhè běn cúnzhé lǐ yǒu liǎng wàn yuán.',vn:'Trong quyển sổ này có 20.000 tệ.',parts:[{w:'这本存折',r:'S'},{w:'里',r:'MOD'},{w:'有',r:'V'},{w:'两万元',r:'O'}]}]},
+      { id:52,group:6,cn:'合同',py:'hétóng',viet:'hợp đồng',phrase:'签订贷款合同',phraseViet:'ký kết hợp đồng vay tiền',
+        etym:'合(hé)=phù hợp/đồng thuận + 同(tóng)=cùng nhau → "cùng nhau đồng thuận = hợp đồng".',
+        examples:[
+          {cn:'请仔细阅读合同条款。',py:'Qǐng zǐxì yuèdú hétóng tiáokuǎn.',vn:'Vui lòng đọc kỹ các điều khoản hợp đồng.',parts:[{w:'请',r:'MOD'},{w:'仔细',r:'ADV'},{w:'阅读',r:'V'},{w:'合同条款',r:'O'}]},
+          {cn:'双方签署了贷款合同。',py:'Shuāngfāng qiānshǔle dàikuǎn hétóng.',vn:'Hai bên đã ký kết hợp đồng vay tiền.',parts:[{w:'双方',r:'S'},{w:'签署了',r:'V'},{w:'贷款合同',r:'O'}]}]},
+      { id:53,group:6,cn:'发票',py:'fāpiào',viet:'hóa đơn',phrase:'开具发票',phraseViet:'xuất hóa đơn',
+        etym:'发(fā)=phát hành + 票(piào)=phiếu/vé → "phiếu được phát hành = chứng từ giao dịch".',
+        examples:[
+          {cn:'请给我开一张发票。',py:'Qǐng gěi wǒ kāi yī zhāng fāpiào.',vn:'Vui lòng xuất cho tôi một hóa đơn.',parts:[{w:'请',r:'MOD'},{w:'给我',r:'O'},{w:'开',r:'V'},{w:'一张发票',r:'O'}]},
+          {cn:'这笔费用需要发票报销。',py:'Zhè bǐ fèiyòng xūyào fāpiào bàoxiāo.',vn:'Khoản chi phí này cần hóa đơn để thanh toán.',parts:[{w:'这笔费用',r:'S'},{w:'需要',r:'V'},{w:'发票',r:'O'},{w:'报销',r:'V'}]}]},
+      { id:54,group:6,cn:'对账单',py:'duìzhàngdān',viet:'sao kê tài khoản',phrase:'月度对账单',phraseViet:'sao kê tháng',
+        etym:'对账(duìzhàng)=đối chiếu tài khoản + 单(dān)=tờ phiếu → "tờ phiếu đối chiếu tài khoản".',
+        examples:[
+          {cn:'我收到了银行的对账单。',py:'Wǒ shōudàole yínháng de duìzhàngdān.',vn:'Tôi nhận được sao kê của ngân hàng.',parts:[{w:'我',r:'S'},{w:'收到了',r:'V'},{w:'银行的对账单',r:'O'}]},
+          {cn:'每月银行会寄来对账单。',py:'Měi yuè yínháng huì jì lái duìzhàngdān.',vn:'Mỗi tháng ngân hàng sẽ gửi sao kê đến.',parts:[{w:'每月',r:'TIME'},{w:'银行',r:'S'},{w:'会',r:'MOD'},{w:'寄来',r:'V'},{w:'对账单',r:'O'}]}]},
+      { id:55,group:6,cn:'身份证',py:'shēnfènzhèng',viet:'CCCD / chứng minh nhân dân',phrase:'出示身份证',phraseViet:'xuất trình CCCD',
+        etym:'身份(shēnfèn)=danh tính + 证(zhèng)=giấy chứng nhận → "giấy chứng nhận danh tính của một người".',
+        examples:[
+          {cn:'开户需要出示身份证。',py:'Kāihù xūyào chūshì shēnfènzhèng.',vn:'Mở tài khoản cần xuất trình CCCD.',parts:[{w:'开户',r:'S'},{w:'需要',r:'V'},{w:'出示',r:'V'},{w:'身份证',r:'O'}]},
+          {cn:'请带上你的身份证去银行。',py:'Qǐng dài shàng nǐ de shēnfènzhèng qù yínháng.',vn:'Vui lòng mang theo CCCD của bạn đến ngân hàng.',parts:[{w:'请',r:'MOD'},{w:'带上',r:'V'},{w:'你的身份证',r:'O'},{w:'去银行',r:'V'}]}]},
+      { id:56,group:6,cn:'护照',py:'hùzhào',viet:'hộ chiếu',phrase:'持护照开户',phraseViet:'dùng hộ chiếu mở tài khoản',
+        etym:'护(hù)=bảo hộ + 照(zhào)=giấy phép/chiếu sáng → "giấy phép bảo vệ quyền di chuyển quốc tế".',
+        examples:[
+          {cn:'外国人开户需要护照。',py:'Wàiguó rén kāihù xūyào hùzhào.',vn:'Người nước ngoài mở tài khoản cần hộ chiếu.',parts:[{w:'外国人',r:'S'},{w:'开户',r:'V'},{w:'需要',r:'V'},{w:'护照',r:'O'}]},
+          {cn:'我的护照有效期还有三年。',py:'Wǒ de hùzhào yǒuxiào qī hái yǒu sān nián.',vn:'Hộ chiếu của tôi còn hạn 3 năm nữa.',parts:[{w:'我的护照',r:'S'},{w:'有效期',r:'S'},{w:'还有',r:'V'},{w:'三年',r:'O'}]}]},
+      { id:57,group:6,cn:'申请表',py:'shēnqǐng biǎo',viet:'mẫu đơn đăng ký',phrase:'填写申请表',phraseViet:'điền vào mẫu đơn',
+        etym:'申请(shēnqǐng)=yêu cầu/đăng ký + 表(biǎo)=bảng/biểu mẫu → "bảng biểu để bày tỏ yêu cầu".',
+        examples:[
+          {cn:'请填写这张申请表。',py:'Qǐng tiánxiě zhè zhāng shēnqǐng biǎo.',vn:'Vui lòng điền vào mẫu đơn này.',parts:[{w:'请',r:'MOD'},{w:'填写',r:'V'},{w:'这张申请表',r:'O'}]},
+          {cn:'申请表填完后请交给柜员。',py:'Shēnqǐng biǎo tián wán hòu qǐng jiāo gěi guìyuán.',vn:'Sau khi điền xong mẫu đơn, vui lòng nộp cho giao dịch viên.',parts:[{w:'申请表填完后',r:'TIME'},{w:'请',r:'MOD'},{w:'交给',r:'V'},{w:'柜员',r:'O'}]}]},
+      { id:58,group:6,cn:'签名',py:'qiānmíng',viet:'chữ ký',phrase:'在合同上签名',phraseViet:'ký tên trên hợp đồng',
+        etym:'签(qiān)=ký tên/tăm tre + 名(míng)=tên → "viết tên mình để xác nhận".',
+        examples:[
+          {cn:'请在这里签名确认。',py:'Qǐng zài zhèlǐ qiānmíng quèrèn.',vn:'Vui lòng ký tên tại đây để xác nhận.',parts:[{w:'请',r:'MOD'},{w:'在这里',r:'PLACE'},{w:'签名',r:'V'},{w:'确认',r:'V'}]},
+          {cn:'合同需要双方的签名。',py:'Hétóng xūyào shuāngfāng de qiānmíng.',vn:'Hợp đồng cần chữ ký của cả hai bên.',parts:[{w:'合同',r:'S'},{w:'需要',r:'V'},{w:'双方的签名',r:'O'}]}]},
+      { id:59,group:6,cn:'印章',py:'yìnzhāng',viet:'con dấu',phrase:'加盖公司印章',phraseViet:'đóng dấu công ty',
+        etym:'印(yìn)=đóng dấu (dùng tay ấn xuống) + 章(zhāng)=con dấu/chương → "ấn tạo ra dấu hiệu chính thức".',
+        examples:[
+          {cn:'合同必须加盖公司印章。',py:'Hétóng bìxū jiā gài gōngsī yìnzhāng.',vn:'Hợp đồng phải đóng dấu công ty.',parts:[{w:'合同',r:'S'},{w:'必须',r:'MOD'},{w:'加盖',r:'V'},{w:'公司印章',r:'O'}]},
+          {cn:'银行的文件上有官方印章。',py:'Yínháng de wénjiàn shàng yǒu guānfāng yìnzhāng.',vn:'Trên tài liệu ngân hàng có con dấu chính thức.',parts:[{w:'银行的文件',r:'S'},{w:'上',r:'MOD'},{w:'有',r:'V'},{w:'官方印章',r:'O'}]}]},
+      { id:60,group:6,cn:'授权书',py:'shòuquánshū',viet:'giấy ủy quyền',phrase:'出具授权书',phraseViet:'lập giấy ủy quyền',
+        etym:'授权(shòuquán)=ủy quyền (trao quyền cho người khác) + 书(shū)=văn thư → "văn bản trao quyền cho người khác hành động thay mình".',
+        examples:[
+          {cn:'我写了一份授权书，让妻子帮我取款。',py:'Wǒ xiěle yī fèn shòuquánshū, ràng qīzi bāng wǒ qǔkuǎn.',vn:'Tôi viết giấy ủy quyền để vợ thay tôi rút tiền.',parts:[{w:'我',r:'S'},{w:'写了',r:'V'},{w:'一份授权书',r:'O'},{w:'让妻子帮我取款',r:'V'}]},
+          {cn:'没有授权书，代办人不能操作。',py:'Méiyǒu shòuquánshū, dài bàn rén bù néng cāozuò.',vn:'Không có giấy ủy quyền, người thay mặt không thể thao tác.',parts:[{w:'没有授权书',r:'ADV'},{w:'代办人',r:'S'},{w:'不能',r:'NEG'},{w:'操作',r:'V'}]}]}
+    ],
+    story:{title:'Thám Tử Đánh Mất Hộ Chiếu Trong Két Ngân Hàng',paras:[
+      {cn:'大侦探福尔摩斯去银行，带着护照(hùzhào)和身份证(shēnfènzhèng)，准备签名(qiānmíng)开户。',vn:'Thám tử vĩ đại Holmes đến ngân hàng mang theo hộ chiếu và CCCD, chuẩn bị ký tên mở tài khoản.'},
+      {cn:'柜员给了他一张申请表(shēnqǐng biǎo)，但笔不见了。他掏出放大镜查找，全银行人员都惊呆了。',vn:'Giao dịch viên đưa cho anh ta mẫu đơn nhưng bút biến mất. Anh ta rút kính lúp ra điều tra, toàn bộ nhân viên ngân hàng đứng sững.'},
+      {cn:'他找到了合同(hétóng)，但上面的印章(yìnzhāng)是一个笑脸。"这是伪造的！"他大喊。',vn:'Anh ta tìm thấy hợp đồng nhưng con dấu trên đó là một mặt cười. "Đây là giả mạo!" Anh ta hét lên.'},
+      {cn:'查看对账单(duìzhàngdān)后，他发现存折(cúnzhé)里的钱全部用于购买发票(fāpiào)收藏品。',vn:'Sau khi xem sao kê, anh ta phát hiện tiền trong sổ tiết kiệm đã dùng hết để mua bộ sưu tập hóa đơn.'},
+      {cn:'最后，他签了授权书(shòuquánshū)，授权华生代他管理账户，然后去追小偷了。',vn:'Cuối cùng anh ta ký giấy ủy quyền cho Watson quản lý tài khoản thay mình, rồi đi đuổi theo tên trộm.'}
+    ]}
+  },
+  {
+    id: 7, nameCn: '银行人员', nameVi: 'Nhân Sự Ngân Hàng',
+    words: [
+      { id:61,group:7,cn:'行长',py:'hángzhǎng',viet:'giám đốc ngân hàng',phrase:'银行行长',phraseViet:'giám đốc ngân hàng',
+        etym:'行(háng)=tổ chức/ngân hàng + 长(zhǎng)=người đứng đầu → "người đứng đầu ngân hàng".',
+        examples:[
+          {cn:'行长今天来视察我们的部门。',py:'Hángzhǎng jīntiān lái shìchá wǒmen de bùmén.',vn:'Hôm nay giám đốc đến kiểm tra bộ phận của chúng tôi.',parts:[{w:'行长',r:'S'},{w:'今天',r:'TIME'},{w:'来视察',r:'V'},{w:'我们的部门',r:'O'}]},
+          {cn:'他是这家银行的行长。',py:'Tā shì zhè jiā yínháng de hángzhǎng.',vn:'Anh ấy là giám đốc của ngân hàng này.',parts:[{w:'他',r:'S'},{w:'是',r:'V'},{w:'这家银行的行长',r:'O'}]}]},
+      { id:62,group:7,cn:'柜员',py:'guìyuán',viet:'giao dịch viên',phrase:'银行柜员',phraseViet:'giao dịch viên ngân hàng',
+        etym:'柜(guì)=quầy + 员(yuán)=nhân viên → "nhân viên ở sau quầy giao dịch".',
+        examples:[
+          {cn:'柜员耐心地解答了我的问题。',py:'Guìyuán nàixīn de jiědá le wǒ de wèntí.',vn:'Giao dịch viên nhẫn nại giải đáp câu hỏi của tôi.',parts:[{w:'柜员',r:'S'},{w:'耐心地',r:'ADV'},{w:'解答了',r:'V'},{w:'我的问题',r:'O'}]},
+          {cn:'请到3号窗口找柜员办理。',py:'Qǐng dào 3 hào chuānkǒu zhǎo guìyuán bànlǐ.',vn:'Vui lòng đến cửa số 3 tìm giao dịch viên để làm thủ tục.',parts:[{w:'请',r:'MOD'},{w:'到3号窗口',r:'PLACE'},{w:'找柜员',r:'V'},{w:'办理',r:'V'}]}]},
+      { id:63,group:7,cn:'客户经理',py:'kèhù jīnglǐ',viet:'quản lý khách hàng',phrase:'专属客户经理',phraseViet:'quản lý khách hàng riêng',
+        etym:'客户(kèhù)=khách hàng + 经理(jīnglǐ)=quản lý → "người quản lý mối quan hệ với khách hàng".',
+        examples:[
+          {cn:'我的客户经理给我推荐了理财产品。',py:'Wǒ de kèhù jīnglǐ gěi wǒ tuījiànle lǐcái chǎnpǐn.',vn:'Quản lý khách hàng giới thiệu cho tôi sản phẩm tài chính.',parts:[{w:'我的客户经理',r:'S'},{w:'给我',r:'O'},{w:'推荐了',r:'V'},{w:'理财产品',r:'O'}]},
+          {cn:'如有问题，请联系您的客户经理。',py:'Rú yǒu wèntí, qǐng liánxì nín de kèhù jīnglǐ.',vn:'Nếu có thắc mắc, vui lòng liên hệ quản lý khách hàng.',parts:[{w:'如有问题',r:'ADV'},{w:'请',r:'MOD'},{w:'联系',r:'V'},{w:'您的客户经理',r:'O'}]}]},
+      { id:64,group:7,cn:'理财顾问',py:'lǐcái gùwèn',viet:'tư vấn tài chính',phrase:'咨询理财顾问',phraseViet:'tư vấn với chuyên gia tài chính',
+        etym:'理财=quản lý tài chính + 顾问(gùwèn)=cố vấn (nhìn lại và đặt câu hỏi để tư vấn) → "người đưa ra lời khuyên về quản lý tài chính".',
+        examples:[
+          {cn:'我找理财顾问咨询投资建议。',py:'Wǒ zhǎo lǐcái gùwèn zīxún tóuzī jiànyì.',vn:'Tôi tìm tư vấn tài chính để hỏi về lời khuyên đầu tư.',parts:[{w:'我',r:'S'},{w:'找理财顾问',r:'V'},{w:'咨询',r:'V'},{w:'投资建议',r:'O'}]},
+          {cn:'理财顾问帮我制定了投资计划。',py:'Lǐcái gùwèn bāng wǒ zhìdìngle tóuzī jìhuà.',vn:'Tư vấn tài chính giúp tôi lập kế hoạch đầu tư.',parts:[{w:'理财顾问',r:'S'},{w:'帮我',r:'V'},{w:'制定了',r:'V'},{w:'投资计划',r:'O'}]}]},
+      { id:65,group:7,cn:'会计',py:'kuàijì',viet:'kế toán',phrase:'财务会计',phraseViet:'kế toán tài chính',
+        etym:'会(kuài)=tổng hợp (đọc kuài trong kế toán = tổng hợp con số) + 计(jì)=tính toán → "người tổng hợp tính toán các con số tài chính".',
+        examples:[
+          {cn:'我们公司有三个会计。',py:'Wǒmen gōngsī yǒu sān gè kuàijì.',vn:'Công ty chúng tôi có ba kế toán.',parts:[{w:'我们公司',r:'S'},{w:'有',r:'V'},{w:'三个会计',r:'O'}]},
+          {cn:'会计负责管理公司的财务。',py:'Kuàijì fùzé guǎnlǐ gōngsī de cáiwù.',vn:'Kế toán chịu trách nhiệm quản lý tài chính công ty.',parts:[{w:'会计',r:'S'},{w:'负责',r:'V'},{w:'管理',r:'V'},{w:'公司的财务',r:'O'}]}]},
+      { id:66,group:7,cn:'审计',py:'shěnjì',viet:'kiểm toán',phrase:'内部审计',phraseViet:'kiểm toán nội bộ',
+        etym:'审(shěn)=xem xét kỹ lưỡng + 计(jì)=tính toán → "xem xét kỹ lưỡng các con số tài chính".',
+        examples:[
+          {cn:'每年都要进行一次审计。',py:'Měi nián dōu yào jìnxíng yī cì shěnjì.',vn:'Mỗi năm phải tiến hành một lần kiểm toán.',parts:[{w:'每年',r:'TIME'},{w:'都',r:'ADV'},{w:'要',r:'MOD'},{w:'进行',r:'V'},{w:'一次审计',r:'O'}]},
+          {cn:'审计师发现了账目问题。',py:'Shěnjì shī fāxiànle zhàngmù wèntí.',vn:'Kiểm toán viên phát hiện vấn đề trong tài khoản.',parts:[{w:'审计师',r:'S'},{w:'发现了',r:'V'},{w:'账目问题',r:'O'}]}]},
+      { id:67,group:7,cn:'风控',py:'fēngkòng',viet:'kiểm soát rủi ro',phrase:'风控部门',phraseViet:'bộ phận kiểm soát rủi ro',
+        etym:'风控 = viết tắt của 风险控制: 风险=rủi ro + 控制=kiểm soát → "kiểm soát và khống chế rủi ro".',
+        examples:[
+          {cn:'风控部门拒绝了这笔贷款申请。',py:'Fēngkòng bùmén jùjuéle zhè bǐ dàikuǎn shēnqǐng.',vn:'Bộ phận kiểm soát rủi ro từ chối đơn vay tiền này.',parts:[{w:'风控部门',r:'S'},{w:'拒绝了',r:'V'},{w:'这笔贷款申请',r:'O'}]},
+          {cn:'银行有严格的风控制度。',py:'Yínháng yǒu yángé de fēngkòng zhìdù.',vn:'Ngân hàng có hệ thống kiểm soát rủi ro nghiêm ngặt.',parts:[{w:'银行',r:'S'},{w:'有',r:'V'},{w:'严格的风控制度',r:'O'}]}]},
+      { id:68,group:7,cn:'合规',py:'héguī',viet:'tuân thủ quy định',phrase:'合规经营',phraseViet:'kinh doanh tuân thủ quy định',
+        etym:'合(hé)=phù hợp + 规(guī)=quy tắc/nguyên tắc → "phù hợp với các quy tắc".',
+        examples:[
+          {cn:'所有员工必须了解合规要求。',py:'Suǒyǒu yuángōng bìxū liǎojiě héguī yāoqiú.',vn:'Tất cả nhân viên phải hiểu các yêu cầu tuân thủ.',parts:[{w:'所有员工',r:'S'},{w:'必须',r:'MOD'},{w:'了解',r:'V'},{w:'合规要求',r:'O'}]},
+          {cn:'合规是银行经营的基础。',py:'Héguī shì yínháng jīngyíng de jīchǔ.',vn:'Tuân thủ là nền tảng của hoạt động ngân hàng.',parts:[{w:'合规',r:'S'},{w:'是',r:'V'},{w:'银行经营的基础',r:'O'}]}]},
+      { id:69,group:7,cn:'监管',py:'jiānguǎn',viet:'giám sát / quản lý',phrase:'金融监管机构',phraseViet:'cơ quan giám sát tài chính',
+        etym:'监(jiān)=giám sát/theo dõi + 管(guǎn)=quản lý → "quan sát và kiểm soát".',
+        examples:[
+          {cn:'政府加强了对金融机构的监管。',py:'Zhèngfǔ jiāqiángle duì jīnróng jīgòu de jiānguǎn.',vn:'Chính phủ tăng cường giám sát các tổ chức tài chính.',parts:[{w:'政府',r:'S'},{w:'加强了',r:'V'},{w:'对金融机构',r:'ADV'},{w:'的监管',r:'O'}]},
+          {cn:'监管部门要求银行提高透明度。',py:'Jiānguǎn bùmén yāoqiú yínháng tígāo tòumíng dù.',vn:'Cơ quan giám sát yêu cầu ngân hàng tăng tính minh bạch.',parts:[{w:'监管部门',r:'S'},{w:'要求',r:'V'},{w:'银行',r:'O'},{w:'提高透明度',r:'V'}]}]},
+      { id:70,group:7,cn:'柜台',py:'guìtái',viet:'quầy giao dịch',phrase:'到柜台办理业务',phraseViet:'đến quầy làm thủ tục',
+        etym:'柜(guì)=tủ/quầy gỗ lớn + 台(tái)=bệ/bàn → "bục/bàn gỗ để giao dịch".',
+        examples:[
+          {cn:'请到1号柜台排队等候。',py:'Qǐng dào 1 hào guìtái páiduì děnghòu.',vn:'Vui lòng xếp hàng chờ tại quầy số 1.',parts:[{w:'请',r:'MOD'},{w:'到1号柜台',r:'PLACE'},{w:'排队',r:'V'},{w:'等候',r:'V'}]},
+          {cn:'柜台业务需要预约。',py:'Guìtái yèwù xūyào yùyuē.',vn:'Giao dịch tại quầy cần đặt lịch trước.',parts:[{w:'柜台业务',r:'S'},{w:'需要',r:'V'},{w:'预约',r:'O'}]}]}
+    ],
+    story:{title:'Giao Dịch Viên Nhầm Tưởng Mình Là Đầu Bếp',paras:[
+      {cn:'银行新来了一个柜员(guìyuán)，他以为这是一家餐厅，把每位客户的申请表都当成菜单。',vn:'Ngân hàng có một giao dịch viên mới, anh ta tưởng đây là nhà hàng, coi mọi mẫu đơn của khách hàng là thực đơn.'},
+      {cn:'行长(hángzhǎng)来巡视，发现柜台(guìtái)上摆着炒饭。"这是什么？"柜员答："客户套餐！"',vn:'Giám đốc đến kiểm tra, phát hiện trên quầy giao dịch có cơm chiên. "Cái này là gì?" Giao dịch viên đáp: "Combo khách hàng!"'},
+      {cn:'会计(kuàijì)审查账目时，发现账本上写着"今日特价：存款送汤"。审计(shěnjì)人员笑到椅子摔断。',vn:'Khi kế toán kiểm tra sổ sách, phát hiện trong sổ viết "Ưu đãi hôm nay: Gửi tiền tặng canh." Kiểm toán viên cười gãy ghế.'},
+      {cn:'客户经理(kèhù jīnglǐ)和理财顾问(lǐcái gùwèn)联合投诉，说柜员给所有客户的理财建议都是"多吃蔬菜"。',vn:'Quản lý khách hàng và tư vấn tài chính cùng khiếu nại, nói giao dịch viên đề xuất tài chính cho mọi khách hàng đều là "ăn nhiều rau".'},
+      {cn:'风控(fēngkòng)和合规(héguī)部门介入，监管(jiānguǎn)局派人调查。最终，柜员被送去了真正的厨师学校。',vn:'Bộ phận kiểm soát rủi ro và tuân thủ can thiệp, cơ quan giám sát cử người điều tra. Cuối cùng, giao dịch viên được gửi đến trường dạy nấu ăn thật sự.'}
+    ]}
+  },
+  {
+    id: 8, nameCn: '宏观金融', nameVi: 'Tài Chính Vĩ Mô',
+    words: [
+      { id:71,group:8,cn:'中央银行',py:'zhōngyāng yínháng',viet:'ngân hàng trung ương',phrase:'中央银行调控利率',phraseViet:'ngân hàng trung ương điều chỉnh lãi suất',
+        etym:'中央(zhōngyāng)=trung tâm + 银行=ngân hàng → "ngân hàng ở vị trí trung tâm của hệ thống tài chính".',
+        examples:[
+          {cn:'中央银行负责制定货币政策。',py:'Zhōngyāng yínháng fùzé zhìdìng huòbì zhèngcè.',vn:'Ngân hàng trung ương chịu trách nhiệm xây dựng chính sách tiền tệ.',parts:[{w:'中央银行',r:'S'},{w:'负责',r:'V'},{w:'制定',r:'V'},{w:'货币政策',r:'O'}]},
+          {cn:'中央银行降低了基准利率。',py:'Zhōngyāng yínháng jiàngdīle jīzhǔn lìlǜ.',vn:'Ngân hàng trung ương đã hạ lãi suất cơ bản.',parts:[{w:'中央银行',r:'S'},{w:'降低了',r:'V'},{w:'基准利率',r:'O'}]}]},
+      { id:72,group:8,cn:'商业银行',py:'shāngyè yínháng',viet:'ngân hàng thương mại',phrase:'商业银行存贷业务',phraseViet:'nghiệp vụ huy động và cho vay của NHTM',
+        etym:'商业(shāngyè)=thương mại + 银行=ngân hàng → "ngân hàng hoạt động theo mục tiêu thương mại lợi nhuận".',
+        examples:[
+          {cn:'商业银行的主要业务是存款和贷款。',py:'Shāngyè yínháng de zhǔyào yèwù shì cúnkuǎn hé dàikuǎn.',vn:'Nghiệp vụ chính của NHTM là huy động tiền gửi và cho vay.',parts:[{w:'商业银行',r:'S'},{w:'的主要业务',r:'S'},{w:'是',r:'V'},{w:'存款和贷款',r:'O'}]},
+          {cn:'中国有很多大型商业银行。',py:'Zhōngguó yǒu hěn duō dàxíng shāngyè yínháng.',vn:'Trung Quốc có nhiều ngân hàng thương mại lớn.',parts:[{w:'中国',r:'S'},{w:'有',r:'V'},{w:'很多大型商业银行',r:'O'}]}]},
+      { id:73,group:8,cn:'金融',py:'jīnróng',viet:'tài chính',phrase:'金融市场',phraseViet:'thị trường tài chính',
+        etym:'金(jīn)=vàng/tiền + 融(róng)=hòa tan/lưu thông → "làm cho tiền vàng lưu thông = tài chính".',
+        examples:[
+          {cn:'金融危机影响了全球经济。',py:'Jīnróng wēijī yǐngxiǎngle quánqiú jīngjì.',vn:'Khủng hoảng tài chính ảnh hưởng đến kinh tế toàn cầu.',parts:[{w:'金融危机',r:'S'},{w:'影响了',r:'V'},{w:'全球经济',r:'O'}]},
+          {cn:'他在金融行业工作了十年。',py:'Tā zài jīnróng hángyè gōngzuòle shí nián.',vn:'Anh ấy làm việc trong ngành tài chính 10 năm.',parts:[{w:'他',r:'S'},{w:'在金融行业',r:'PLACE'},{w:'工作了',r:'V'},{w:'十年',r:'O'}]}]},
+      { id:74,group:8,cn:'货币',py:'huòbì',viet:'tiền tệ',phrase:'货币政策',phraseViet:'chính sách tiền tệ',
+        etym:'货(huò)=hàng hóa + 币(bì)=tiền đúc → "tiền được dùng để trao đổi hàng hóa".',
+        examples:[
+          {cn:'数字货币是未来的趋势。',py:'Shùzì huòbì shì wèilái de qūshì.',vn:'Tiền tệ kỹ thuật số là xu hướng của tương lai.',parts:[{w:'数字货币',r:'S'},{w:'是',r:'V'},{w:'未来的趋势',r:'O'}]},
+          {cn:'货币政策影响通货膨胀。',py:'Huòbì zhèngcè yǐngxiǎng tōnghuò péngzhàng.',vn:'Chính sách tiền tệ ảnh hưởng đến lạm phát.',parts:[{w:'货币政策',r:'S'},{w:'影响',r:'V'},{w:'通货膨胀',r:'O'}]}]},
+      { id:75,group:8,cn:'通货膨胀',py:'tōnghuò péngzhàng',viet:'lạm phát',phrase:'控制通货膨胀',phraseViet:'kiểm soát lạm phát',
+        etym:'通货=lưu thông tiền tệ + 膨胀=phình to/căng phồng → "tiền lưu thông phình to = mất giá trị".',
+        examples:[
+          {cn:'通货膨胀导致物价上涨。',py:'Tōnghuò péngzhàng dǎozhì wùjià shàngzhǎng.',vn:'Lạm phát dẫn đến giá cả tăng lên.',parts:[{w:'通货膨胀',r:'S'},{w:'导致',r:'V'},{w:'物价上涨',r:'O'}]},
+          {cn:'政府采取措施控制通货膨胀。',py:'Zhèngfǔ cǎiqǔ cuòshī kòngzhì tōnghuò péngzhàng.',vn:'Chính phủ áp dụng biện pháp kiểm soát lạm phát.',parts:[{w:'政府',r:'S'},{w:'采取',r:'V'},{w:'措施',r:'O'},{w:'控制通货膨胀',r:'V'}]}]},
+      { id:76,group:8,cn:'利润',py:'lìrùn',viet:'lợi nhuận',phrase:'提高企业利润',phraseViet:'tăng lợi nhuận doanh nghiệp',
+        etym:'利(lì)=lợi ích + 润(rùn)=nhuận/thêm vào → "phần lợi ích thêm ra ngoài chi phí ban đầu".',
+        examples:[
+          {cn:'公司今年的利润增长了30%。',py:'Gōngsī jīnnián de lìrùn zēngzhǎngle 30%.',vn:'Lợi nhuận của công ty năm nay tăng 30%.',parts:[{w:'公司今年的利润',r:'S'},{w:'增长了',r:'V'},{w:'30%',r:'O'}]},
+          {cn:'提高利润是企业的目标。',py:'Tígāo lìrùn shì qǐyè de mùbiāo.',vn:'Tăng lợi nhuận là mục tiêu của doanh nghiệp.',parts:[{w:'提高利润',r:'S'},{w:'是',r:'V'},{w:'企业的目标',r:'O'}]}]},
+      { id:77,group:8,cn:'预算',py:'yùsuàn',viet:'ngân sách / dự toán',phrase:'年度预算计划',phraseViet:'kế hoạch ngân sách hàng năm',
+        etym:'预(yù)=trước/dự kiến + 算(suàn)=tính toán → "tính toán trước khi thực hiện".',
+        examples:[
+          {cn:'我们需要制定明年的预算。',py:'Wǒmen xūyào zhìdìng míngnián de yùsuàn.',vn:'Chúng tôi cần lập ngân sách cho năm tới.',parts:[{w:'我们',r:'S'},{w:'需要',r:'V'},{w:'制定',r:'V'},{w:'明年的预算',r:'O'}]},
+          {cn:'这个项目超出了预算。',py:'Zhège xiàngmù chāochūle yùsuàn.',vn:'Dự án này vượt quá ngân sách.',parts:[{w:'这个项目',r:'S'},{w:'超出了',r:'V'},{w:'预算',r:'O'}]}]},
+      { id:78,group:8,cn:'财务报表',py:'cáiwù bàobiǎo',viet:'báo cáo tài chính',phrase:'年度财务报表',phraseViet:'báo cáo tài chính hàng năm',
+        etym:'财务=tài chính + 报表(bàobiǎo)=bảng báo cáo → "bảng biểu báo cáo tình trạng tài chính".',
+        examples:[
+          {cn:'请提交本季度的财务报表。',py:'Qǐng tíjiāo běn jìdù de cáiwù bàobiǎo.',vn:'Vui lòng nộp báo cáo tài chính quý này.',parts:[{w:'请',r:'MOD'},{w:'提交',r:'V'},{w:'本季度的财务报表',r:'O'}]},
+          {cn:'财务报表包括资产负债表和损益表。',py:'Cáiwù bàobiǎo bāokuò zīchǎn fùzhài biǎo hé sǔnyì biǎo.',vn:'Báo cáo tài chính bao gồm bảng cân đối kế toán và báo cáo lãi lỗ.',parts:[{w:'财务报表',r:'S'},{w:'包括',r:'V'},{w:'资产负债表',r:'O'},{w:'和损益表',r:'O'}]}]},
+      { id:79,group:8,cn:'净资产',py:'jìng zīchǎn',viet:'tài sản ròng',phrase:'净资产收益率',phraseViet:'tỷ suất sinh lời trên tài sản ròng',
+        etym:'净(jìng)=sạch/ròng/thuần + 资产=tài sản → "tài sản sau khi đã trừ hết nợ = tài sản sạch ròng".',
+        examples:[
+          {cn:'公司的净资产是两亿元。',py:'Gōngsī de jìng zīchǎn shì liǎng yì yuán.',vn:'Tài sản ròng của công ty là 200 triệu tệ.',parts:[{w:'公司的净资产',r:'S'},{w:'是',r:'V'},{w:'两亿元',r:'O'}]},
+          {cn:'净资产等于总资产减去总负债。',py:'Jìng zīchǎn děngyú zǒng zīchǎn jiǎn qù zǒng fùzhài.',vn:'Tài sản ròng = tổng tài sản trừ đi tổng nợ phải trả.',parts:[{w:'净资产',r:'S'},{w:'等于',r:'V'},{w:'总资产',r:'O'},{w:'减去总负债',r:'V'}]}]},
+      { id:80,group:8,cn:'经济',py:'jīngjì',viet:'kinh tế',phrase:'经济增长',phraseViet:'tăng trưởng kinh tế',
+        etym:'经(jīng)=kinh/quản lý + 济(jì)=cứu giúp/tiết kiệm → "quản lý và cứu trợ đời sống xã hội".',
+        examples:[
+          {cn:'中国经济增长很快。',py:'Zhōngguó jīngjì zēngzhǎng hěn kuài.',vn:'Kinh tế Trung Quốc tăng trưởng rất nhanh.',parts:[{w:'中国经济',r:'S'},{w:'增长',r:'V'},{w:'很快',r:'ADV'}]},
+          {cn:'经济问题影响每个人的生活。',py:'Jīngjì wèntí yǐngxiǎng měi gè rén de shēnghuó.',vn:'Vấn đề kinh tế ảnh hưởng đến cuộc sống của mỗi người.',parts:[{w:'经济问题',r:'S'},{w:'影响',r:'V'},{w:'每个人的生活',r:'O'}]}]}
+    ],
+    story:{title:'Lạm Phát Khiến Bánh Mì Giá 1 Tỷ Tệ',paras:[
+      {cn:'某天，通货膨胀(tōnghuò péngzhàng)失控，一个包子卖一亿元人民币。中央银行(zhōngyāng yínháng)紧急开会。',vn:'Một ngày nọ, lạm phát mất kiểm soát, một chiếc bánh bao bán một tỷ nhân dân tệ. Ngân hàng trung ương khẩn cấp họp khẩn.'},
+      {cn:'商业银行(shāngyè yínháng)的行长们说："金融(jīnróng)体系崩溃了！货币(huòbì)一文不值！"',vn:'Các giám đốc ngân hàng thương mại nói: "Hệ thống tài chính sụp đổ rồi! Tiền tệ không còn giá trị!"'},
+      {cn:'政府发布了财务报表(cáiwù bàobiǎo)，显示利润(lìrùn)是负数，净资产(jìng zīchǎn)是一根筷子。',vn:'Chính phủ công bố báo cáo tài chính, cho thấy lợi nhuận là số âm, tài sản ròng chỉ còn một đôi đũa.'},
+      {cn:'经济(jīngjì)学家说，问题是预算(yùsuàn)超支了——有人把国家预算都买了彩票。',vn:'Nhà kinh tế học nói, vấn đề là ngân sách đã chi vượt — ai đó đã dùng toàn bộ ngân sách quốc gia mua vé số.'},
+      {cn:'解决方案：以物易物。一只鸡换一次银行服务，经济立刻恢复正常。',vn:'Giải pháp: Kinh tế trao đổi hàng hóa. Một con gà đổi một lần dịch vụ ngân hàng, kinh tế lập tức phục hồi bình thường.'}
+    ]}
+  },
+  {
+    id: 9, nameCn: '数字金融', nameVi: 'Tài Chính Số',
+    words: [
+      { id:81,group:9,cn:'数字货币',py:'shùzì huòbì',viet:'tiền tệ kỹ thuật số',phrase:'数字货币支付',phraseViet:'thanh toán bằng tiền kỹ thuật số',
+        etym:'数字(shùzì)=kỹ thuật số/digital + 货币=tiền tệ → "tiền tệ tồn tại dưới dạng dữ liệu số".',
+        examples:[
+          {cn:'中国正在推广数字货币。',py:'Zhōngguó zhèngzài tuīguǎng shùzì huòbì.',vn:'Trung Quốc đang thúc đẩy tiền tệ kỹ thuật số.',parts:[{w:'中国',r:'S'},{w:'正在',r:'ADV'},{w:'推广',r:'V'},{w:'数字货币',r:'O'}]},
+          {cn:'数字货币可以减少现金使用。',py:'Shùzì huòbì kěyǐ jiǎnshǎo xiànjīn shǐyòng.',vn:'Tiền tệ kỹ thuật số có thể giảm thiểu sử dụng tiền mặt.',parts:[{w:'数字货币',r:'S'},{w:'可以',r:'MOD'},{w:'减少',r:'V'},{w:'现金使用',r:'O'}]}]},
+      { id:82,group:9,cn:'区块链',py:'qūkuàiliàn',viet:'blockchain / chuỗi khối',phrase:'区块链技术',phraseViet:'công nghệ blockchain',
+        etym:'区块(qūkuài)=khối dữ liệu + 链(liàn)=chuỗi kết nối → "các khối dữ liệu được kết nối thành chuỗi".',
+        examples:[
+          {cn:'区块链技术让交易更透明。',py:'Qūkuàiliàn jìshù ràng jiāoyì gèng tòumíng.',vn:'Công nghệ blockchain làm cho giao dịch minh bạch hơn.',parts:[{w:'区块链技术',r:'S'},{w:'让',r:'V'},{w:'交易',r:'O'},{w:'更透明',r:'ADJ'}]},
+          {cn:'比特币基于区块链技术。',py:'Bǐtèbì jīyú qūkuàiliàn jìshù.',vn:'Bitcoin dựa trên công nghệ blockchain.',parts:[{w:'比特币',r:'S'},{w:'基于',r:'V'},{w:'区块链技术',r:'O'}]}]},
+      { id:83,group:9,cn:'网络安全',py:'wǎngluò ānquán',viet:'an ninh mạng',phrase:'加强网络安全',phraseViet:'tăng cường an ninh mạng',
+        etym:'网络=mạng lưới + 安全=an toàn toàn vẹn → "sự an toàn toàn vẹn trên mạng lưới số".',
+        examples:[
+          {cn:'网络安全对银行非常重要。',py:'Wǎngluò ānquán duì yínháng fēicháng zhòngyào.',vn:'An ninh mạng rất quan trọng đối với ngân hàng.',parts:[{w:'网络安全',r:'S'},{w:'对银行',r:'ADV'},{w:'非常',r:'ADV'},{w:'重要',r:'ADJ'}]},
+          {cn:'我们需要加强网络安全防护。',py:'Wǒmen xūyào jiāqiáng wǎngluò ānquán fánghù.',vn:'Chúng tôi cần tăng cường bảo vệ an ninh mạng.',parts:[{w:'我们',r:'S'},{w:'需要',r:'V'},{w:'加强',r:'V'},{w:'网络安全防护',r:'O'}]}]},
+      { id:84,group:9,cn:'验证码',py:'yànzhèngmǎ',viet:'mã xác thực / OTP',phrase:'输入验证码',phraseViet:'nhập mã xác thực',
+        etym:'验证=xác nhận/kiểm tra + 码=mã số → "mã số dùng để xác nhận danh tính người dùng".',
+        examples:[
+          {cn:'转账时需要输入验证码。',py:'Zhuǎnzhàng shí xūyào shūrù yànzhèngmǎ.',vn:'Khi chuyển khoản cần nhập mã xác thực.',parts:[{w:'转账时',r:'TIME'},{w:'需要',r:'V'},{w:'输入',r:'V'},{w:'验证码',r:'O'}]},
+          {cn:'请不要把验证码告诉别人。',py:'Qǐng bú yào bǎ yànzhèngmǎ gàosù biérén.',vn:'Vui lòng không cho người khác biết mã xác thực.',parts:[{w:'请',r:'MOD'},{w:'不要',r:'NEG'},{w:'把验证码',r:'O'},{w:'告诉',r:'V'},{w:'别人',r:'O'}]}]},
+      { id:85,group:9,cn:'人脸识别',py:'rénliǎn shíbié',viet:'nhận dạng khuôn mặt',phrase:'人脸识别登录',phraseViet:'đăng nhập bằng nhận dạng khuôn mặt',
+        etym:'人脸=khuôn mặt người + 识别=nhận dạng/phân biệt → "công nghệ phân biệt và nhận ra khuôn mặt".',
+        examples:[
+          {cn:'这款APP支持人脸识别登录。',py:'Zhè kuǎn APP zhīchí rénliǎn shíbié dēnglù.',vn:'Ứng dụng này hỗ trợ đăng nhập bằng nhận dạng khuôn mặt.',parts:[{w:'这款APP',r:'S'},{w:'支持',r:'V'},{w:'人脸识别登录',r:'O'}]},
+          {cn:'人脸识别比密码更安全方便。',py:'Rénliǎn shíbié bǐ mìmǎ gèng ānquán fāngbiàn.',vn:'Nhận dạng khuôn mặt an toàn và tiện lợi hơn mật khẩu.',parts:[{w:'人脸识别',r:'S'},{w:'比密码',r:'ADV'},{w:'更',r:'ADV'},{w:'安全方便',r:'ADJ'}]}]},
+      { id:86,group:9,cn:'大数据',py:'dà shùjù',viet:'dữ liệu lớn (Big Data)',phrase:'大数据分析',phraseViet:'phân tích dữ liệu lớn',
+        etym:'大=to lớn + 数据=dữ liệu (con số để dựa vào) → "lượng dữ liệu khổng lồ không thể xử lý bằng công cụ thông thường".',
+        examples:[
+          {cn:'银行用大数据分析客户行为。',py:'Yínháng yòng dà shùjù fēnxī kèhù xíngwéi.',vn:'Ngân hàng dùng dữ liệu lớn để phân tích hành vi khách hàng.',parts:[{w:'银行',r:'S'},{w:'用大数据',r:'ADV'},{w:'分析',r:'V'},{w:'客户行为',r:'O'}]},
+          {cn:'大数据帮助预测金融风险。',py:'Dà shùjù bāngzhù yùcè jīnróng fēngxiǎn.',vn:'Dữ liệu lớn giúp dự đoán rủi ro tài chính.',parts:[{w:'大数据',r:'S'},{w:'帮助',r:'V'},{w:'预测',r:'V'},{w:'金融风险',r:'O'}]}]},
+      { id:87,group:9,cn:'人工智能',py:'réngōng zhìnéng',viet:'trí tuệ nhân tạo (AI)',phrase:'人工智能客服',phraseViet:'dịch vụ khách hàng AI',
+        etym:'人工=nhân tạo (do con người tạo ra) + 智能=trí tuệ/khả năng → "khả năng trí tuệ được tạo ra bởi con người = AI".',
+        examples:[
+          {cn:'银行引入了人工智能客服系统。',py:'Yínháng yǐnrùle réngōng zhìnéng kèfú xìtǒng.',vn:'Ngân hàng đã áp dụng hệ thống dịch vụ khách hàng AI.',parts:[{w:'银行',r:'S'},{w:'引入了',r:'V'},{w:'人工智能客服系统',r:'O'}]},
+          {cn:'人工智能可以检测欺诈行为。',py:'Réngōng zhìnéng kěyǐ jiǎncè qīzhà xíngwéi.',vn:'AI có thể phát hiện hành vi gian lận.',parts:[{w:'人工智能',r:'S'},{w:'可以',r:'MOD'},{w:'检测',r:'V'},{w:'欺诈行为',r:'O'}]}]},
+      { id:88,group:9,cn:'电子账单',py:'diànzǐ zhàngdān',viet:'sao kê điện tử',phrase:'接收电子账单',phraseViet:'nhận sao kê điện tử',
+        etym:'电子=điện tử + 账单=sao kê (tờ giấy tài khoản) → "tờ sao kê được gửi qua kênh điện tử".',
+        examples:[
+          {cn:'我选择接收电子账单。',py:'Wǒ xuǎnzé jiēshōu diànzǐ zhàngdān.',vn:'Tôi chọn nhận sao kê điện tử.',parts:[{w:'我',r:'S'},{w:'选择',r:'V'},{w:'接收',r:'V'},{w:'电子账单',r:'O'}]},
+          {cn:'电子账单比纸质账单更环保。',py:'Diànzǐ zhàngdān bǐ zhǐzhì zhàngdān gèng huánbǎo.',vn:'Sao kê điện tử thân thiện với môi trường hơn sao kê giấy.',parts:[{w:'电子账单',r:'S'},{w:'比纸质账单',r:'ADV'},{w:'更',r:'ADV'},{w:'环保',r:'ADJ'}]}]},
+      { id:89,group:9,cn:'云计算',py:'yún jìsuàn',viet:'điện toán đám mây',phrase:'云计算服务',phraseViet:'dịch vụ điện toán đám mây',
+        etym:'云=đám mây + 计算=tính toán → "tính toán trên đám mây = dữ liệu được xử lý từ xa".',
+        examples:[
+          {cn:'银行利用云计算存储数据。',py:'Yínháng lìyòng yún jìsuàn cúnchǔ shùjù.',vn:'Ngân hàng tận dụng điện toán đám mây để lưu trữ dữ liệu.',parts:[{w:'银行',r:'S'},{w:'利用',r:'V'},{w:'云计算',r:'O'},{w:'存储数据',r:'V'}]},
+          {cn:'云计算降低了IT运营成本。',py:'Yún jìsuàn jiàngdīle IT yùnyíng chéngběn.',vn:'Điện toán đám mây đã giảm chi phí vận hành IT.',parts:[{w:'云计算',r:'S'},{w:'降低了',r:'V'},{w:'IT运营成本',r:'O'}]}]},
+      { id:90,group:9,cn:'金融科技',py:'jīnróng kējì',viet:'công nghệ tài chính (FinTech)',phrase:'金融科技创新',phraseViet:'đổi mới công nghệ tài chính',
+        etym:'金融=tài chính + 科技=khoa học kỹ thuật → "ứng dụng khoa học kỹ thuật vào lĩnh vực tài chính = FinTech".',
+        examples:[
+          {cn:'金融科技改变了人们的支付方式。',py:'Jīnróng kējì gǎibiànle rénmen de zhīfù fāngshì.',vn:'FinTech đã thay đổi phương thức thanh toán của mọi người.',parts:[{w:'金融科技',r:'S'},{w:'改变了',r:'V'},{w:'人们的支付方式',r:'O'}]},
+          {cn:'越来越多的公司进入金融科技领域。',py:'Yuèláiyuè duō de gōngsī jìnrù jīnróng kējì lǐngyù.',vn:'Ngày càng nhiều công ty gia nhập lĩnh vực FinTech.',parts:[{w:'越来越多的公司',r:'S'},{w:'进入',r:'V'},{w:'金融科技领域',r:'O'}]}]}
+    ],
+    story:{title:'Hacker Quét Mã QR Lạc Vào Blockchain Và Không Thoát Ra Được',paras:[
+      {cn:'一个黑客决定攻击一家使用数字货币(shùzì huòbì)和区块链(qūkuàiliàn)的银行。',vn:'Một hacker quyết định tấn công một ngân hàng sử dụng tiền tệ kỹ thuật số và blockchain.'},
+      {cn:'他绕过了网络安全(wǎngluò ānquán)系统，但被验证码(yànzhèngmǎ)挡住了——系统发了一千条短信，每条一个数字。',vn:'Anh ta vượt qua hệ thống an ninh mạng nhưng bị mã xác thực chặn lại — hệ thống gửi 1.000 tin nhắn, mỗi tin một chữ số.'},
+      {cn:'他试用人脸识别(rénliǎn shíbié)，但人工智能(réngōng zhìnéng)说："您的脸不在数据库，建议您重新长一张脸。"',vn:'Anh ta thử nhận dạng khuôn mặt nhưng AI nói: "Khuôn mặt của bạn không có trong cơ sở dữ liệu, đề nghị mọc lại khuôn mặt khác."'},
+      {cn:'他扫描了电子账单(diànzǐ zhàngdān)的二维码，进入了云计算(yún jìsuàn)的虚拟空间，在里面迷路了三天。',vn:'Anh ta quét mã QR trên sao kê điện tử, đi vào không gian ảo của điện toán đám mây và bị lạc trong đó ba ngày.'},
+      {cn:'大数据(dà shùjù)记录了他的所有行为，金融科技(jīnróng kējì)公司用他的数据训练了一个AI，命名为"笨黑客1号"。',vn:'Dữ liệu lớn ghi lại mọi hành động của anh ta, công ty FinTech dùng dữ liệu của anh ta để huấn luyện một AI tên "Hacker Ngốc Số 1".'}
+    ]}
+  },
+  {
+    id: 10, nameCn: '高级服务', nameVi: 'Dịch Vụ Cao Cấp',
+    words: [
+      { id:91,group:10,cn:'保险箱',py:'bǎoxiǎnxiāng',viet:'két an toàn',phrase:'租用保险箱',phraseViet:'thuê két an toàn',
+        etym:'保险=bảo hiểm/an toàn + 箱=hộp/thùng → "hộp đảm bảo an toàn cho tài sản quý giá".',
+        examples:[
+          {cn:'我在银行租了一个保险箱。',py:'Wǒ zài yínháng zūle yī gè bǎoxiǎnxiāng.',vn:'Tôi thuê một két an toàn tại ngân hàng.',parts:[{w:'我',r:'S'},{w:'在银行',r:'PLACE'},{w:'租了',r:'V'},{w:'一个保险箱',r:'O'}]},
+          {cn:'重要文件放在保险箱里很安全。',py:'Zhòngyào wénjiàn fàng zài bǎoxiǎnxiāng lǐ hěn ānquán.',vn:'Đặt tài liệu quan trọng trong két an toàn rất an toàn.',parts:[{w:'重要文件',r:'S'},{w:'放在',r:'V'},{w:'保险箱里',r:'PLACE'},{w:'很安全',r:'ADJ'}]}]},
+      { id:92,group:10,cn:'理财产品',py:'lǐcái chǎnpǐn',viet:'sản phẩm tài chính',phrase:'购买理财产品',phraseViet:'mua sản phẩm tài chính',
+        etym:'理财=quản lý tài chính + 产品=sản phẩm → "sản phẩm được tạo ra để giúp quản lý tài chính".',
+        examples:[
+          {cn:'这款理财产品的年收益是5%。',py:'Zhè kuǎn lǐcái chǎnpǐn de nián shōuyì shì 5%.',vn:'Lợi nhuận năm của sản phẩm tài chính này là 5%.',parts:[{w:'这款理财产品',r:'S'},{w:'的年收益',r:'S'},{w:'是',r:'V'},{w:'5%',r:'O'}]},
+          {cn:'购买理财产品前要了解风险。',py:'Gòumǎi lǐcái chǎnpǐn qián yào liǎojiě fēngxiǎn.',vn:'Trước khi mua sản phẩm tài chính cần hiểu rõ rủi ro.',parts:[{w:'购买理财产品前',r:'TIME'},{w:'要',r:'MOD'},{w:'了解',r:'V'},{w:'风险',r:'O'}]}]},
+      { id:93,group:10,cn:'年利率',py:'nián lìlǜ',viet:'lãi suất hàng năm',phrase:'年利率百分之三',phraseViet:'lãi suất năm 3%',
+        etym:'年=năm (một chu kỳ thu hoạch) + 利率=lãi suất → "tỷ lệ lãi suất tính trong một năm".',
+        examples:[
+          {cn:'这款存款产品年利率是3%。',py:'Zhè kuǎn cúnkuǎn chǎnpǐn nián lìlǜ shì 3%.',vn:'Sản phẩm tiền gửi này có lãi suất năm là 3%.',parts:[{w:'这款存款产品',r:'S'},{w:'年利率',r:'S'},{w:'是',r:'V'},{w:'3%',r:'O'}]},
+          {cn:'贷款年利率比存款年利率高。',py:'Dàikuǎn nián lìlǜ bǐ cúnkuǎn nián lìlǜ gāo.',vn:'Lãi suất năm của vay cao hơn lãi suất năm của gửi.',parts:[{w:'贷款年利率',r:'S'},{w:'比存款年利率',r:'ADV'},{w:'高',r:'ADJ'}]}]},
+      { id:94,group:10,cn:'优惠利率',py:'yōuhuì lìlǜ',viet:'lãi suất ưu đãi',phrase:'享受优惠利率',phraseViet:'được hưởng lãi suất ưu đãi',
+        etym:'优惠=ưu đãi (tốt hơn thông thường) + 利率=lãi suất → "lãi suất được ưu đãi thấp hơn mức thông thường".',
+        examples:[
+          {cn:'新客户可以享受优惠利率。',py:'Xīn kèhù kěyǐ xiǎngshòu yōuhuì lìlǜ.',vn:'Khách hàng mới có thể được hưởng lãi suất ưu đãi.',parts:[{w:'新客户',r:'S'},{w:'可以',r:'MOD'},{w:'享受',r:'V'},{w:'优惠利率',r:'O'}]},
+          {cn:'这家银行提供贷款优惠利率活动。',py:'Zhè jiā yínháng tígōng dàikuǎn yōuhuì lìlǜ huódòng.',vn:'Ngân hàng này triển khai chương trình lãi suất ưu đãi.',parts:[{w:'这家银行',r:'S'},{w:'提供',r:'V'},{w:'贷款优惠利率活动',r:'O'}]}]},
+      { id:95,group:10,cn:'透支',py:'tòuzhī',viet:'thấu chi',phrase:'信用卡透支',phraseViet:'thấu chi thẻ tín dụng',
+        etym:'透=thấu qua/xuyên qua giới hạn + 支=chi tiêu → "chi tiêu xuyên qua giới hạn số dư".',
+        examples:[
+          {cn:'信用卡透支会收取高额利息。',py:'Xìnyòngkǎ tòuzhī huì shōuqǔ gāo é lìxī.',vn:'Thấu chi thẻ tín dụng sẽ bị thu lãi suất cao.',parts:[{w:'信用卡透支',r:'S'},{w:'会',r:'MOD'},{w:'收取',r:'V'},{w:'高额利息',r:'O'}]},
+          {cn:'他的账户透支了两千元。',py:'Tā de zhànghù tòuzhīle liǎng qiān yuán.',vn:'Tài khoản của anh ấy bị thấu chi 2.000 tệ.',parts:[{w:'他的账户',r:'S'},{w:'透支了',r:'V'},{w:'两千元',r:'O'}]}]},
+      { id:96,group:10,cn:'按揭',py:'ànjié',viet:'vay thế chấp (mua nhà trả góp)',phrase:'按揭买房',phraseViet:'mua nhà trả góp thế chấp',
+        etym:'按=dựa theo quy tắc + 揭=vén lên/trả dần → "trả dần theo quy tắc đã định sẵn".',
+        examples:[
+          {cn:'我用按揭的方式买了房子。',py:'Wǒ yòng ànjié de fāngshì mǎile fángzi.',vn:'Tôi mua nhà bằng hình thức vay thế chấp.',parts:[{w:'我',r:'S'},{w:'用按揭的方式',r:'ADV'},{w:'买了',r:'V'},{w:'房子',r:'O'}]},
+          {cn:'按揭贷款期限通常是二十年。',py:'Ànjié dàikuǎn qīxiàn tōngcháng shì èrshí nián.',vn:'Thời hạn vay thế chấp thường là 20 năm.',parts:[{w:'按揭贷款期限',r:'S'},{w:'通常',r:'ADV'},{w:'是',r:'V'},{w:'二十年',r:'O'}]}]},
+      { id:97,group:10,cn:'信贷额度',py:'xìndài édù',viet:'hạn mức tín dụng',phrase:'提高信贷额度',phraseViet:'tăng hạn mức tín dụng',
+        etym:'信贷=tín dụng (cho vay dựa trên sự tin tưởng) + 额度=hạn mức (mức số tiền tối đa) → "giới hạn tối đa của tín dụng được cấp".',
+        examples:[
+          {cn:'我的信用卡信贷额度是五万元。',py:'Wǒ de xìnyòngkǎ xìndài édù shì wǔ wàn yuán.',vn:'Hạn mức tín dụng thẻ của tôi là 50.000 tệ.',parts:[{w:'我的信用卡',r:'S'},{w:'信贷额度',r:'S'},{w:'是',r:'V'},{w:'五万元',r:'O'}]},
+          {cn:'信用好的客户可以申请更高额度。',py:'Xìnyòng hǎo de kèhù kěyǐ shēnqǐng gèng gāo édù.',vn:'Khách hàng có tín dụng tốt có thể đăng ký hạn mức cao hơn.',parts:[{w:'信用好的客户',r:'S'},{w:'可以',r:'MOD'},{w:'申请',r:'V'},{w:'更高额度',r:'O'}]}]},
+      { id:98,group:10,cn:'资金托管',py:'zījīn tuōguǎn',viet:'ủy thác quản lý vốn',phrase:'资金托管服务',phraseViet:'dịch vụ ủy thác quản lý vốn',
+        etym:'资金=vốn tiền + 托管=ủy thác quản lý (nhờ người khác quản lý) → "ủy thác tiền vốn cho bên thứ ba quản lý".',
+        examples:[
+          {cn:'项目资金由第三方进行托管。',py:'Xiàngmù zījīn yóu dìsānfāng jìnxíng tuōguǎn.',vn:'Vốn dự án được bên thứ ba thực hiện ủy thác.',parts:[{w:'项目资金',r:'S'},{w:'由第三方',r:'ADV'},{w:'进行',r:'V'},{w:'托管',r:'O'}]},
+          {cn:'资金托管保障了双方利益。',py:'Zījīn tuōguǎn bǎozhàngle shuāngfāng lìyì.',vn:'Ủy thác vốn bảo đảm lợi ích của cả hai bên.',parts:[{w:'资金托管',r:'S'},{w:'保障了',r:'V'},{w:'双方利益',r:'O'}]}]},
+      { id:99,group:10,cn:'黄金存储',py:'huángjīn cúnchǔ',viet:'lưu ký vàng',phrase:'银行黄金存储',phraseViet:'lưu ký vàng tại ngân hàng',
+        etym:'黄金=vàng (kim loại màu vàng) + 存储=lưu trữ/cất giữ dự phòng → "lưu giữ và bảo quản vàng".',
+        examples:[
+          {cn:'我把黄金存在银行的保险箱里。',py:'Wǒ bǎ huángjīn cún zài yínháng de bǎoxiǎnxiāng lǐ.',vn:'Tôi cất vàng trong két an toàn của ngân hàng.',parts:[{w:'我',r:'S'},{w:'把黄金',r:'O'},{w:'存在',r:'V'},{w:'银行的保险箱里',r:'PLACE'}]},
+          {cn:'黄金存储服务需要支付保管费。',py:'Huángjīn cúnchǔ fúwù xūyào zhīfù bǎoguǎn fèi.',vn:'Dịch vụ lưu ký vàng cần trả phí bảo quản.',parts:[{w:'黄金存储服务',r:'S'},{w:'需要',r:'V'},{w:'支付',r:'V'},{w:'保管费',r:'O'}]}]},
+      { id:100,group:10,cn:'财富管理',py:'cáifù guǎnlǐ',viet:'quản lý tài sản (Wealth Mgmt)',phrase:'私人财富管理',phraseViet:'quản lý tài sản cá nhân cao cấp',
+        etym:'财富=tài sản/của cải dồi dào + 管理=kiểm soát và sắp xếp → "kiểm soát và sắp xếp khối tài sản dồi dào".',
+        examples:[
+          {cn:'高净值客户需要专业的财富管理服务。',py:'Gāo jìngzhí kèhù xūyào zhuānyè de cáifù guǎnlǐ fúwù.',vn:'Khách hàng giá trị ròng cao cần dịch vụ quản lý tài sản chuyên nghiệp.',parts:[{w:'高净值客户',r:'S'},{w:'需要',r:'V'},{w:'专业的财富管理服务',r:'O'}]},
+          {cn:'这家银行有专门的财富管理中心。',py:'Zhè jiā yínháng yǒu zhuānmén de cáifù guǎnlǐ zhōngxīn.',vn:'Ngân hàng này có trung tâm quản lý tài sản chuyên biệt.',parts:[{w:'这家银行',r:'S'},{w:'有',r:'V'},{w:'专门的财富管理中心',r:'O'}]}]}
+    ],
+    story:{title:'Chim Cánh Cụt Bảo Vệ Kho Vàng và Mở Tài Khoản VIP',paras:[
+      {cn:'南极洲的一只企鹅发现自己拥有大量黄金存储(huángjīn cúnchǔ)，决定去银行开立财富管理(cáifù guǎnlǐ)账户。',vn:'Một con chim cánh cụt ở Nam Cực phát hiện mình có nhiều vàng cất trữ, quyết định đến ngân hàng mở tài khoản quản lý tài sản.'},
+      {cn:'它把黄金放入保险箱(bǎoxiǎnxiāng)，但突然出现了透支(tòuzhī)问题——它的信贷额度(xìndài édù)是用鱼计算的。',vn:'Nó cất vàng vào két an toàn nhưng đột nhiên xuất hiện vấn đề thấu chi — hạn mức tín dụng của nó được tính bằng cá.'},
+      {cn:'银行推荐了理财产品(lǐcái chǎnpǐn)，年利率(nián lìlǜ)是3%，优惠利率(yōuhuì lìlǜ)是2.5%，都以鱼为单位。',vn:'Ngân hàng giới thiệu sản phẩm tài chính, lãi suất năm 3%, lãi suất ưu đãi 2,5%, đều tính bằng đơn vị cá.'},
+      {cn:'企鹅还申请了按揭(ànjié)在南极买冰屋，并申请资金托管(zījīn tuōguǎn)由北极熊负责。',vn:'Chim cánh cụt còn vay thế chấp mua nhà băng ở Nam Cực, và đăng ký ủy thác vốn do gấu Bắc Cực chịu trách nhiệm.'},
+      {cn:'最终，企鹅成为了VIP客户，每年对账单写道："余额：10,000条鱼。建议：少游泳，多投资。"',vn:'Cuối cùng, chim cánh cụt trở thành khách hàng VIP, sao kê hàng năm ghi: "Số dư: 10.000 con cá. Khuyến nghị: Bơi ít lại, đầu tư nhiều hơn."'}
+    ]}
+  }
+];
+
+/* ================================================
+   MERGE ALL GROUPS AND LAUNCH APP
+   ================================================ */
+const ALL_VOCAB_GROUPS = [...GROUPS_1_5, ...GROUPS_6_10];
+
+document.addEventListener('DOMContentLoaded', function() {
+  initApp(ALL_VOCAB_GROUPS);
+});
+</script>
+
+<!-- ===== PINYIN ANNOTATION ENGINE (DOM tree-walker + MutationObserver) ===== -->
+<script>
+/* ================================================================
+   PINYIN_MAP  –  longest-match dictionary (longest entries first)
+   Covers all 100 vocab words + ~300 common grammar/sentence words
+   ================================================================ */
+const PINYIN_MAP = {
+  /* ── 4-char entries ── */
+  '财富管理':'cáifù guǎnlǐ','信贷额度':'xìndài édù','理财产品':'lǐcái chǎnpǐn','优惠利率':'yōuhuì lìlǜ',
+  '资金托管':'zījīn tuōguǎn','保险箱':'bǎoxiǎnxiāng',
+  /* ── 3-char entries ── */
+  '储蓄账户':'chúxù zhànghù','外汇兑换':'wàihuì duìhuàn','手续费':'shǒuxùfèi','存款单':'cúnkuǎndān',
+  '贷款利率':'dàikuǎn lìlǜ','抵押贷款':'dǐyā dàikuǎn','信用评分':'xìnyòng píngfēn',
+  '电子转账':'diànzǐ zhuǎnzhàng','网上银行':'wǎngshàng yínháng','手机银行':'shǒujī yínháng',
+  '年利率':'nián lìlǜ','对账单':'duìzhàngdān','信用卡':'xìnyòngkǎ','储蓄卡':'chúxùkǎ',
+  '自动取款机':'zìdòng qǔkuǎnjī','利息率':'lìxī lǜ','存款期':'cúnkuǎn qī',
+  '贷款申请':'dàikuǎn shēnqǐng','还款计划':'huánkuǎn jìhuà','汇率表':'huìlǜ biǎo',
+  '银行卡':'yínhángkǎ','保险柜':'bǎoxiǎnguì','银行家':'yínhángjiā','开户行':'kāihù háng',
+  /* ── 2-char vocab words (all 100) ── */
+  '银行':'yínháng','存钱':'cún qián','取钱':'qǔ qián','开户':'kāihù','汇款':'huìkuǎn',
+  '贷款':'dàikuǎn','利率':'lìlǜ','余额':'yú é','账户':'zhànghù','密码':'mìmǎ',
+  '转账':'zhuǎnzhàng','存款':'cúnkuǎn','取款':'qǔkuǎn','信用':'xìnyòng','还款':'huánkuǎn',
+  '利息':'lìxī','抵押':'dǐyā','担保':'dānbǎo','征信':'zhēngxìn','审核':'shěnhé',
+  '外汇':'wàihuì','汇率':'huìlǜ','兑换':'duìhuàn','结汇':'jiéhuì','购汇':'gòuhuì',
+  '保险':'bǎoxiǎn','理财':'lǐcái','投资':'tóuzī','基金':'jījīn','股票':'gǔpiào',
+  '债券':'zhàiquàn','存折':'cúnzhé','对账':'duìzhàng','流水':'liúshuǐ','账单':'zhàngdān',
+  '密钥':'mìyào','网银':'wǎngyín','手机':'shǒujī','验证':'yànzhèng','短信':'duǎnxìn',
+  '贷':'dài','款':'kuǎn','押金':'yājīn','本金':'běnjīn','年息':'niánxī',
+  '手续':'shǒuxù','费用':'fèiyòng','手数':'shǒushù','收费':'shōufèi','免费':'miǎnfèi',
+  '信贷':'xìndài','额度':'édù','透支':'tòuzhī','逾期':'yúqī','违约':'wéiyuē',
+  '财富':'cáifù','资产':'zīchǎn','负债':'fùzhài','净值':'jìngzhí','增值':'zēngzhí',
+  '按揭':'ànjié','月供':'yuègōng','首付':'shǒufù','分期':'fēnqī','利滚利':'lìgǔnlì',
+  '中国':'zhōngguó','外国':'wàiguó','国内':'guónèi','国外':'guówài','境外':'jìngwài',
+  '柜台':'guìtái','排队':'páiduì','号码':'hàomǎ','业务':'yèwù','办理':'bànlǐ',
+  '证件':'zhèngjiàn','身份证':'shēnfènzhèng','护照':'hùzhào','工作':'gōngzuò','收入':'shōurù',
+  '工资':'gōngzī','薪水':'xīnshuǐ','税后':'shuìhòu','税前':'shuìqián','纳税':'nàshuì',
+  '黄金':'huángjīn','白银':'báiyín','外币':'wàibì','人民币':'rénmínbì','美元':'měiyuán',
+  '欧元':'ōuyuán','英镑':'yīngbàng','日元':'rìyuán','港币':'gǎngbì','汇兑':'huìduì',
+  '电汇':'diànhuì','汇票':'huìpiào','支票':'zhīpiào','本票':'běnpiào','承兑':'chéngduì',
+  '托管':'tuōguǎn','保管':'bǎoguǎn','监管':'jiānguǎn','结算':'jiésuàn','清算':'qīngsuàn',
+  /* ── common grammar / function words ── */
+  '我们':'wǒmen','你们':'nǐmen','他们':'tāmen','她们':'tāmen','它们':'tāmen',
+  '这个':'zhège','那个':'nàge','哪个':'nǎge','这些':'zhèxiē','那些':'nàxiē',
+  '什么':'shénme','为什么':'wèishénme','怎么':'zěnme','怎样':'zěnyàng','如何':'rúhé',
+  '可以':'kěyǐ','应该':'yīnggāi','需要':'xūyào','必须':'bìxū','能够':'nénggòu',
+  '已经':'yǐjīng','正在':'zhèngzài','将要':'jiāngyào','曾经':'céngjīng','刚才':'gāngcái',
+  '非常':'fēicháng','很多':'hěnduō','一些':'yīxiē','所有':'suǒyǒu','每个':'měigè',
+  '因为':'yīnwèi','所以':'suǒyǐ','虽然':'suīrán','但是':'dànshì','如果':'rúguǎ',
+  '而且':'érqiě','不过':'búguò','然后':'ránhòu','最后':'zuìhòu','首先':'shǒuxiān',
+  '一般':'yìbān','通常':'tōngcháng','经常':'jīngcháng','有时':'yǒushí','偶尔':'ǒu ěr',
+  '今天':'jīntiān','明天':'míngtiān','昨天':'zuótiān','每天':'měitiān','每周':'měizhōu',
+  '每月':'měiyuè','每年':'měinián','去年':'qùnián','明年':'míngnián','今年':'jīnnián',
+  '上午':'shàngwǔ','下午':'xiàwǔ','晚上':'wǎnshàng','早上':'zǎoshàng','中午':'zhōngwǔ',
+  '这里':'zhèlǐ','那里':'nàlǐ','哪里':'nǎlǐ','附近':'fùjìn','旁边':'pángbiān',
+  '客户':'kèhù','经理':'jīnglǐ','职员':'zhíyuán','工作人员':'gōngzuò rényuán',
+  '企鹅':'qǐ é','北极熊':'běijíxióng','南极洲':'nánjízhōu','冰屋':'bīngwū',
+  /* ── story / narrative words ── */
+  '从前':'cóngqián','鸭子':'yāzi','西装':'xīzhuāng','自信':'zìxìn','走进':'zǒujìn',
+  '大厅':'dàtīng','面包':'miànbāo','查询':'cháxún','显示':'xiǎnshì','虫子':'chóngzi',
+  '绝望':'juéwàng','立刻':'lìkè','池塘':'chítáng','蚯蚓':'qiūyǐn','支付':'zhīfù',
+  '推荐':'tuījiàn','建议':'jiànyì','游泳':'yóuyǒng','柜员':'guìyuán','满意':'mǎnyì',
+  '点头':'diǎntóu','告诉':'gàosù','喜欢':'xǐhuān','突然':'tūrán','终于':'zhōngyú',
+  '简单':'jiǎndān','确认':'quèrèn','注意':'zhùyì','感觉':'gǎnjué','决定':'juédìng',
+  '相信':'xiāngxìn','发现':'fāxiàn','选择':'xuǎnzé','认为':'rènwéi','表示':'biǎoshì',
+  '知道':'zhīdào','看到':'kàndào','找到':'zhǎodào','听到':'tīngdào','想到':'xiǎngdào',
+  '原来':'yuánlái','当然':'dāngrán','其实':'qíshí','继续':'jìxù','毕竟':'bìjìng',
+  '穿着':'chuānzhe','申请':'shēnqǐng','当做':'dàngzuò','显得':'xiǎnde','听说':'tīngshuō',
+  '喊道':'hǎndào','吐出':'tǔchū','走出':'zǒuchū','走向':'zǒuxiàng','大声':'dàshēng',
+  '一只':'yī zhī','一个':'yīgè','一次':'yīcì','一下':'yīxià','一起':'yīqǐ',
+  '有一':'yǒu yī','有人':'yǒu rén','没有':'méiyǒu','不是':'bú shì','不要':'búyào',
+  '这是':'zhè shì','那是':'nà shì','这样':'zhèyàng','那样':'nàyàng','这么':'zhème',
+  '只有':'zhǐyǒu','只要':'zhǐyào','只是':'zhǐshì','如果':'rúguǒ','既然':'jìrán',
+  '自动':'zìdòng','机器':'jīqì','系统':'xìtǒng','平台':'píngtái','应用':'yìngyòng',
+  '安全':'ānquán','风险':'fēngxiǎn','保障':'bǎozhàng','服务':'fúwù','质量':'zhìliàng',
+  '成功':'chénggōng','失败':'shībài','完成':'wánchéng','开始':'kāishǐ','结束':'jiéshù',
+  '问题':'wèntí','情况':'qíngkuàng','条件':'tiáojiàn','要求':'yāoqiú','规定':'guīdìng',
+  '办公室':'bàngōngshì','公司':'gōngsī','银行业':'yínhángyè','金融':'jīnróng','市场':'shìchǎng',
+  /* ── kỹ thuật số / digital finance (nhóm 9-10) ── */
+  '人工智能':'réngōng zhìnéng','通货膨胀':'tōnghuò péngzhàng','金融科技':'jīnróng kējì',
+  '数字货币':'shùzì huòbì','区块链':'qūkuàiliàn','网络安全':'wǎngluò ānquán',
+  '验证码':'yànzhèngmǎ','人脸识别':'rénliǎn shíbié','云计算':'yún jìsuàn',
+  '大数据':'dà shùjù','二维码':'èrwéimǎ','虚拟空间':'xūnǐ kōngjiān',
+  '电子账单':'diànzǐ zhàngdān','财务报表':'cáiwù bàobiǎo','中央银行':'zhōngyāng yínháng',
+  '商业银行':'shāngyè yínháng','以物易物':'yǐ wù yì wù',
+  '数字':'shùzì','货币':'huòbì','区块':'qūkuài','网络':'wǎngluò','虚拟':'xūnǐ',
+  '空间':'kōngjiān','里面':'lǐmiàn','二维':'èrwéi','扫描':'sǎomiáo','电子':'diànzǐ',
+  '进入':'jìnrù','识别':'shíbié','智能':'zhìnéng','人脸':'rénliǎn','人工':'réngōng',
+  '科技':'kējì','技术':'jìshù','数据':'shùjù','训练':'xùnliàn','命名':'mìngmíng',
+  '攻击':'gōngjī','绕过':'ràoguò','经济':'jīngjì','预算':'yùsuàn','超支':'chāozhī',
+  '利润':'lìrùn','财务':'cáiwù','报表':'bàobiǎo','彩票':'cǎipiào','恢复':'huīfù',
+  '正常':'zhèngcháng','崩溃':'bēngkuì','体系':'tǐxì','包子':'bāozi','解决':'jiějué',
+  '方案':'fāng àn','服务':'fúwù','行长':'hángzhǎng','紧急':'jǐnjí','推广':'tuīguǎng',
+  '减少':'jiǎnshǎo','现金':'xiànjīn','使用':'shǐyòng','透明':'tòumíng','交易':'jiāoyì',
+  '记录':'jìlù','行为':'xíngwéi','所有':'suǒyǒu','数量':'shùliàng','重新':'chóngxīn',
+  '重要':'zhòngwào','文件':'wénjiàn','收益':'shōuyì','购买':'gòumǎi','享受':'xiǎngshòu',
+  /* ── single-char fallbacks (most common) ── */
+  /* ── ký tự đơn bổ sung (số đếm, vị trí, động từ, danh từ thường gặp) ── */
+  '二':'èr','里':'lǐ','入':'rù','迷':'mí','云':'yún','虚':'xū','拟':'nǐ','空':'kōng',
+  '扫':'sǎo','描':'miáo','维':'wéi','算':'suàn','计':'jì','间':'jiān','链':'liàn',
+  '络':'luò','脸':'liǎn','识':'shí','智':'zhì','脑':'nǎo','电':'diàn','经':'jīng',
+  '济':'jì','胀':'zhàng','膨':'péng','攻':'gōng','击':'jī','黑':'hēi','训':'xùn',
+  '练':'liàn','崩':'bēng','溃':'kuì','额':'é','值':'zhí','政':'zhèng','府':'fǔ',
+  '布':'bù','彩':'cǎi','鸡':'jī','换':'huàn','恢':'huī','正':'zhèng','常':'cháng',
+  '上':'shàng','下':'xià','中':'zhōng','后':'hòu','内':'nèi','左':'zuǒ','右':'yòu',
+  '边':'biān','网':'wǎng','数':'shù','字':'zì','货':'huò','系':'xì','体':'tǐ',
+  '技':'jì','料':'liào','量':'liàng','型':'xíng','度':'dù','率':'lǜ','力':'lì',
+  '性':'xìng','者':'zhě','员':'yuán','所':'suǒ','各':'gè','因':'yīn','果':'guǒ',
+  '如':'rú','则':'zé','况':'kuàng','题':'tí','案':'àn','法':'fǎ','制':'zhì',
+  '规':'guī','定':'dìng','标':'biāo','准':'zhǔn','理':'lǐ','据':'jù','例':'lì',
+  '种':'zhǒng','样':'yàng','些':'xiē','其':'qí','等':'děng','多':'duō',
+  '我':'wǒ','你':'nǐ','他':'tā','她':'tā','它':'tā','您':'nín',
+  '是':'shì','有':'yǒu','在':'zài','去':'qù','来':'lái','做':'zuò','用':'yòng',
+  '说':'shuō','看':'kàn','想':'xiǎng','知':'zhī','给':'gěi','把':'bǎ','被':'bèi',
+  '了':'le','的':'de','地':'de','得':'de','着':'zhe','过':'guò','吗':'ma','呢':'ne','啊':'a',
+  '不':'bù','没':'méi','很':'hěn','也':'yě','都':'dōu','才':'cái','就':'jiù','又':'yòu',
+  '和':'hé','与':'yǔ','或':'huò','但':'dàn','而':'ér','对':'duì','向':'xiàng',
+  '一':'yī','两':'liǎng','三':'sān','四':'sì','五':'wǔ','六':'liù','七':'qī','八':'bā','九':'jiǔ','十':'shí',
+  '百':'bǎi','千':'qiān','万':'wàn','元':'yuán','个':'gè','次':'cì','年':'nián','月':'yuè','天':'tiān',
+  '人':'rén','家':'jiā','国':'guó','行':'háng','钱':'qián','金':'jīn','银':'yín',
+  '大':'dà','小':'xiǎo','多':'duō','少':'shǎo','好':'hǎo','新':'xīn','旧':'jiù',
+  '高':'gāo','低':'dī','长':'cháng','短':'duǎn','快':'kuài','慢':'màn',
+  '请':'qǐng','谢':'xiè','帮':'bāng','能':'néng','会':'huì','要':'yào','可':'kě',
+  '同':'tóng','号':'hào','码':'mǎ','卡':'kǎ','费':'fèi','率':'lǜ','额':'é',
+  '存':'cún','取':'qǔ','转':'zhuǎn','付':'fù','还':'huán','借':'jiè','贷':'dài',
+  '开':'kāi','关':'guān','申':'shēn','请':'qǐng','填':'tián','签':'qiān','盖':'gài',
+  '打':'dǎ','发':'fā','收':'shōu','送':'sòng','写':'xiě','读':'dú','学':'xué',
+  '买':'mǎi','卖':'mài','付':'fù','拿':'ná','放':'fàng','带':'dài','装':'zhuāng',
+  /* ── additional single chars (story & narrative) ── */
+  '办':'bàn','只':'zhī','当':'dāng','从':'cóng','前':'qián','鸭':'yā','穿':'chuān',
+  '走':'zǒu','进':'jìn','厅':'tīng','西':'xī','面':'miàn','包':'bāo','粒':'lì',
+  '虫':'chóng','吐':'tǔ','喊':'hǎn','绝':'jué','望':'wàng','刻':'kè','立':'lì',
+  '塘':'táng','池':'chí','满':'mǎn','意':'yì','点':'diǎn','头':'tóu','蚯':'qiū',
+  '蚓':'yǐn','推':'tuī','荐':'jiàn','建':'jiàn','议':'yì','游':'yóu','泳':'yǒng',
+  '告':'gào','诉':'sù','喜':'xǐ','欢':'huān','原':'yuán','突':'tū','然':'rán',
+  '终':'zhōng','于':'yú','简':'jiǎn','单':'dān','确':'què','注':'zhù','选':'xuǎn',
+  '择':'zé','感':'gǎn','觉':'jué','决':'jué','相':'xiāng','表':'biǎo','现':'xiàn',
+  '这':'zhè','那':'nà','些':'xiē','种':'zhǒng','样':'yàng','次':'cì','起':'qǐ',
+  '声':'shēng','路':'lù','门':'mén','窗':'chuāng','桌':'zhuō','椅':'yǐ','室':'shì',
+  '楼':'lóu','层':'céng','间':'jiān','所':'suǒ','位':'wèi','名':'míng','份':'fèn',
+  '笑':'xiào','哭':'kū','跑':'pǎo','跳':'tiào','站':'zhàn','坐':'zuò','躺':'tǎng',
+  '想':'xiǎng','听':'tīng','问':'wèn','答':'dá','叫':'jiào','喝':'hē','吃':'chī',
+};
+
+/* Sort keys from longest to shortest for greedy matching */
+const PINYIN_KEYS = Object.keys(PINYIN_MAP).sort((a,b)=>b.length-a.length);
+
+/**
+ * Wrap every Chinese segment in <ruby>汉字<rt>pīnyīn</rt></ruby>.
+ * Non-Chinese characters pass through unchanged.
+ */
+function pinyinAnnotate(text) {
+  if (!text) return text;
+  let result = '';
+  let i = 0;
+  while (i < text.length) {
+    const ch = text[i];
+    // Check if current char is in CJK range
+    const code = ch.codePointAt(0);
+    if (code >= 0x4E00 && code <= 0x9FFF ||
+        code >= 0x3400 && code <= 0x4DBF ||
+        code >= 0x20000 && code <= 0x2A6DF) {
+      // Try longest match first
+      let matched = false;
+      for (const key of PINYIN_KEYS) {
+        if (text.startsWith(key, i)) {
+          const py = PINYIN_MAP[key];
+          result += `<ruby>${key}<rt>${py}</rt></ruby>`;
+          i += key.length;
+          matched = true;
+          break;
+        }
+      }
+      if (!matched) {
+        // Unknown single char: pass through without ruby
+        result += ch;
+        i++;
+      }
+    } else {
+      // Non-Chinese: punctuation, Latin, digits, spaces
+      result += ch;
+      i++;
+    }
+  }
+  return result;
+}
+
+/* ================================================================
+   DOM TREE-WALKER  –  walk text nodes and wrap Chinese in <ruby>
+   Works on already-rendered DOM; safe for any inner-HTML structure.
+   ================================================================ */
+
+/**
+ * Recursively walk el's subtree. For every TEXT NODE that contains
+ * CJK characters, replace it with ruby-annotated HTML.
+ * Skips <ruby>, <rt>, <script>, <style> subtrees.
+ */
+function annotateNode(el) {
+  if (!el) return;
+  const skip = ['RUBY','RT','SCRIPT','STYLE','TEXTAREA'];
+  if (el.nodeType === Node.ELEMENT_NODE && skip.includes(el.tagName)) return;
+
+  /* Collect children first (live NodeList changes on replaceChild) */
+  const children = Array.from(el.childNodes);
+  for (const node of children) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      const text = node.textContent;
+      /* Only process if there are CJK characters */
+      if (/[一-鿿㐀-䶿]/.test(text)) {
+        const annotated = pinyinAnnotate(text);
+        if (annotated !== text) {
+          /* Create a temporary container to parse the HTML */
+          const tmp = document.createElement('span');
+          tmp.className = 'py-wrap';
+          tmp.innerHTML = annotated;
+          /* Replace the text node with the new nodes */
+          node.parentNode.replaceChild(tmp, node);
+        }
+      }
+    } else if (node.nodeType === Node.ELEMENT_NODE) {
+      annotateNode(node);
+    }
+  }
+}
+
+/* ── Chỉ thêm pinyin 3 chỗ cần thiết ──
+   1. .word-cn  → từ chính trên card (1-3 ký tự, gọn gàng)
+   2. .c-word   → chữ trong chip phân tích ngữ pháp
+   3. .fc-cn-big → mặt trước flashcard
+   CÁC CHỖ KHÁC KHÔNG CẦN: phrase box đã có py riêng,
+   câu ví dụ đã có dòng py bên dưới, câu chuyện quá dài. */
+const PY_SELECTORS = ['.word-cn', '.c-word', '.fc-cn-big', '.ph-cn', '.story-cn'];
+
+/**
+ * Annotate all target elements that still have raw Chinese text nodes.
+ * "Raw" = CJK chars not already inside a <ruby> element.
+ * No data-py flag → correctly handles flashcard content replacement.
+ */
+function annotateDOM() {
+  PY_SELECTORS.forEach(function(sel) {
+    document.querySelectorAll(sel).forEach(function(el) {
+      /* Find any CJK text node that is NOT inside a <ruby> subtree */
+      let hasRaw = false;
+      (function walk(n) {
+        if (hasRaw) return;
+        if (n.nodeType === Node.TEXT_NODE) {
+          if (/[一-鿿㐀-䶿]/.test(n.textContent)) hasRaw = true;
+        } else if (n.nodeType === Node.ELEMENT_NODE &&
+                   n.tagName !== 'RUBY' && n.tagName !== 'RT') {
+          Array.from(n.childNodes).forEach(walk);
+        }
+      })(el);
+      if (hasRaw) annotateNode(el);
+    });
+  });
+}
+
+/* ================================================================
+   STORY AUDIO HELPERS
+   ================================================================ */
+
+/** Get text from element excluding <rt> (pinyin) nodes */
+function getCleanText(el) {
+  let t = '';
+  (function walk(n) {
+    if (n.nodeType === Node.TEXT_NODE) { t += n.textContent; }
+    else if (n.nodeType === Node.ELEMENT_NODE && n.tagName !== 'RT') {
+      Array.from(n.childNodes).forEach(walk);
+    }
+  })(el);
+  return t.trim();
+}
+
+/** Add a 🔊 button to every .story-cn line */
+function addStoryAudio() {
+  document.querySelectorAll('.story-cn').forEach(function(el) {
+    if (el.querySelector('.story-spk')) return; /* already done */
+
+    /* Extract original Chinese text from onclick attr (most reliable) */
+    const oc = el.getAttribute('onclick') || '';
+    const m  = oc.match(/speak\('([\s\S]*?)'\)/);
+    const txt = m ? m[1].replace(/\\'/g, "'") : getCleanText(el);
+
+    /* Create speaker button */
+    const btn = document.createElement('button');
+    btn.className = 'story-spk';
+    btn.innerHTML = '🔊';
+    btn.title = 'Nghe phát âm dòng này';
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      speak(txt, 'zh-CN', 0.85);
+    });
+    el.appendChild(btn);
+
+    /* Remove old onclick (button handles it now, avoid double-fire) */
+    el.removeAttribute('onclick');
+    el.style.cursor = 'default';
+  });
+}
+
+/**
+ * processStoryDisplay():
+ *  1. Xóa "(yínháng)" / "(kāihù)" kiểu inline pinyin trong ngoặc
+ *     (đã thêm ruby ở trên → không cần nữa)
+ *  2. Tô màu / in đậm những từ vựng của nhóm xuất hiện trong đoạn
+ */
+function processStoryDisplay() {
+  if (typeof ALL_VOCAB_GROUPS === 'undefined') return;
+
+  /* Regex khớp (chuỗi latin + dấu thanh) trong ngoặc đơn */
+  const PAREN_PY = /\([a-zA-Zāáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜü\s·\-]+\)/g;
+
+  ALL_VOCAB_GROUPS.forEach(function(g) {
+    const bodyEl = document.getElementById('story-body-' + g.id);
+    if (!bodyEl) return;
+
+    /* Tập hợp từ vựng của nhóm này */
+    const vocabSet = new Set((g.words || []).map(function(w) { return w.cn; }));
+
+    bodyEl.querySelectorAll('.story-cn').forEach(function(el) {
+
+      /* ── Bước 1: xóa "(yínháng)" khỏi text nodes ── */
+      const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+      const toFix = [];
+      let nd;
+      while ((nd = walker.nextNode())) {
+        if (PAREN_PY.test(nd.textContent)) toFix.push(nd);
+      }
+      PAREN_PY.lastIndex = 0;
+      toFix.forEach(function(n) {
+        n.textContent = n.textContent.replace(PAREN_PY, '');
+      });
+
+      /* ── Bước 2: tô màu từ vựng trong <ruby> elements ── */
+      el.querySelectorAll('ruby').forEach(function(ruby) {
+        /* Lấy phần chữ Hán (text nodes, bỏ qua <rt>) */
+        let base = '';
+        Array.from(ruby.childNodes).forEach(function(n) {
+          if (n.nodeType === Node.TEXT_NODE) base += n.textContent;
+        });
+        if (vocabSet.has(base.trim())) ruby.classList.add('vocab-hl');
+      });
+    });
+  });
+}
+
+/** Override readStory so it reads clean text (no rt/pinyin noise) */
+window.readStory = function(gId) {
+  const el = document.getElementById('story-body-' + gId);
+  if (!el) return;
+  const text = Array.from(el.querySelectorAll('.story-cn'))
+    .map(getCleanText).join('。');
+  speak(text, 'zh-CN', 0.85);
+};
+
+/* ── Initial run: after DOMContentLoaded + initApp() has finished ── */
+document.addEventListener('DOMContentLoaded', function() {
+  /* initApp() is also on DOMContentLoaded (registered earlier), so it
+     runs first. We use setTimeout(0) to push our run to end of queue. */
+  setTimeout(function() {
+    annotateDOM();          /* thêm ruby pinyin                  */
+    addStoryAudio();        /* thêm nút 🔊 từng dòng             */
+    processStoryDisplay();  /* xóa (pinyin) + tô màu từ vựng     */
+  }, 0);
+});
+
+/* ── MutationObserver: catches lazily-rendered content (flashcard,
+      MC questions, filtered vocab cards, tab switches) ── */
+(function() {
+  let pending = false;
+  const obs = new MutationObserver(function(mutations) {
+    /* Only care if actual element nodes were added */
+    const hasNewEl = mutations.some(function(m) {
+      return Array.from(m.addedNodes).some(function(n) {
+        return n.nodeType === Node.ELEMENT_NODE;
+      });
+    });
+    if (!hasNewEl || pending) return;
+    pending = true;
+    requestAnimationFrame(function() {
+      annotateDOM();
+      pending = false;
+    });
+  });
+  document.addEventListener('DOMContentLoaded', function() {
+    obs.observe(document.body, { childList: true, subtree: true });
+  });
+})();
+</script>
+
+</body>
+</html>
